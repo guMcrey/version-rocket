@@ -5,12 +5,14 @@
  */
 
 const axios = require('axios');
-const fs = require('fs')
-const path = require('path')
+const fs = require('fs');
+const path = require('path');
 
-// lark-message-config.json
-const messageConfigPath = path.join(process.cwd(), `lark-message-config-${process.env.NODE_ENV}.json`)
-const messageConfigObject = JSON.parse(fs.readFileSync(messageConfigPath).toString())
+console.log('process.env.NODE_ENV', process.env.NODE_ENV);
+// lark-message-config-*.json
+const configFileName = process.env.NODE_ENV ? `lark-message-config-${process.env.NODE_ENV}.json` : 'lark-message-config.json'
+const messageConfigPath = path.join(process.cwd(), configFileName);
+const messageConfigObject = JSON.parse(fs.readFileSync(messageConfigPath).toString());
 // package.json
 const packageJsonPath = path.join(process.cwd(), 'package.json');
 const packageJsonObject = JSON.parse(fs.readFileSync(packageJsonPath).toString());
@@ -107,4 +109,4 @@ const larkMessageJSON = {
 }
 
 
-axios.post(messageConfigObject.larkWebHook, larkMessageJSON)
+axios.post(messageConfigObject.larkWebHook, larkMessageJSON);
