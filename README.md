@@ -12,9 +12,10 @@ If a new version is available, a new version update prompt will be displayed to 
 ## Features
 
 - Compatible with all modern browsers
+- The version prompt interface supports customization, and the content of the deployment message card can be customized.
 - Available version real-time monitoring
 - Synchronize deployment message to Lark group chat after successful deployment.
-- [x] Npm package support
+- [Npm package support](https://www.npmjs.com/package/version-rocket)
 
 
 ## Screenshots

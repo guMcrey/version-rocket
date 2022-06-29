@@ -1,17 +1,21 @@
 {
   "name": "version-rocket",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Notify users when a new version of your site is available and prompt them to refresh the page; When you finish deploying your app, send a deployment message to Lark Chat.",
   "main": "index.js",
   "scripts": {
     "build": "tsc",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
+  "repository": {
+    "type": "git",
+    "url": "git@github.com:guMcrey/version-rocket.git"
+  },
   "bin": {
     "generate-version-file": "./scripts/createVersionFile.js",
     "send-lark-message": "./scripts/sendMessageToLark.js"
   },
-  "author": "",
+  "author": "hakuna",
   "license": "ISC",
   "dependencies": {
     "axios": "^0.27.2",
