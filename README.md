@@ -22,3 +22,7 @@ If a new version is available, a new version update prompt will be displayed to 
 - The **first picture** prompts user to refresh the page.
 - The **second picture** shows that after the successful deployment of the project, the deployment message will be sent to the group chat to inform the team members.
 - The **third picture** @All with optional settings based on second picture
+
+<img src="https://github.com/guMcrey/version-rocket/blob/main/assets/available-version-tips.gif?raw=true" />
+<img src="https://github.com/guMcrey/version-rocket/blob/main/assets/deploy-success-message.jpg?raw=true" />
+<img src="https://github.com/guMcrey/version-rocket/blob/main/assets/deploy-success-message-with-all.jpg?raw=true" />
