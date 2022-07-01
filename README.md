@@ -28,7 +28,6 @@ We use the **Web Worker API** based on javascript to do the polling loop, will n
 <img src="https://github.com/guMcrey/version-rocket/blob/main/assets/available-version-tips.gif?raw=true" />
 <img src="https://github.com/guMcrey/version-rocket/blob/main/assets/deploy-success-message.jpg?raw=true" />
 <img src="https://github.com/guMcrey/version-rocket/blob/main/assets/deploy-success-message-with-all.jpg?raw=true" />
-<br/>
 
 ## Usage
 
@@ -57,7 +56,7 @@ pollingCompareVersion(version, `${location.origin}/version.json`, 30000, (data) 
 
 ```
 
-```json
+```javascript
 
 // 2. Generate-version-file shortcut command to create the version.json file. The parameter is the directory where you want to create version.json. If you don't pass the parameter, it will be created in the dist directory by default.
 
@@ -79,7 +78,7 @@ pollingCompareVersion(version, `${location.origin}/version.json`, 30000, (data) 
 
 ### If you want to push the successful deployment message to the group chat where lark Robot is located, please continue.
 
-```json 
+```javascript 
 
 // You need to create a send-lark-config.json file first, it store the field for setting the copy for the message card. Then, you can just execute the send-lark-message shortcut command. By default, the send-lark-config.json file in the current path is selected. If you want to customize the file path and file name, you can set the MESSAGE_PATH parameter to pass it in.
 
