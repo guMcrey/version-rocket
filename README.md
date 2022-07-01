@@ -58,7 +58,12 @@ pollingCompareVersion(version, `${location.origin}/version.json`, 30000, (data) 
 
 ```javascript
 
-// 2. Generate-version-file shortcut command to create the version.json file. The parameter is the directory where you want to create version.json. If you don't pass the parameter, it will be created in the dist directory by default.
+/**
+ * 2.
+ * Generate-version-file shortcut command to create the version.json file.
+ * The parameter is the directory where you want to create version.json.
+ * If you don't pass the parameter, it will be created in the dist directory by default.
+*/ 
 
 {
   "name": "test",
@@ -80,7 +85,12 @@ pollingCompareVersion(version, `${location.origin}/version.json`, 30000, (data) 
 
 ```javascript 
 
-// You need to create a send-lark-config.json file first, it store the field for setting the copy for the message card. Then, you can just execute the send-lark-message shortcut command. By default, the send-lark-config.json file in the current path is selected. If you want to customize the file path and file name, you can set the MESSAGE_PATH parameter to pass it in.
+/**
+ * 3.
+ * You need to create a send-lark-config.json file first, it store the field for setting the copy for the message card. 
+ * Then, you can just execute the send-lark-message shortcut command. By default, the send-lark-config.json file in the current path is selected.
+ * If you want to customize the file path and file name, you can set the MESSAGE_PATH parameter to pass it in.
+*/
 
 {
   "name": "test",
