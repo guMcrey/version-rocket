@@ -9,6 +9,8 @@ When you finish deploying your app, send a deployment message to Lark Group Chat
 
 If a new version is available, a new version update prompt will be displayed to and the user will be given an operation button to refresh the page. Alternatively, **version-rocket** can notify you by receiving a callback function to support custom user interface.
 
+We use the **Web Worker API** based on javascript to do the polling loop, will not affect the browser rendering process.
+
 ## Features
 
 - Compatible with all modern browsers
@@ -16,7 +18,6 @@ If a new version is available, a new version update prompt will be displayed to 
 - Available version real-time monitoring
 - Synchronize deployment message to Lark group chat after successful deployment.
 - [Npm package support](https://www.npmjs.com/package/version-rocket)
-
 
 ## Screenshots
 
@@ -27,3 +28,101 @@ If a new version is available, a new version update prompt will be displayed to 
 <img src="https://github.com/guMcrey/version-rocket/blob/main/assets/available-version-tips.gif?raw=true" />
 <img src="https://github.com/guMcrey/version-rocket/blob/main/assets/deploy-success-message.jpg?raw=true" />
 <img src="https://github.com/guMcrey/version-rocket/blob/main/assets/deploy-success-message-with-all.jpg?raw=true" />
+<br/>
+
+## Usage
+
+### Install
+```shell
+npm install version-rocket -S
+```
+
+### Get Started
+
+```javascript
+
+// 1. Import version-rocket, and invoke pollingCompareVersion method
+import { pollingCompareVersion } from 'version-rocket'
+import { version } from '../package.json'
+
+/**
+ * @param 1: current version
+ * @param 2: remote server version.json file path
+ * @param 3: time interval of rotation monitoring (in ms), default 5000ms
+ * @param 4: custom version tip ui callback(optional)
+ */
+pollingCompareVersion(version, `${location.origin}/version.json`, 30000, (data) => {
+    console.log(data)
+})
+
+```
+
+```json
+
+// 2. Generate-version-file shortcut command to create the version.json file. The parameter is the directory where you want to create version.json. If you don't pass the parameter, it will be created in the dist directory by default.
+
+{
+  "name": "test",
+  "description": "test",
+  "private": true,
+  "version": "0.0.1",
+  "scripts": {
+    ...
+    "generate:version": "generate-version-file dist public"
+    ...
+  },
+  ...
+}
+
+```
+<br/>
+
+### If you want to push the successful deployment message to the group chat where lark Robot is located, please continue.
+
+```json 
+
+// You need to create a send-lark-config.json file first, it store the field for setting the copy for the message card. Then, you can just execute the send-lark-message shortcut command. By default, the send-lark-config.json file in the current path is selected. If you want to customize the file path and file name, you can set the MESSAGE_PATH parameter to pass it in.
+
+{
+  "name": "test",
+  "description": "test",
+  "private": true,
+  "version": "0.0.1",
+  "scripts": {
+    ...
+    "send-lark-message:test": "MESSAGE_PATH=./lark-message-config.json send-lark-message"
+    ...
+  },
+  ...
+}
+
+
+// send-lark-config.json example
+{
+    // card title
+    "title": "TEST FE Deployed Successfully",
+    // deploy project name
+    "projectName": "TEST",
+    // deploy branch name
+    "branch": "Staging",
+    // project url
+    "accessUrl": "https://test.com",
+    // remind group chat members: true/false
+    "isNotifyAll": true,
+    // lark robot webhook url
+    "larkWebHook": "https://open.larksuite.com/open-apis/bot/v2/hook/xxxxxxxxxxxx",
+    // deploy type
+    "deployTools": "Jenkins",
+    // the deploy time zone that you want to display
+    "expectConvertToTimezone": "America/New_York"
+}
+
+```
+
+## Link
+- [Timezone List](https://jp.cybozu.help/general/zh/admin/list_systemadmin/list_localization/timezone.html)
+
+
+
+
+

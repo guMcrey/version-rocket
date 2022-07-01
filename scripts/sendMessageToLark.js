@@ -3,19 +3,28 @@
 /**
  * send messages to lark web hook
  */
-
 const axios = require('axios');
 const fs = require('fs');
 const path = require('path');
 
-console.log('process.env.NODE_ENV', process.env.NODE_ENV);
+const dayjs = require('dayjs');
+const utc = require('dayjs/plugin/utc');
+const timezone = require('dayjs/plugin/timezone');
+dayjs.extend(utc);
+dayjs.extend(timezone);
+
+console.log('MESSAGE_PATH', process.env.MESSAGE_PATH);
 // lark-message-config-*.json
-const configFileName = process.env.NODE_ENV ? `lark-message-config-${process.env.NODE_ENV}.json` : 'lark-message-config.json'
+const configFileName = process.env.MESSAGE_PATH ? `${process.env.MESSAGE_PATH}` : 'lark-message-config.json'
 const messageConfigPath = path.join(process.cwd(), configFileName);
 const messageConfigObject = JSON.parse(fs.readFileSync(messageConfigPath).toString());
 // package.json
 const packageJsonPath = path.join(process.cwd(), 'package.json');
 const packageJsonObject = JSON.parse(fs.readFileSync(packageJsonPath).toString());
+
+// https://jp.cybozu.help/general/zh/admin/list_systemadmin/list_localization/timezone.html
+// default: Asia/Shanghai
+const covertToTimezone = messageConfigObject.expectConvertToTimezone || 'Asia/Shanghai'
 
 const larkMessageJSON = {
     "msg_type": "interactive",
@@ -78,7 +87,7 @@ const larkMessageJSON = {
                     {
                         "is_short": true,
                         "text": {
-                            "content": `**🕐 Time:**\n${new Date().toLocaleString()}`,
+                            "content": `**🕐 Time:**\n${dayjs.tz(new Date(), covertToTimezone).format('YYYY-MM-DD HH:mm:ss')}`,
                             "tag": "lark_md"
                         }
                     },

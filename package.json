@@ -1,6 +1,6 @@
 {
   "name": "version-rocket",
-  "version": "1.0.1",
+  "version": "1.0.6",
   "description": "Notify users when a new version of your site is available and prompt them to refresh the page; When you finish deploying your app, send a deployment message to Lark Chat.",
   "main": "index.js",
   "scripts": {
@@ -19,6 +19,7 @@
   "license": "ISC",
   "dependencies": {
     "axios": "^0.27.2",
+    "dayjs": "^1.11.3",
     "typescript": "^4.7.4"
   }
 }

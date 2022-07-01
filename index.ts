@@ -25,7 +25,7 @@ export const pollingCompareVersion = (
 ) => {
   const worker = createWorker(() => {
     let oldVersion = ''
-    let intervalTime = 0
+    let intervalTime = 5000
     let originFileUrl = ''
     const temp: Worker = self as any
     temp.onmessage = (event: any) => {
