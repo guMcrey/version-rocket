@@ -79,9 +79,8 @@ pollingCompareVersion(version, `${location.origin}/version.json`, 30000, (data) 
 }
 
 ```
-<br/>
 
-### If you want to push the successful deployment message to the group chat where lark Robot is located, please continue.
+#### If you want to push the successful deployment message to the group chat where lark Robot is located, please continue.
 
 ```javascript 
 
