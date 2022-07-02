@@ -29,14 +29,14 @@
 
 - 支持所有现代浏览器
 - 可用版本实时监测
-- 部署成功后，将部署消息同步到Lark群聊
+- 部署成功后，将部署消息同步到 Lark 群聊
 - 版本提示界面支持自定义，部署信息卡片的内容也可以自定义
 - [支持 Npm 安装](https://www.npmjs.com/package/version-rocket)
 
 ## 效果截图
 
 - **第一张图:** 当有新版本更新时, 及时提醒用户刷新页面的功能弹窗。
-- **第二张图:** 在项目成功部署后，部署信息将被发送到群聊，以通知团队成员, 卡片文案通过一个json文件来配置, 请参见下文。
+- **第二张图:** 在项目成功部署后，部署信息将被发送到群聊，以通知团队成员, 卡片文案通过一个 json 文件来配置, 请参见下文。
 - **第三张图:** 基于第二张图片的可选设置, 可以配置是否要@全员, 设置后所有人会收到提示。
 
 <img src="https://github.com/guMcrey/version-rocket/blob/main/assets/available-version-tips.gif?raw=true" />
@@ -74,7 +74,7 @@ pollingCompareVersion(version, `${location.origin}/version.json`, 30000, (data) 
 
 /**
  * 2.
- * 执行 generate-version-file 快捷命令，即可创建version.json 文件
+ * 执行 generate-version-file 快捷命令，即可创建 version.json 文件
  * version.json 文件默认生成在 dist 目录下, 如果需要自定义目录, 可传入目录参数, 参见以下示例:
 */ 
 
@@ -101,7 +101,7 @@ pollingCompareVersion(version, `${location.origin}/version.json`, 30000, (data) 
  * 3.
  * 你需要在项目根目录下创建一个 send-lark-config.json 文件，它存储了用于设置消息卡展示文案的字段
  * 然后, 执行 send-lark-message 快捷命令。默认情况下，当前路径中的 send-lark-config.json 文件被选中
- * 如果你想自定义文件路径或文件名，你可以设置MESSAGE_PATH 参数，将其传入, 设置方法如下:
+ * 如果你想自定义文件路径或文件名，你可以设置 MESSAGE_PATH 参数，将其传入, 设置方法如下:
 */
 
 {
