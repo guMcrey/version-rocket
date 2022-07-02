@@ -1,4 +1,6 @@
-# version-rocket  🔔
+# 🔔 version-rocket 🚀
+
+English | [简体中文](./README.zh-CN.md)
 
 Notify users when a new version of your site is available and prompt them to refresh the page.
 When you finish deploying your app, send a deployment message to Lark Group Chat
@@ -60,7 +62,7 @@ pollingCompareVersion(version, `${location.origin}/version.json`, 30000, (data) 
 
 /**
  * 2.
- * Generate-version-file shortcut command to create the version.json file.
+ * generate-version-file shortcut command to create the version.json file.
  * The parameter is the directory where you want to create version.json.
  * If you don't pass the parameter, it will be created in the dist directory by default.
 */ 
@@ -121,7 +123,7 @@ pollingCompareVersion(version, `${location.origin}/version.json`, 30000, (data) 
     "larkWebHook": "https://open.larksuite.com/open-apis/bot/v2/hook/xxxxxxxxxxxx",
     // deploy type
     "deployTools": "Jenkins",
-    // the deploy time zone that you want to display
+    // the deploy time zone that you want to display, default "Asia/Shanghai"
     "expectConvertToTimezone": "America/New_York"
 }
 

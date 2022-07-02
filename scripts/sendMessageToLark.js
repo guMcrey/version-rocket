@@ -117,5 +117,6 @@ const larkMessageJSON = {
     }
 }
 
-
-axios.post(messageConfigObject.larkWebHook, larkMessageJSON);
+axios.post(messageConfigObject.larkWebHook, larkMessageJSON).catch((e) => {
+    console.warn('send lark error', e.response.data || e)
+});

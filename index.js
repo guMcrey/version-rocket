@@ -17,7 +17,7 @@ function createWorker(f) {
 export const pollingCompareVersion = (localPackageVersion, originVersionFileUrl, pollingTime, onVersionUpdate) => {
     const worker = createWorker(() => {
         let oldVersion = '';
-        let intervalTime = 0;
+        let intervalTime = 5000;
         let originFileUrl = '';
         const temp = self;
         temp.onmessage = (event) => {
@@ -27,15 +27,15 @@ export const pollingCompareVersion = (localPackageVersion, originVersionFileUrl,
             setInterval(() => {
                 fetch(`${originFileUrl}?${+new Date()}`)
                     .then((res) => {
-                    return res.json();
-                })
+                        return res.json();
+                    })
                     .then((versionJsonFile) => {
-                    if (oldVersion !== versionJsonFile.version) {
-                        temp.postMessage({
-                            refreshPageVersion: `${versionJsonFile.version}`,
-                        });
-                    }
-                });
+                        if (oldVersion !== versionJsonFile.version) {
+                            temp.postMessage({
+                                refreshPageVersion: `${versionJsonFile.version}`,
+                            });
+                        }
+                    });
             }, intervalTime);
         };
     });
