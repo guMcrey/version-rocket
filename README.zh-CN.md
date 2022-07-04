@@ -17,7 +17,7 @@
 
 如果有新的版本发布，将在页面中展示一个新版本更新提示弹窗，用户可以通过点击刷新按钮来更新版本。另外，**version-rocket** 也可传入一个回调函数来自定义版本更新提示界面。
 
-我们使用基于javascript的 **Web Worker API** 来做监测轮询，不会影响浏览器渲染进程。
+我们使用基于 javascript 的 **Web Worker API** 来做监测轮询，不会影响浏览器渲染进程。
 
 ---
 
@@ -101,7 +101,7 @@ pollingCompareVersion(version, `${location.origin}/version.json`, 30000, (data) 
  * 3.
  * 你需要在项目根目录下创建一个 send-lark-config.json 文件，它存储了用于设置消息卡展示文案的字段
  * 然后, 执行 send-lark-message 快捷命令。默认情况下，当前路径中的 send-lark-config.json 文件被选中
- * 如果你想自定义文件路径或文件名，你可以设置 MESSAGE_PATH 参数，将其传入, 设置方法如下:
+ * 如果你想自定义文件路径或文件名，你可以设置 MESSAGE_PATH 参数，将其传入 (此参数对有区分部署环境的需求时, 非常有用。) 设置方法如下:
 */
 
 {
@@ -111,7 +111,7 @@ pollingCompareVersion(version, `${location.origin}/version.json`, 30000, (data) 
   "version": "0.0.1",
   "scripts": {
     ...
-    "send-lark-message:test": "MESSAGE_PATH=./lark-message-config.json send-lark-message"
+    "send-lark-message:test": "MESSAGE_PATH=./lark-message-staging-config.json send-lark-message"
     ...
   },
   ...
@@ -134,7 +134,7 @@ pollingCompareVersion(version, `${location.origin}/version.json`, 30000, (data) 
     "larkWebHook": "https://open.larksuite.com/open-apis/bot/v2/hook/xxxxxxxxxxxx",
     // 部署所使用的方式或平台
     "deployTools": "Jenkins",
-    // 可选: 部署时间想要转换的时区，默认 "Asia/Shanghai" (当你的项目要部署的目标服务器与你所在时区不同, 可以此字段转换时区)
+    // 可选: 部署时间想要转换成的时区，默认 "Asia/Shanghai" (当你的项目要部署的目标服务器与你所在时区不同, 可以设置此字段转换时区)
     "expectConvertToTimezone": "America/New_York"
 }
 
