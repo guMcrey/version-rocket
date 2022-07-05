@@ -101,7 +101,8 @@ pollingCompareVersion(version, `${location.origin}/version.json`, 30000, (data) 
  * 3.
  * 你需要在项目根目录下创建一个 send-lark-config.json 文件，它存储了用于设置消息卡展示文案的字段
  * 然后, 执行 send-lark-message 快捷命令。默认情况下，当前路径中的 send-lark-config.json 文件被选中
- * 如果你想自定义文件路径或文件名，你可以设置 MESSAGE_PATH 参数，将其传入 (此参数对有区分部署环境的需求时, 非常有用。) 设置方法如下:
+ * 可选: 如果你想自定义文件路径或文件名，你可以设置 MESSAGE_PATH 参数，将其传入 (此参数对有区分部署环境的需求时, 非常有用。) 设置方法如下:
+ * 可选: 如果你需要自定义 package.json 文件路径, 可以设置 PACKAGE_JSON_PATH 参数来自定义 (此参数对于 monorepo 项目的部署时, 可能有用, 不传默认获取根路径下的 package.json 文件)。 设置方法如下:
 */
 
 {
@@ -111,7 +112,7 @@ pollingCompareVersion(version, `${location.origin}/version.json`, 30000, (data) 
   "version": "0.0.1",
   "scripts": {
     ...
-    "send-lark-message:test": "MESSAGE_PATH=./lark-message-staging-config.json send-lark-message"
+    "send-lark-message:test": "MESSAGE_PATH=./lark-message-staging-config.json PACKAGE_JSON_PATH=./packages/test/package.json send-lark-message"
     ...
   },
   ...

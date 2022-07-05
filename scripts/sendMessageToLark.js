@@ -19,7 +19,9 @@ const configFileName = process.env.MESSAGE_PATH ? `${process.env.MESSAGE_PATH}` 
 const messageConfigPath = path.join(process.cwd(), configFileName);
 const messageConfigObject = JSON.parse(fs.readFileSync(messageConfigPath).toString());
 // package.json
-const packageJsonPath = path.join(process.cwd(), 'package.json');
+const packageJsonName = process.env.PACKAGE_JSON_PATH ? `${process.env.PACKAGE_JSON_PATH}` : 'package.json'
+const packageJsonPath = path.join(process.cwd(), packageJsonName);
+console.log('PACKAGE_JSON_FULL_PATH', packageJsonPath)
 const packageJsonObject = JSON.parse(fs.readFileSync(packageJsonPath).toString());
 
 // https://jp.cybozu.help/general/zh/admin/list_systemadmin/list_localization/timezone.html

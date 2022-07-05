@@ -90,7 +90,8 @@ pollingCompareVersion(version, `${location.origin}/version.json`, 30000, (data) 
  * 3.
  * You need to create a send-lark-config.json file first, it store the field for setting the copy for the message card. 
  * Then, you can just execute the send-lark-message shortcut command. By default, the send-lark-config.json file in the current path is selected.
- * If you want to customize the file path and file name, you can set the MESSAGE_PATH parameter to pass it in.
+ * MESSAGE_PATH optional: If you want to customize the file path and file name, you can set the MESSAGE_PATH parameter to pass it in.
+ * PACKAGE_JSON_PATH optional: If you want to customize the path to the package.json file, you can do so by passing in the PACKAGE_JSON_PATH environment variable. We will get the package.json file from the root path by default
 */
 
 {
@@ -100,7 +101,7 @@ pollingCompareVersion(version, `${location.origin}/version.json`, 30000, (data) 
   "version": "0.0.1",
   "scripts": {
     ...
-    "send-lark-message:test": "MESSAGE_PATH=./lark-message-config.json send-lark-message"
+    "send-lark-message:test": "MESSAGE_PATH=./lark-message-config.json PACKAGE_JSON_PATH=./packages/test/package.json send-lark-message"
     ...
   },
   ...

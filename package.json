@@ -1,6 +1,6 @@
 {
   "name": "version-rocket",
-  "version": "1.0.7",
+  "version": "1.0.8",
   "description": "Notify users when a new version of your site is available and prompt them to refresh the page; When you finish deploying your app, send a deployment message to Lark Chat.",
   "main": "index.js",
   "scripts": {
