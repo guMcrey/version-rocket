@@ -1,1 +1,1 @@
-export declare const setVersionTipTheme: (imageBackgroundColor?: string, primaryColor?: string) => string;
+export declare const setVersionTipTheme: (primaryColor?: string, rocketColor?: string) => string;

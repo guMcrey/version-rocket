@@ -20,15 +20,15 @@ export declare const pollingCompareVersion: (localPackageVersion: string, origin
  * @param {object} options Customize version update popup copy and themes
  * @param {string} [options.title = 'Update'] popup title (Optional)
  * @param {string} [options.description = 'V xxx is available'] popup description (Optional)
- * @param {buttonText} [options.buttonText = 'Refresh'] popup button text (Optional)
- * @param {imageUrl} options.imageUrl custom popup image address (Optional)
- * @param {imageBackgroundColor} options.imageBackgroundColor custom popup image background color (Optional)
- * @param {primaryColor} options.primaryColor custom popup primary color (Optional)
- * @param {buttonStyle} options.buttonStyle custom popup button style (Optional)
+ * @param {string} [options.buttonText = 'Refresh'] popup button text (Optional)
+ * @param {string} options.imageUrl custom popup image address (Optional)
+ * @param {string} options.rocketColor custom popup rocket color in the picture (Optional)
+ * @param {string} options.primaryColor custom popup primary color, act on image background color and button background color (Optional)
+ * @param {string} options.buttonStyle custom popup button style (Optional)
  *
  * @return {object}  { refreshPageVersion } new version number
  */
-export declare const pollingCompareVersionV2: (config: {
+export declare const checkVersion: (config: {
     originVersionFileUrl: string;
     localPackageVersion: string;
     pollingTime?: number | undefined;
@@ -36,9 +36,9 @@ export declare const pollingCompareVersionV2: (config: {
 }, options?: {
     title?: string;
     description?: string;
-    imageUrl?: string;
-    imageBackgroundColor?: string;
-    primaryColor?: string;
     buttonText?: string;
+    imageUrl?: string;
+    rocketColor?: string;
+    primaryColor?: string;
     buttonStyle?: string;
 }) => void;

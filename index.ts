@@ -78,16 +78,16 @@ export const pollingCompareVersion = (
  * @param {object} options Customize version update popup copy and themes
  * @param {string} [options.title = 'Update'] popup title (Optional)
  * @param {string} [options.description = 'V xxx is available'] popup description (Optional)
- * @param {buttonText} [options.buttonText = 'Refresh'] popup button text (Optional)
- * @param {imageUrl} options.imageUrl custom popup image address (Optional)
- * @param {imageBackgroundColor} options.imageBackgroundColor custom popup image background color (Optional)
- * @param {primaryColor} options.primaryColor custom popup primary color (Optional)
- * @param {buttonStyle} options.buttonStyle custom popup button style (Optional)
+ * @param {string} [options.buttonText = 'Refresh'] popup button text (Optional)
+ * @param {string} options.imageUrl custom popup image address (Optional)
+ * @param {string} options.rocketColor custom popup rocket color in the picture (Optional)
+ * @param {string} options.primaryColor custom popup primary color, act on image background color and button background color (Optional)
+ * @param {string} options.buttonStyle custom popup button style (Optional)
  *
  * @return {object}  { refreshPageVersion } new version number
  */
 
-export const pollingCompareVersionV2 = (
+export const checkVersion = (
   config: {
     originVersionFileUrl: string
     localPackageVersion: string
@@ -97,10 +97,10 @@ export const pollingCompareVersionV2 = (
   options?: {
     title?: string
     description?: string
-    imageUrl?: string
-    imageBackgroundColor?: string
-    primaryColor?: string
     buttonText?: string
+    imageUrl?: string
+    rocketColor?: string
+    primaryColor?: string
     buttonStyle?: string
   }
 ) => {
@@ -144,19 +144,19 @@ export const pollingCompareVersionV2 = (
       const {
         title,
         description,
-        imageUrl,
-        imageBackgroundColor,
-        primaryColor,
         buttonText,
+        imageUrl,
+        rocketColor,
+        primaryColor,
         buttonStyle,
       } = options || {}
       versionTipDialog({
         title,
         description,
-        imageUrl,
-        imageBackgroundColor,
-        primaryColor,
         buttonText,
+        imageUrl,
+        rocketColor,
+        primaryColor,
         buttonStyle,
         newVersion: event.data.refreshPageVersion,
       })

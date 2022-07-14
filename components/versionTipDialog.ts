@@ -1,4 +1,4 @@
-import versionBg from './version-bg.png'
+import versionBg from './../assets/version-bg.png'
 import './version-tip-dialog.css'
 import {setVersionTipTheme} from './versionTipTheme'
 
@@ -11,10 +11,10 @@ const defaultParams = {
 export const versionTipDialog = (params: {
   title?: string
   description?: string
-  imageUrl?: string
-  imageBackgroundColor?: string
-  primaryColor?: string
   buttonText?: string
+  imageUrl?: string
+  rocketColor?: string
+  primaryColor?: string
   buttonStyle?: string
   newVersion: string
 }) => {
@@ -24,11 +24,11 @@ export const versionTipDialog = (params: {
    <div id="version-rocket">
         <div class="version-area">
             ${
-              params.imageBackgroundColor
-                ? setVersionTipTheme(
-                    params.imageBackgroundColor,
-                    params.primaryColor
-                  )
+              params.primaryColor || params.rocketColor
+                ? `<div class="version-img">${setVersionTipTheme(
+                    params.primaryColor,
+                    params.rocketColor
+                  )}</div>`
                 : `<img class="version-img" src="${
                     params.imageUrl || versionBg
                   }" alt="version" />`
@@ -43,9 +43,11 @@ export const versionTipDialog = (params: {
                     `V ${params.newVersion} ${defaultParams.description}`
                   }
                 </div>
-                <div style="${params.buttonStyle || ''} ${
-    params.primaryColor ? `background-color: ${params.primaryColor};` : ''
-  }"  class="refresh-button">
+                <div style="${
+                  params.primaryColor
+                    ? `background-color: ${params.primaryColor};`
+                    : ''
+                } ${params.buttonStyle || ''}"  class="refresh-button">
                   ${params.buttonText || defaultParams.buttonText}
                 </div>
             </div>
