@@ -30,11 +30,16 @@ We use the **Web Worker API** based on javascript to do the polling loop, will n
 - The **fourth picture** shows that after the successful deployment of the project, the deployment message will be sent to the group chat to inform the team members.
 - The **fifth picture** @All with optional settings based on second picture
 
-<img style="max-width: 50%" src="https://github.com/guMcrey/version-rocket/blob/main/assets/available-version-tips.gif?raw=true" />
-<img style="max-width: 49%" src="https://github.com/guMcrey/version-rocket/blob/main/assets/custom-themes.jpg?raw=true" />
-<img style="max-width: 50%" src="https://github.com/guMcrey/version-rocket/blob/main/assets/custom-image.jpg?raw=true" />
-<img style="max-width: 49%" src="https://github.com/guMcrey/version-rocket/blob/main/assets/deploy-success-message.jpg?raw=true" />
-<img style="max-width: 50%" src="https://github.com/guMcrey/version-rocket/blob/main/assets/deploy-success-message-with-all.jpg?raw=true" />
+<figure>
+  <img src="https://github.com/guMcrey/version-rocket/blob/main/assets/available-version-tips.gif?raw=true" width="200" />
+  <img src="https://github.com/guMcrey/version-rocket/blob/main/assets/custom-themes.jpg?raw=true" width="200" />
+</figure>
+
+<figure>
+  <img src="https://github.com/guMcrey/version-rocket/blob/main/assets/custom-image.jpg?raw=true" width="200" />
+  <img src="https://github.com/guMcrey/version-rocket/blob/main/assets/deploy-success-message.jpg?raw=true" width="200" />
+  <img src="https://github.com/guMcrey/version-rocket/blob/main/assets/deploy-success-message-with-all.jpg?raw=true" width="200" />
+</figure>
 
 ## Usage
 
