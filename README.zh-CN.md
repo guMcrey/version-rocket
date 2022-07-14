@@ -30,7 +30,7 @@
 - 支持所有现代浏览器
 - 可用版本实时监测
 - 部署成功后，将部署消息同步到 Lark 群聊
-- 版本提示弹窗支持自定义文案和主题或自定义 UI
+- 支持个性化设置版本提示弹窗的文案和主题, 也支持自定义 UI
 - 部署信息卡片的文案支持自定义
 - [支持 Npm 安装](https://www.npmjs.com/package/version-rocket)
 
@@ -43,8 +43,8 @@
 - **第五张图:** 基于第二张图片的可选设置, 可以配置是否要@全员, 设置后所有人会收到提示。
 
 <img src="https://github.com/guMcrey/version-rocket/blob/main/assets/available-version-tips.gif?raw=true" />
-<img src="https://github.com/guMcrey/version-rocket/blob/main/assets/custom-themes.jpg" />
-<img src="https://github.com/guMcrey/version-rocket/blob/main/assets/custom-image.jpg" />
+<img src="https://github.com/guMcrey/version-rocket/blob/main/assets/custom-themes.jpg?raw=true" />
+<img src="https://github.com/guMcrey/version-rocket/blob/main/assets/custom-image.jpg?raw=true" />
 <img src="https://github.com/guMcrey/version-rocket/blob/main/assets/deploy-success-message.jpg?raw=true" />
 <img src="https://github.com/guMcrey/version-rocket/blob/main/assets/deploy-success-message-with-all.jpg?raw=true" />
 
@@ -56,7 +56,7 @@
 
 ### 开始使用
 
-### 安装 **V 1.1.0** 及以上版本, 调用 **checkVersion** 方法, 优化了pollingCompareVersion 方法, 并且支持自定义弹窗文案和主题 **(推荐)**
+#### 安装 **V 1.1.0** 及以上版本, 调用 **checkVersion** 方法, 优化了pollingCompareVersion 方法, 并且支持自定义弹窗文案和主题 **(推荐)**
 
 ```javascript
 
@@ -71,7 +71,7 @@ checkVersion({
  
 ```
 
-### 个性化设置弹窗文案和主题
+#### 个性化设置弹窗文案和主题
 
 ```javascript
 
@@ -106,7 +106,7 @@ checkVersion(
 
 ```
 
-### **version 1.0.9** 及以下使用 **pollingCompareVersion** 方法, 推荐升级为 **version 1.1.0** 以上版本, 体验自定义弹窗主体和文案的功能
+#### **version 1.0.9** 及以下使用 **pollingCompareVersion** 方法, 推荐升级为 **version 1.1.0** 以上版本, 体验自定义弹窗主体和文案的功能
 
 ```javascript
 
@@ -120,10 +120,11 @@ pollingCompareVersion(version, `${location.origin}/version.json`, 30000, (data) 
 
 ```
 
+
 ```javascript
 
 /**
- * 2.
+ * 2. 第二步
  * 执行 generate-version-file 快捷命令，在项目中生成 version.json 文件, 用于部署到远程服务器
  * version.json 文件默认生成在 dist 目录下, 如果需要自定义目录, 可传入目录参数, 参见以下示例:
 */ 
@@ -195,6 +196,8 @@ pollingCompareVersion(version, `${location.origin}/version.json`, 30000, (data) 
 
 ### **checkVersion** 函数参数表
 
+checkVersion 函数接收两个对象参数, 分别是 config, options, 具体字段见表格:
+
 | 参数 | 类型 | 描述 | 默认值 | 必需 |
 | --- | --- | --- | --- | --- |
 | config | object | 版本监测配置项 | 无 | 是 |
@@ -211,13 +214,15 @@ pollingCompareVersion(version, `${location.origin}/version.json`, 30000, (data) 
 | options.primaryColor | string | 弹窗的主题色, 会作用到提示图片背景色和按钮背景色, 设置后 imageUrl 无效 | | 否 |
 | options.buttonStyle | string | 弹窗按钮的 css 配置, 可以覆盖掉默认的按钮样式 | 无 | 否 | 
 
-### **pollingCompareVersion()** 方法参数表
+### **pollingCompareVersion** 函数参数表
+
+pollingCompareVersion 函数接收三个参数, 具体字段见表格:
 
 | 参数 | 类型 | 描述 | 默认值 | 是否必传 |
 | --- | --- | --- | --- | --- |
 | localPackageVersion | string | 当前应用版本号, 通常取 package.json 的 version 字段, 用于与远程服务器的 version.json 文件比较 | 无 | 是 |
 | originVersionFileUrl | string | 远程服务器上的 version.json 文件路径 | 无 | 是 |
-| pollingTime | number | 轮询监测的时间间隔, 单位 ms | 5000 | 否 |
+| pollingTime | number | 轮询监测的时间间隔, 单位 ms | 无 | 是 |
 | onVersionUpdate | function(data) | 自定义版本提示 UI 的回调函数 (如果你想自定义弹窗 UI, 通过回调函数可以拿到返回值来控制弹窗的显隐 ) | 无 | 否 |
 
 ## 链接
