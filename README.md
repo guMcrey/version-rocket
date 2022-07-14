@@ -26,9 +26,8 @@ We use the **Web Worker API** based on javascript to do the polling loop, will n
 
 - The **first picture** prompts user to refresh the page.
 - The **second picture** personalize the popup text and theme, great for when you need to customize the text and theme (optional).
-- The **third picture** personalize the popup image, recommended for image customization needs (optional).
-- The **fourth picture** shows that after the successful deployment of the project, the deployment message will be sent to the group chat to inform the team members.
-- The **fifth picture** @All with optional settings based on second picture
+- The **third picture** shows that after the successful deployment of the project, the deployment message will be sent to the group chat to inform the team members.
+- The **fourth picture** @All with optional settings based on second picture
 
 <p align="center">
   <img src="https://github.com/guMcrey/version-rocket/blob/main/assets/available-version-tips.gif?raw=true" width="410"/>
