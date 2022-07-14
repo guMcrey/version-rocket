@@ -196,8 +196,6 @@ pollingCompareVersion(version, `${location.origin}/version.json`, 30000, (data) 
 
 #### **checkVersion** 函数参数表
 
-checkVersion 函数接收两个对象参数, 分别是 config, options, 具体字段见表格:
-
 | 参数 | 类型 | 描述 | 默认值 | 必需 |
 | --- | --- | --- | --- | --- |
 | config | object | 版本监测配置项 | 无 | 是 |
@@ -213,10 +211,8 @@ checkVersion 函数接收两个对象参数, 分别是 config, options, 具体�
 | options.rocketColor | string | 弹窗提示图片中火箭的主题色, 设置后 options.imageUrl 无效 | | 否 |
 | options.primaryColor | string | 弹窗的主题色, 会作用到提示图片背景色和按钮背景色, 设置后 imageUrl 无效 | | 否 |
 | options.buttonStyle | string | 弹窗按钮的 css 配置, 可以覆盖掉默认的按钮样式 | 无 | 否 | 
-
+<br/>
 #### **pollingCompareVersion** 函数参数表
-
-pollingCompareVersion 函数接收三个参数, 具体字段见表格:
 
 | 参数 | 类型 | 描述 | 默认值 | 是否必传 |
 | --- | --- | --- | --- | --- |
