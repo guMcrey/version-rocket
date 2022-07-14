@@ -38,15 +38,18 @@
 
 - **第一张图:** 当有新版本更新时, 及时提醒用户刷新页面的功能弹窗 (默认)。
 - **第二张图** 个性化设置弹窗文案和主题, 对于有文案和主题有自定义需求时, 非常好用 (可选)。
-- **第三张图** 个性化设置弹窗提示图片, 对于有图片自定义需求时, 推荐使用 (可选)。
-- **第四张图:** 在项目成功部署后，部署信息将被发送到群聊，以通知团队成员, 卡片文案通过一个 json 文件来配置, 请参见下文。
-- **第五张图:** 基于第二张图片的可选设置, 可以配置是否要@全员, 设置后所有人会收到提示。
+- **第三张图:** 在项目成功部署后，部署信息将被发送到群聊，以通知团队成员, 卡片文案通过一个 json 文件来配置, 请参见下文。
+- **第四张图:** 基于第二张图片的可选设置, 可以配置是否要@全员, 设置后所有人会收到提示。
 
-<img style="max-width: 50%" src="https://github.com/guMcrey/version-rocket/blob/main/assets/available-version-tips.gif?raw=true" />
-<img style="max-width: 49%" src="https://github.com/guMcrey/version-rocket/blob/main/assets/custom-themes.jpg?raw=true" />
-<img style="max-width: 50%" src="https://github.com/guMcrey/version-rocket/blob/main/assets/custom-image.jpg?raw=true" />
-<img style="max-width: 49%" src="https://github.com/guMcrey/version-rocket/blob/main/assets/deploy-success-message.jpg?raw=true" />
-<img style="max-width: 50%" src="https://github.com/guMcrey/version-rocket/blob/main/assets/deploy-success-message-with-all.jpg?raw=true" />
+<p align="center">
+  <img src="https://github.com/guMcrey/version-rocket/blob/main/assets/available-version-tips.gif?raw=true" width="500"/>
+  <img src="https://github.com/guMcrey/version-rocket/blob/main/assets/custom-themes.jpg?raw=true" width="500" />
+</p>
+
+<p align="center">
+  <img src="https://github.com/guMcrey/version-rocket/blob/main/assets/deploy-success-message.jpg?raw=true" width="500"/>
+  <img src="https://github.com/guMcrey/version-rocket/blob/main/assets/deploy-success-message-with-all.jpg?raw=true" width="500" />
+</p>
 
 ## 使用方法
 
