@@ -16,29 +16,86 @@ We use the **Web Worker API** based on javascript to do the polling loop, will n
 ## Features
 
 - Compatible with all modern browsers
-- The version prompt interface supports customization, and the content of the deployment message card can be customized.
-- Available version real-time monitoring
+- Support personalized version hint pop-up copy and theme, also support custom UI
+- Available version real-time monitoring.
 - Synchronize deployment message to Lark group chat after successful deployment.
+- The card copy of the deployment message supports customization.
 - [Npm package support](https://www.npmjs.com/package/version-rocket)
 
 ## Screenshots
 
 - The **first picture** prompts user to refresh the page.
-- The **second picture** shows that after the successful deployment of the project, the deployment message will be sent to the group chat to inform the team members.
-- The **third picture** @All with optional settings based on second picture
+- The **second picture** personalize the popup text and theme, great for when you need to customize the text and theme (optional).
+- The **third picture** personalize the popup image, recommended for image customization needs (optional).
+- The **fourth picture** shows that after the successful deployment of the project, the deployment message will be sent to the group chat to inform the team members.
+- The **fifth picture** @All with optional settings based on second picture
 
-<img src="https://github.com/guMcrey/version-rocket/blob/main/assets/available-version-tips.gif?raw=true" />
-<img src="https://github.com/guMcrey/version-rocket/blob/main/assets/deploy-success-message.jpg?raw=true" />
-<img src="https://github.com/guMcrey/version-rocket/blob/main/assets/deploy-success-message-with-all.jpg?raw=true" />
+<img style="max-width: 50%" src="https://github.com/guMcrey/version-rocket/blob/main/assets/available-version-tips.gif?raw=true" />
+<img style="max-width: 49%" src="https://github.com/guMcrey/version-rocket/blob/main/assets/custom-themes.jpg?raw=true" />
+<img style="max-width: 50%" src="https://github.com/guMcrey/version-rocket/blob/main/assets/custom-image.jpg?raw=true" />
+<img style="max-width: 49%" src="https://github.com/guMcrey/version-rocket/blob/main/assets/deploy-success-message.jpg?raw=true" />
+<img style="max-width: 50%" src="https://github.com/guMcrey/version-rocket/blob/main/assets/deploy-success-message-with-all.jpg?raw=true" />
 
 ## Usage
 
 ### Install
-```shell
-npm install version-rocket -S
-```
+
+[![version-rocket](https://nodei.co/npm/version-rocket.png)](https://www.npmjs.com/package/version-rocket)
 
 ### Get Started
+
+#### Install **V 1.1.0** and above, call the checkVersion method, optimize the pollingCompareVersion method, and support custom popup copy and themes **(recommended)**
+
+```javascript
+
+// 1. Import the checkVersion method and call
+import { checkVersion } from 'version-rocket'
+import {version} from '../package.json'
+
+checkVersion({
+  localPackageVersion: version,
+  originVersionFileUrl: `${location.origin}/version.json`,
+})
+ 
+```
+
+#### Personalize popup copy and theme
+
+```javascript
+
+import { checkVersion } from 'version-rocket'
+import {version} from '../package.json'
+
+// set copy and theme
+checkVersion(
+  {
+    localPackageVersion: version,
+    originVersionFileUrl: `${location.origin}/version.json`,
+  },
+  {
+    title: 'Title',
+    description: 'Description',
+    primaryColor: '#758bfd',
+    rocketColor: '#ff8600',
+    buttonText: 'Button Text',
+  }
+)
+
+// Custom popup picture
+checkVersion(
+  {
+    localPackageVersion: version,
+    originVersionFileUrl: `${location.origin}/version.json`,
+  },
+  {
+    imageUrl: 'https://avatars.githubusercontent.com/u/26329117',
+  }
+)
+
+```
+*... For more custom settings, see the params form below 👇*
+
+#### **version 1.0.9** and below use **pollingCompareVersion** method, we recommend upgrading to **version 1.1.0** or above to experience the ability to customize the theme and text of the popup.
 
 ```javascript
 
@@ -49,7 +106,7 @@ import { version } from '../package.json'
 /**
  * @param 1: current version
  * @param 2: remote server version.json file path
- * @param 3: time interval of rotation monitoring (in ms), default 5000ms
+ * @param 3: time interval of rotation monitoring (in ms)
  * @param 4: custom version tip ui callback(optional)
  */
 pollingCompareVersion(version, `${location.origin}/version.json`, 30000, (data) => {
@@ -129,6 +186,26 @@ pollingCompareVersion(version, `${location.origin}/version.json`, 30000, (data) 
 }
 
 ```
+
+## Params
+
+#### **checkVersion** function parameter table
+
+| Params | Type | Description | Default | Required |
+| --- | --- | --- | --- | --- |
+| config | object | Version monitoring configuration item |  | Yes |
+| config.originVersionFileUrl | string |  The path to the version.json file on the remote server | | Yes |
+| config.localPackageVersion | string | The version of the current application usually takes the version field of package.json for comparison with the version.json file of the remote server |  | Yes |
+| config.pollingTime | number |Time interval for polling monitoring, in ms | 5000 | No |
+| config.onVersionUpdate | function(data) | Callback function for custom version hint UI (if you want to customize the popup UI, you can get the return value through the callback function to control the appearance of the popup) |  | No |
+| options | object | Configuration items for popup text and themes (not customize the popup UI, but use it if you need to modify the text and themes) | | No |
+| options.title | string | Popup title | Update | No |
+| options.description | string | Popup description | V xxx is available | No |
+| options.buttonText | string | Popup button text | Refresh | No |
+| options.imageUrl | string | Popup image |  | No |
+| options.rocketColor | string | The popup picture's theme color of the rocket, after setting Options.imageUrl is invalid | | No |
+| options.primaryColor | string | The theme color of the popup, it will affect the hint image background color and button background color, after setting imageUrl is invalid | | No |
+| options.buttonStyle | string | The CSS configuration of pop-up buttons can override the default button style | | No |
 
 ## Link
 - [Timezone List](https://jp.cybozu.help/general/zh/admin/list_systemadmin/list_localization/timezone.html)

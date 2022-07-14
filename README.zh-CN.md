@@ -42,11 +42,11 @@
 - **第四张图:** 在项目成功部署后，部署信息将被发送到群聊，以通知团队成员, 卡片文案通过一个 json 文件来配置, 请参见下文。
 - **第五张图:** 基于第二张图片的可选设置, 可以配置是否要@全员, 设置后所有人会收到提示。
 
-<img src="https://github.com/guMcrey/version-rocket/blob/main/assets/available-version-tips.gif?raw=true" />
-<img src="https://github.com/guMcrey/version-rocket/blob/main/assets/custom-themes.jpg?raw=true" />
-<img src="https://github.com/guMcrey/version-rocket/blob/main/assets/custom-image.jpg?raw=true" />
-<img src="https://github.com/guMcrey/version-rocket/blob/main/assets/deploy-success-message.jpg?raw=true" />
-<img src="https://github.com/guMcrey/version-rocket/blob/main/assets/deploy-success-message-with-all.jpg?raw=true" />
+<img style="max-width: 50%" src="https://github.com/guMcrey/version-rocket/blob/main/assets/available-version-tips.gif?raw=true" />
+<img style="max-width: 49%" src="https://github.com/guMcrey/version-rocket/blob/main/assets/custom-themes.jpg?raw=true" />
+<img style="max-width: 50%" src="https://github.com/guMcrey/version-rocket/blob/main/assets/custom-image.jpg?raw=true" />
+<img style="max-width: 49%" src="https://github.com/guMcrey/version-rocket/blob/main/assets/deploy-success-message.jpg?raw=true" />
+<img style="max-width: 50%" src="https://github.com/guMcrey/version-rocket/blob/main/assets/deploy-success-message-with-all.jpg?raw=true" />
 
 ## 使用方法
 
@@ -93,7 +93,7 @@ checkVersion(
   }
 )
 
-// 设置弹窗图片
+// 自定义弹窗图片
 checkVersion(
   {
     localPackageVersion: version,
@@ -105,6 +105,7 @@ checkVersion(
 )
 
 ```
+*... 更多自定义设置, 请参见下文属性/参数表 👇*
 
 #### **version 1.0.9** 及以下使用 **pollingCompareVersion** 方法, 推荐升级为 **version 1.1.0** 以上版本, 体验自定义弹窗主体和文案的功能
 
