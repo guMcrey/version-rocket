@@ -43,6 +43,8 @@
 - **第五张图:** 基于第二张图片的可选设置, 可以配置是否要@全员, 设置后所有人会收到提示。
 
 <img src="https://github.com/guMcrey/version-rocket/blob/main/assets/available-version-tips.gif?raw=true" />
+<img src="https://github.com/guMcrey/version-rocket/blob/main/assets/custom-themes.jpg" />
+<img src="https://github.com/guMcrey/version-rocket/blob/main/assets/custom-image.jpg" />
 <img src="https://github.com/guMcrey/version-rocket/blob/main/assets/deploy-success-message.jpg?raw=true" />
 <img src="https://github.com/guMcrey/version-rocket/blob/main/assets/deploy-success-message-with-all.jpg?raw=true" />
 
