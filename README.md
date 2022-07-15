@@ -27,19 +27,12 @@ We use the **Web Worker API** based on javascript to do the polling loop, will n
 
 - The **first picture** prompts user to refresh the page.
 - The **second picture** personalize the popup text and theme, great for when you need to customize the text and theme (optional).
-- The **third picture** personalize the popup image (optional).
-- The **fourth picture** Customize the template of the message card after successful deployment (optional).
-- The **fifth picture** shows that after the successful deployment of the project, the deployment message will be sent to the group chat to inform the team members.
-- The **sixth picture** @All with optional settings based on second picture
+- The **third picture** shows that after the successful deployment of the project, the deployment message will be sent to the group chat to inform the team members.
+- The **fourth picture** @All with optional settings based on second picture
 
 <p align="center">
   <img src="https://github.com/guMcrey/version-rocket/blob/main/assets/available-version-tips.gif?raw=true" width="410"/>
   <img src="https://github.com/guMcrey/version-rocket/blob/main/assets/custom-themes.jpg?raw=true" width="410" />
-</p>
-
-<p align="center">
-  <img src="https://github.com/guMcrey/version-rocket/blob/main/assets/custom-image.jpg?raw=true" width="410" />
-  <img src="https://github.com/guMcrey/version-rocket/blob/main/assets/custom-lark-message.jpg?raw=true" width="410" />
 </p>
 
 <p align="center">
@@ -177,7 +170,7 @@ pollingCompareVersion(version, `${location.origin}/version.json`, 30000, (data) 
 
 ```
 
-#### Configure the deployment message text (using the default theme, as in *Figure 5 and Figure 6* above)
+#### Configure the deployment message text (using the default theme, as in *Figure 3 and Figure 4* above)
 
 ``` javascript
 
@@ -203,7 +196,7 @@ pollingCompareVersion(version, `${location.origin}/version.json`, 30000, (data) 
 
 ```
 
-#### Personalize the deployment message template (see *Figure 4* above for effect)
+#### Personalize the deployment message template
 
 ```javascript
 
