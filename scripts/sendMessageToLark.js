@@ -28,7 +28,7 @@ const packageJsonObject = JSON.parse(fs.readFileSync(packageJsonPath).toString()
 // default: Asia/Shanghai
 const covertToTimezone = messageConfigObject.expectConvertToTimezone || 'Asia/Shanghai'
 
-const larkMessageJSON = {
+const larkMessageJSON = (messageConfigObject.message && messageConfigObject.larkWebHook) ? messageConfigObject.message : {
     "msg_type": "interactive",
     "card": {
         "config": {
@@ -37,7 +37,7 @@ const larkMessageJSON = {
         "header": {
             "template": "turquoise",
             "title": {
-                "content": `🚀 ${messageConfigObject.title}`,
+                "content": `🚀 ${messageConfigObject.title || ''}`,
                 "tag": "plain_text"
             }
         },
@@ -47,14 +47,14 @@ const larkMessageJSON = {
                     {
                         "is_short": true,
                         "text": {
-                            "content": `**📁 Project Name:**\n${messageConfigObject.projectName}`,
+                            "content": `**📁 Project Name:**\n${messageConfigObject.projectName || ''}`,
                             "tag": "lark_md"
                         }
                     },
                     {
                         "is_short": true,
                         "text": {
-                            "content": `**🔱 Branch:**\n${messageConfigObject.branch}`,
+                            "content": `**🔱 Branch:**\n${messageConfigObject.branch || ''}`,
                             "tag": "lark_md"
                         }
                     },
@@ -68,14 +68,14 @@ const larkMessageJSON = {
                     {
                         "is_short": true,
                         "text": {
-                            "content": `**🎯 Version:**\n${packageJsonObject.version}`,
+                            "content": `**🎯 Version:**\n${packageJsonObject.version || ''}`,
                             "tag": "lark_md"
                         }
                     },
                     {
                         "is_short": true,
                         "text": {
-                            "content": `**🔗 URL:**\n<a>${messageConfigObject.accessUrl}</a>`,
+                            "content": `**🔗 URL:**\n<a>${messageConfigObject.accessUrl || ''}</a>`,
                             "tag": "lark_md"
                         }
                     },
@@ -109,7 +109,7 @@ const larkMessageJSON = {
             {
                 "elements": [
                     {
-                        "content": `Deploy through ${messageConfigObject.deployTools}`,
+                        "content": `Deploy through ${messageConfigObject.deployTools || ''}`,
                         "tag": "plain_text"
                     }
                 ],
@@ -120,5 +120,5 @@ const larkMessageJSON = {
 }
 
 axios.post(messageConfigObject.larkWebHook, larkMessageJSON).catch((e) => {
-    console.warn('send lark error', e.response.data || e)
+    console.warn('send lark error', e.response?.data || e)
 });

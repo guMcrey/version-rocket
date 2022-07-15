@@ -31,19 +31,27 @@
 - 可用版本实时监测
 - 部署成功后，将部署消息同步到 Lark 群聊
 - 支持个性化设置版本提示弹窗的文案和主题, 也支持自定义 UI
-- 部署信息卡片的文案支持自定义
+- 部署信息卡片的文案和消息模版支持自定义
+- 支持 TypeScript
 - [支持 Npm 安装](https://www.npmjs.com/package/version-rocket)
 
 ## 效果截图
 
 - **第一张图:** 当有新版本更新时, 及时提醒用户刷新页面的功能弹窗 (默认)。
-- **第二张图** 个性化设置弹窗文案和主题, 对于有文案和主题有自定义需求时, 非常好用 (可选)。
-- **第三张图:** 在项目成功部署后，部署信息将被发送到群聊，以通知团队成员, 卡片文案通过一个 json 文件来配置, 请参见下文。
-- **第四张图:** 基于第二张图片的可选设置, 可以配置是否要@全员, 设置后所有人会收到提示。
+- **第二张图:** 个性化设置弹窗文案和主题, 对于有文案和主题有自定义需求时, 非常好用 (可选)。
+- **第三张图:** 个性化设置弹窗提示图片, 在没有自定义整个弹窗 UI 计划, 但有自定义图片的需求时, 推荐使用 (可选)。
+- **第四张图:** 自定义部署成功后的推送消息模版, 当不希望使用默认推送消息模版, 且有自定义提示模版的需求时, 推荐使用 (可选)。
+- **第五张图:** 在项目成功部署后，部署信息将被发送到群聊，以通知团队成员, 卡片文案通过一个 json 文件来配置, 请参见下文。
+- **第六张图:** 基于第二张图片的可选设置, 可以配置是否要@全员, 设置后所有人会收到提示。
 
 <p align="center">
   <img src="https://github.com/guMcrey/version-rocket/blob/main/assets/available-version-tips.gif?raw=true" width="500"/>
   <img src="https://github.com/guMcrey/version-rocket/blob/main/assets/custom-themes.jpg?raw=true" width="500" />
+</p>
+
+<p align="center">
+  <img src="https://github.com/guMcrey/version-rocket/blob/main/assets/custom-image.jpg?raw=true" width="500" />
+  <img src="https://github.com/guMcrey/version-rocket/blob/main/assets/custom-lark-message.jpg?raw=true" width="500" />
 </p>
 
 <p align="center">
@@ -173,6 +181,11 @@ pollingCompareVersion(version, `${location.origin}/version.json`, 30000, (data) 
   ...
 }
 
+```
+
+#### 配置部署消息文案 (使用默认主题, 如上文*图五、图六*)
+
+``` javascript
 
 // send-lark-config.json 文件及字段
 {
@@ -194,6 +207,25 @@ pollingCompareVersion(version, `${location.origin}/version.json`, 30000, (data) 
     "expectConvertToTimezone": "America/New_York"
 }
 
+```
+
+#### 个性化设置部署消息模版 (效果见上文*图四*)
+
+```javascript
+
+// send-lark-config.json 示例
+{
+    // 消息卡片内容
+    "message": {
+        "msg_type": "text",
+        "content": {
+            "text": "New message reminder"
+        }
+    },
+    // Lark 机器人的 webhook 链接
+    "larkWebHook": "https://open.larksuite.com/open-apis/bot/v2/hook/xxxxxxxxxxxx"
+}
+ 
 ```
 
 ## 属性/参数
