@@ -52,7 +52,7 @@ export const pollingCompareVersion = (localPackageVersion, originVersionFileUrl,
         }
         else {
             // default version tip ui
-            versionTipDialog(event.data.refreshPageVersion);
+            versionTipDialog({ newVersion: event.data.refreshPageVersion });
         }
     };
 };

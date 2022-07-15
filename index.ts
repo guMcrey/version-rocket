@@ -61,7 +61,7 @@ export const pollingCompareVersion = (
       onVersionUpdate(event.data)
     } else {
       // default version tip ui
-      versionTipDialog(event.data.refreshPageVersion)
+      versionTipDialog({newVersion: event.data.refreshPageVersion})
     }
   }
 }
