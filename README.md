@@ -48,7 +48,7 @@ We use the **Web Worker API** based on javascript to do the polling loop, will n
 
 ### Get Started
 
-**Install the latest version, use ```checkVersion``` function, this function compatible with ```pollingCompareVersion```, and support customize popup text and theme** (Recommended)
+Install the latest version, use ```checkVersion``` function, this function compatible with ```pollingCompareVersion```, and support customize popup text and theme (Recommended)
 <br/>
 
 #### Use the default theme
@@ -92,7 +92,7 @@ checkVersion({
 
 ```
 
-**Complete the above two steps, the version monitoring function can be used normally 🎉🎉**
+*Complete the above two steps, the version monitoring function can be used normally 🎉🎉*
 
 #### Personalize popup text and theme
 
@@ -154,7 +154,7 @@ pollingCompareVersion(version, `${location.origin}/version.json`, 30000, (data) 
 
 ```
 
-[**See "Attributes/Parameters" table for more personalized settings📄**](#AttributesParameters)
+[*See "Attributes/Parameters" table for more personalized settings📄*](#AttributesParameters)
 
 ---
 
