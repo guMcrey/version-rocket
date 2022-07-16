@@ -15,7 +15,7 @@
 
 **version-rocket** 将用户当前浏览器中的版本与远程服务器中的版本文件进行比较。
 
-如果有新的版本发布，将在页面中展示一个新版本更新提示弹窗，用户可以通过点击刷新按钮来更新版本。另外，**version-rocket** 也可传入一个回调函数来自定义版本更新提示界面。
+如果有新的版本发布，将在页面中展示一个新版本更新提示弹窗，用户可以通过点击刷新按钮来更新版本。另外，**version-rocket** 支持个性化设置提示弹窗文案和主题, 也可传入一个回调函数来自定义版本更新提示。
 
 我们使用基于 javascript 的 **Web Worker API** 来做监测轮询，不会影响浏览器渲染进程。
 
@@ -29,17 +29,17 @@
 
 - 支持所有现代浏览器
 - 可用版本实时监测
-- 部署成功后，将部署消息同步到 Lark 群聊
 - 支持个性化设置版本提示弹窗的文案和主题, 也支持自定义 UI
+- 部署成功后，将部署消息同步到 Lark 群聊
 - 部署信息卡片的文案和消息模版支持自定义
 - 支持 TypeScript
 - [支持 Npm 安装](https://www.npmjs.com/package/version-rocket)
 
 ## 效果截图
 
-- **第一张图:** 当有新版本更新时, 及时提醒用户刷新页面的功能弹窗 (默认)。
-- **第二张图:** 个性化设置弹窗文案和主题, 对于有文案和主题有自定义需求时, 非常好用 (可选)。
-- **第三张图:** 在项目成功部署后，部署信息将被发送到群聊，以通知团队成员, 卡片文案通过一个 json 文件来配置, 请参见下文。
+- **第一张图:** 当有新版本更新时, 及时提醒用户刷新页面的功能弹窗 (默认 UI)。
+- **第二张图:** 个性化设置弹窗文案和主题, 有文案和主题有自定义需求时, 非常好用。
+- **第三张图:** 在项目成功部署后，部署信息将被发送到群聊，以通知团队成员, 卡片文案通过一个 json 文件来配置, 使用方法请参见下文。
 - **第四张图:** 基于第三张图片的可选设置, 可以配置是否要@全员, 设置后所有人会收到提示。
 
 <p align="center">
@@ -60,13 +60,16 @@
 
 ### 开始使用
 
-#### 安装 **V 1.1.0** 及以上版本, 调用 **checkVersion** 方法, 优化了pollingCompareVersion 方法, 并且支持自定义弹窗文案和主题 **(推荐)**
+**安装最新版, 使用 ```checkVersion``` 方法, 该方法兼容 ```pollingCompareVersion``` 功能, 并且支持自定义弹窗文案和主题** (推荐)
+<br/>
+
+#### 使用默认主题
 
 ```javascript
 
-// 1. 第一步: 导入 checkVersion 方法并调用
+// 1. 第一步: 导入 checkVersion(), 并调用
 import { checkVersion } from 'version-rocket'
-import {version} from '../package.json'
+import { version } from '../package.json'
 
 checkVersion({
   localPackageVersion: version,
@@ -75,62 +78,12 @@ checkVersion({
  
 ```
 
-#### 个性化设置弹窗文案和主题
-
-```javascript
-
-import { checkVersion } from 'version-rocket'
-import {version} from '../package.json'
-
-// 设置主题和文案
-checkVersion(
-  {
-    localPackageVersion: version,
-    originVersionFileUrl: `${location.origin}/version.json`,
-  },
-  {
-    title: 'Title',
-    description: 'Description',
-    primaryColor: '#758bfd',
-    rocketColor: '#ff8600',
-    buttonText: 'Button Text',
-  }
-)
-
-// 自定义弹窗图片
-checkVersion(
-  {
-    localPackageVersion: version,
-    originVersionFileUrl: `${location.origin}/version.json`,
-  },
-  {
-    imageUrl: 'https://avatars.githubusercontent.com/u/26329117',
-  }
-)
-
-```
-*... 更多自定义设置, 请参见下文属性/参数表 👇*
-
-#### **version 1.0.9** 及以下使用 **pollingCompareVersion** 方法, 推荐升级为 **version 1.1.0** 以上版本, 体验自定义弹窗主体和文案的功能
-
-```javascript
-
-// 1. 第一步: 导入 pollingCompareVersion 方法并调用
-import { pollingCompareVersion } from 'version-rocket'
-import { version } from '../package.json'
-
-pollingCompareVersion(version, `${location.origin}/version.json`, 30000, (data) => {
-    console.log(data)
-})
-
-```
-
-
 ```javascript
 
 /**
  * 2. 第二步
  * 执行 generate-version-file 快捷命令，在项目中生成 version.json 文件, 用于部署到远程服务器
+ * 
  * version.json 文件默认生成在 dist 目录下, 如果需要自定义目录, 可传入目录参数, 参见以下示例:
 */ 
 
@@ -149,16 +102,85 @@ pollingCompareVersion(version, `${location.origin}/version.json`, 30000, (data) 
 
 ```
 
-#### 如果你想把成功部署的消息推送到 Lark 机器人所在的群聊，请继续 👇
+**完成以上两个步骤, 版本监测功能已经就正常使用了 🎉🎉**
+
+#### 个性化设置弹窗文案和主题
+
+```javascript
+
+import { checkVersion } from 'version-rocket'
+import {version} from '../package.json'
+
+checkVersion(
+  {
+    localPackageVersion: version,
+    originVersionFileUrl: `${location.origin}/version.json`,
+  },
+  {
+    title: 'Title',
+    description: 'Description',
+    primaryColor: '#758bfd',
+    rocketColor: '#ff8600',
+    buttonText: 'Button Text',
+  }
+)
+
+```
+
+#### 个性化设置弹窗提示图片
+
+``` javascript
+
+import { checkVersion } from 'version-rocket'
+import {version} from '../package.json'
+
+checkVersion(
+  {
+    localPackageVersion: version,
+    originVersionFileUrl: `${location.origin}/version.json`,
+  },
+  {
+    imageUrl: 'https://avatars.githubusercontent.com/u/26329117',
+  }
+)
+
+```
+
+#### 如果在使用 **version 1.0.9** 及以下版本, 调用 **pollingCompareVersion** 方法
+
+*推荐升级为最新版, 体验自定义弹窗主体和文案的功能*
+
+```javascript
+
+// 1. 第一步: 导入 pollingCompareVersion 方法并调用
+import { pollingCompareVersion } from 'version-rocket'
+import { version } from '../package.json'
+
+pollingCompareVersion(version, `${location.origin}/version.json`, 30000, (data) => {
+    console.log(data)
+})
+
+// 2. 第二步: 请参见上文: “使用默认主题”
+
+```
+
+[**更多个性化设置参见“属性/参数”表 📄**](#属性参数)
+
+---
+
+#### 支持推送部署成功的通知到 Lark 群聊
 
 ```javascript 
 
 /**
- * 3.
- * 你需要在项目根目录下创建一个 send-lark-config.json 文件，它存储了用于设置消息卡展示文案的字段
+ * 1. 第一步:
+ * 你需要在项目根目录下创建一个 send-lark-config.json 文件，它存储了用于设置消息卡片展示文案的字段
+ * 
  * 然后, 执行 send-lark-message 快捷命令。默认情况下，当前路径中的 send-lark-config.json 文件被选中
- * 可选: 如果你想自定义文件路径或文件名，你可以设置 MESSAGE_PATH 参数，将其传入 (此参数对有区分部署环境的需求时, 非常有用。) 设置方法如下:
- * 可选: 如果你需要自定义 package.json 文件路径, 可以设置 PACKAGE_JSON_PATH 参数来自定义 (此参数对于 monorepo 项目的部署时, 可能有用, 不传默认获取根路径下的 package.json 文件)。 设置方法如下:
+ * 
+ * MESSAGE_PATH (可选): 如果你想自定义文件路径或文件名，你可以设置 MESSAGE_PATH 参数，将其传入 (此参数对有区分部署环境的需求时, 非常有用)
+ * 
+ * PACKAGE_JSON_PATH (可选): 如果你需要自定义 package.json 文件路径, 可以设置 PACKAGE_JSON_PATH 参数来自定义 (此参数对于 monorepo 项目的部署时, 可能有用。不传此参数, 默认获取根路径下的 package.json 文件)
 */
 
 {
@@ -176,11 +198,10 @@ pollingCompareVersion(version, `${location.origin}/version.json`, 30000, (data) 
 
 ```
 
-#### 配置部署消息文案 (使用默认主题, 如上文*图三、图四*)
-
 ``` javascript
 
-// send-lark-config.json 文件及字段
+// 第二步: 配置 send-lark-config.json 文件
+
 {
     // 消息卡片标题
     "title": "TEST FE Deployed Successfully",
@@ -196,17 +217,18 @@ pollingCompareVersion(version, `${location.origin}/version.json`, 30000, (data) 
     "larkWebHook": "https://open.larksuite.com/open-apis/bot/v2/hook/xxxxxxxxxxxx",
     // 部署所使用的方式或平台
     "deployTools": "Jenkins",
-    // 可选: 部署时间想要转换成的时区，默认 "Asia/Shanghai" (当你的项目要部署的目标服务器与你所在时区不同, 可以设置此字段转换时区)
+    // 可选: 部署时间想要转换成的时区，默认 "Asia/Shanghai" (当你的项目要部署的目标服务器与你所在时区不同, 可以设置此字段来转换时区)
     "expectConvertToTimezone": "America/New_York"
 }
 
 ```
 
-#### 个性化设置部署消息模版
+#### 个性化设置部署消息卡片
 
 ```javascript
 
 // send-lark-config.json 示例
+
 {
     // 消息卡片内容
     "message": {
@@ -221,9 +243,11 @@ pollingCompareVersion(version, `${location.origin}/version.json`, 30000, (data) 
  
 ```
 
+---
+
 ## 属性/参数
 
-#### **checkVersion** 函数参数表
+#### ```checkVersion``` 函数参数表
 
 | 参数 | 类型 | 描述 | 默认值 | 必需 |
 | --- | --- | --- | --- | --- |
@@ -242,7 +266,7 @@ pollingCompareVersion(version, `${location.origin}/version.json`, 30000, (data) 
 | options.buttonStyle | string | 弹窗按钮的 css 配置, 可以覆盖掉默认的按钮样式 | 无 | 否 | 
 <br/>
 
-#### **pollingCompareVersion** 函数参数表
+#### ```pollingCompareVersion``` 函数参数表
 
 | 参数 | 类型 | 描述 | 默认值 | 是否必传 |
 | --- | --- | --- | --- | --- |
