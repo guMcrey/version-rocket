@@ -99,7 +99,7 @@ checkVersion({
 ```javascript
 
 import { checkVersion } from 'version-rocket'
-import {version} from '../package.json'
+import { version } from '../package.json'
 
 checkVersion(
   {
@@ -122,7 +122,7 @@ checkVersion(
 ``` javascript
 
 import { checkVersion } from 'version-rocket'
-import {version} from '../package.json'
+import { version } from '../package.json'
 
 checkVersion(
   {

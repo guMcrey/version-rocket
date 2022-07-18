@@ -1,7 +1,7 @@
 {
   "name": "version-rocket",
   "version": "1.2.2",
-  "description": "Notify users when a new version of your site is available and prompt them to refresh the page; When you finish deploying your app, send a deployment message to Lark Chat.",
+  "description": "Tools to check version monitoring (updates) for web application. web 应用版本监测(更新)工具",
   "main": "index.js",
   "scripts": {
     "build": "tsc",
@@ -16,6 +16,16 @@
     "generate-version-file": "./scripts/createVersionFile.js",
     "send-lark-message": "./scripts/sendMessageToLark.js"
   },
+  "keywords": [
+    "web",
+    "version",
+    "update",
+    "versioning",
+    "check version",
+    "update version",
+    "version check",
+    "upgrade"
+  ],
   "author": "hakuna",
   "license": "ISC",
   "dependencies": {
