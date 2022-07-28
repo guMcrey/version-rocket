@@ -28,7 +28,7 @@
 ## 功能特点
 
 - 支持所有现代浏览器
-- 可用版本实时监测
+- 可用版本实时监测, 支持任意版本格式, 例如: 1.1.0、1.1.1.0、1.1.0-beta 等等
 - 支持个性化设置版本提示弹窗的文案和主题, 也支持自定义 UI
 - 部署成功后，将部署消息同步到 Lark 群聊
 - 部署信息卡片的文案和消息模版支持自定义, 并支持动态生成的字段传入
@@ -69,6 +69,7 @@
 
 // 1. 第一步: 导入 checkVersion(), 并调用
 import { checkVersion } from 'version-rocket'
+// 默认建议使用 package.json 中的 version 字段, 若有自定义 version, 请忽略此行
 import { version } from '../package.json'
 
 checkVersion({
@@ -84,6 +85,8 @@ checkVersion({
  * 2. 第二步
  * 执行 generate-version-file 快捷命令，在项目中生成 version.json 文件, 用于部署到远程服务器
  * 
+ * VERSION(可选): 默认使用 package.json 中的 version 生成 version.json 文件, 如需要自定义 version, 可传入环境变量 VERSION 来定义
+ * 
  * version.json 文件默认生成在 dist 目录下, 如果需要自定义目录, 可传入目录参数, 参见以下示例:
 */ 
 
@@ -94,7 +97,7 @@ checkVersion({
   "version": "0.0.1",
   "scripts": {
     ...
-    "generate:version": "generate-version-file dist public"
+    "generate:version": "VERSION=1.1.0-beta generate-version-file dist public"
     ...
   },
   ...
@@ -338,6 +341,7 @@ sh "export messageJSON='{\"title\": \"This is a title\"}'"
 
 ## 链接
 - [时区参照表](https://jp.cybozu.help/general/zh/admin/list_systemadmin/list_localization/timezone.html)
+- [JSON 在线转义工具](https://codebeautify.org/json-encode-online))
 
 
 

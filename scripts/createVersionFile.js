@@ -12,7 +12,7 @@ outputDir.forEach((val) => {
   const outputVersionPath = path.join(process.cwd(), `${val}/version.json`);
   const packageJsonPath = path.join(process.cwd(), 'package.json');
   const packageJsonObject = JSON.parse(fs.readFileSync(packageJsonPath).toString());
-  fs.writeFile(outputVersionPath, `{ "version": "${packageJsonObject.version}" }`, () => {
-    console.log(`created ${val}/version file`, packageJsonObject.version);
+  fs.writeFile(outputVersionPath, `{ "version": "${process.env.VERSION || packageJsonObject.version}" }`, () => {
+    console.log(`created ${val}/version file`, process.env.VERSION || packageJsonObject.version);
   })
 })

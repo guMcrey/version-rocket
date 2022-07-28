@@ -16,7 +16,7 @@ We use the **Web Worker API** based on javascript to do the polling loop, will n
 ## Features
 
 - Support all modern browsers
-- Available version real-time monitoring
+- Available version real-time monitoring, support any version format, such as: 1.1.0, 1.1.1.0, 1.1.0-beta, etc.
 - Support personalized version popup text and theme, also support custom UI
 - Sync deployment message to Lark group chat after successful deploy
 - Card text and templates for deployment messages support customization, and support the dynamically generated fields.
@@ -57,6 +57,7 @@ Install the latest version, use ```checkVersion``` function, this function compa
 
 // 1. Step one: import checkVersion(), and use
 import { checkVersion } from 'version-rocket'
+// By default, it is recommended to use the version field in package.json, and if there is a custom version, ignore this line
 import { version } from '../package.json'
 
 checkVersion({
@@ -72,9 +73,9 @@ checkVersion({
  * 2. Step two:
  * generate-version-file shortcut command to create the version.json file.
  * 
- * The parameter is the directory where you want to create version.json.
+ * VERSION (optional): By default, the version.json file is generated using the version in package.json, if you need to customize the version, you can pass in the environment variable VERSION to define
  * 
- * If you don't pass the parameter, it will be created in the dist directory by default.
+ * The parameter is the directory where you want to create version.json. If you don't pass the parameter, it will be created in the dist directory by default.
 */ 
 
 {
@@ -84,7 +85,7 @@ checkVersion({
   "version": "0.0.1",
   "scripts": {
     ...
-    "generate:version": "generate-version-file dist public"
+    "generate:version": "VERSION=1.1.0-beta generate-version-file dist public"
     ...
   },
   ...
@@ -327,6 +328,7 @@ sh "export messageJSON='{\"title\": \"This is a title\"}'"
 
 ## Link
 - [Timezone List](https://jp.cybozu.help/general/zh/admin/list_systemadmin/list_localization/timezone.html)
+- [JSON Escape](https://codebeautify.org/json-encode-online)
 
 
 
