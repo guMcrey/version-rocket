@@ -19,7 +19,7 @@ We use the **Web Worker API** based on javascript to do the polling loop, will n
 - Available version real-time monitoring
 - Support personalized version popup text and theme, also support custom UI
 - Sync deployment message to Lark group chat after successful deploy
-- Card text and templates for deployment messages support customization
+- Card text and templates for deployment messages support customization, and support the dynamically generated fields.
 - Support TypeScript
 - [Npm package support](https://www.npmjs.com/package/version-rocket)
 
@@ -28,7 +28,7 @@ We use the **Web Worker API** based on javascript to do the polling loop, will n
 - The **first picture** prompts user to refresh the page.
 - The **second picture** personalize the popup text and theme, great for when you need to customize the text and theme.
 - The **third picture** shows that after the successful deployment of the project, the deployment message will be sent to the group chat to inform the team members.
-- The **fourth picture** @All with optional settings based on third picture
+- The **fourth picture** custom message card text, can be set whether @all, and support dynamic generation of field incoming (such as version generated after ci/cd, support dynamic incoming)
 
 <p align="center">
   <img src="https://github.com/guMcrey/version-rocket/blob/main/assets/available-version-tips.gif?raw=true" width="410"/>
@@ -37,7 +37,7 @@ We use the **Web Worker API** based on javascript to do the polling loop, will n
 
 <p align="center">
   <img src="https://github.com/guMcrey/version-rocket/blob/main/assets/deploy-success-message.jpg?raw=true" width="410"/>
-  <img src="https://github.com/guMcrey/version-rocket/blob/main/assets/deploy-success-message-with-all.jpg?raw=true" width="410" />
+  <img src="https://github.com/guMcrey/version-rocket/blob/main/assets/custom-message-text.jpg?raw=true" width="410" />
 </p>
 
 ## Usage
@@ -194,21 +194,83 @@ pollingCompareVersion(version, `${location.origin}/version.json`, 30000, (data) 
 {
     // card title
     "title": "TEST FE Deployed Successfully",
+    // project name label
+    "projectNameLabel": "Project name label",
     // deploy project name
     "projectName": "TEST",
+    // project branch label
+    "branchLabel": "Branch label",
     // deploy branch name
     "branch": "Staging",
-    // project url
+    // version label
+    "versionLabel": "Version label",
+    // version
+    "version": "1.1.1.0",
+    // project access url label
+    "accessUrlLabel": "Access URL label",
+    // project access url
     "accessUrl": "https://test.com",
+    // remind group chat members label
+    "isNotifyAllLabel": "Is notify all label",
     // remind group chat members: true/false
     "isNotifyAll": true,
     // lark robot webhook url
     "larkWebHook": "https://open.larksuite.com/open-apis/bot/v2/hook/xxxxxxxxxxxx",
+    // deploy type description
+    "deployToolsText": "Deploy tools text",
     // deploy type
     "deployTools": "Jenkins",
     // the deploy time zone that you want to display, default "Asia/Shanghai"
     "expectConvertToTimezone": "America/New_York"
 }
+
+```
+
+#### Supports incoming dynamically generated card copy
+*When the card text is dynamically generated based on the condition, you can pass in MESSAGE_JSON field to define, Note: the value of MESSAGE_JSON needs to be escaped*
+
+```javascript
+
+  /**
+   * MESSAGE_JSON (optional): If the card text will be generated according to the conditions, you can pass in MESSAGE_JSON field to customize (this parameter is very useful for applications that dynamically generate card text, such as version, title, etc.)
+  */
+
+  {
+    "name": "test",
+    "description": "test",
+    "private": true,
+    "version": "0.0.1",
+    "scripts": {
+      ...
+      "send-lark-message:test": "MESSAGE_JSON='{\"title\":\"This is a dynamically generated title\",\"version\":\"1.1.0-beta\",\"accessUrl\":\"http://test.example.com\",\"isNotifyAll\":true}' send-lark-message"
+      ...
+    },
+    ...
+  }
+
+```
+
+```javascript
+
+// Or, after exporting the variable, reference it in package.json
+
+// ci file
+sh "npm run build"
+sh "export messageJSON='{\"title\": \"This is a title\"}'"
+
+// package.json
+{
+    "name": "test",
+    "description": "test",
+    "private": true,
+    "version": "0.0.1",
+    "scripts": {
+      ...
+      "send-lark-message:test": "MESSAGE_JSON=${messageJSON} send-lark-message"
+      ...
+    },
+    ...
+  }
 
 ```
 

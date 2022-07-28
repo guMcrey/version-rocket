@@ -49,7 +49,7 @@
 
 <p align="center">
   <img src="https://github.com/guMcrey/version-rocket/blob/main/assets/deploy-success-message.jpg?raw=true" width="500"/>
-  <img src="https://github.com/guMcrey/version-rocket/blob/main/assets/deploy-success-message-with-all.jpg?raw=true" width="500" />
+  <img src="https://github.com/guMcrey/version-rocket/blob/main/assets/custom-message-text.jpg?raw=true" width="500" />
 </p>
 
 ## 使用方法
@@ -203,21 +203,6 @@ pollingCompareVersion(version, `${location.origin}/version.json`, 30000, (data) 
 // 第二步: 配置 send-lark-config.json 文件
 
 {
-    "title": "This is a title",
-   
-    "projectName": "Project name",
-    
-    "branch": "Main",
-    
-    
-    "accessUrl": "https://test.com",
-    "timeLabel": "Time label",
-    
-    "isNotifyAll": true,
-    "larkWebHook": "https://open.larksuite.com/open-apis/bot/v2/hook/c7fcdf82-0d13-4354-ad0f-ca31e0c19546",
-   
-    "deployTools": "Jenkins"
-
     // 消息卡片标题
     "title": "TEST FE Deployed Successfully",
     // 项目名称标签
