@@ -31,7 +31,7 @@
 - 可用版本实时监测
 - 支持个性化设置版本提示弹窗的文案和主题, 也支持自定义 UI
 - 部署成功后，将部署消息同步到 Lark 群聊
-- 部署信息卡片的文案和消息模版支持自定义
+- 部署信息卡片的文案和消息模版支持自定义, 并支持动态生成的字段传入
 - 支持 TypeScript
 - [支持 Npm 安装](https://www.npmjs.com/package/version-rocket)
 
@@ -40,7 +40,7 @@
 - **第一张图:** 当有新版本更新时, 及时提醒用户刷新页面的功能弹窗 (默认 UI)。
 - **第二张图:** 个性化设置弹窗文案和主题, 有文案和主题有自定义需求时, 非常好用。
 - **第三张图:** 在项目成功部署后，部署信息将被发送到群聊，以通知团队成员, 卡片文案通过一个 json 文件来配置, 使用方法请参见下文。
-- **第四张图:** 基于第三张图片的可选设置, 可以配置是否要@全员, 设置后所有人会收到提示。
+- **第四张图:** 自定义消息卡片文案, 可设置是否 @全员, 并支持动态生成的字段传入 (如 version 在 ci/cd 后生成, 支持动态传入)
 
 <p align="center">
   <img src="https://github.com/guMcrey/version-rocket/blob/main/assets/available-version-tips.gif?raw=true" width="500"/>
@@ -49,7 +49,7 @@
 
 <p align="center">
   <img src="https://github.com/guMcrey/version-rocket/blob/main/assets/deploy-success-message.jpg?raw=true" width="500"/>
-  <img src="https://github.com/guMcrey/version-rocket/blob/main/assets/deploy-success-message-with-all.jpg?raw=true" width="500" />
+  <img src="https://github.com/guMcrey/version-rocket/blob/main/assets/custom-message-text.jpg?raw=true" width="500" />
 </p>
 
 ## 使用方法
@@ -178,7 +178,7 @@ pollingCompareVersion(version, `${location.origin}/version.json`, 30000, (data) 
  * 
  * 然后, 执行 send-lark-message 快捷命令。默认情况下，当前路径中的 send-lark-config.json 文件被选中
  * 
- * MESSAGE_PATH (可选): 如果你想自定义文件路径或文件名，你可以设置 MESSAGE_PATH 参数，将其传入 (此参数对有区分部署环境的需求时, 非常有用)
+ * MESSAGE_PATH (可选): 如果你想自定义文件路径或文件名，你可以设置 MESSAGE_PATH 参数，将其传入 (此参数对有区分部署环境的需求时, 非常有用) 
  * 
  * PACKAGE_JSON_PATH (可选): 如果你需要自定义 package.json 文件路径, 可以设置 PACKAGE_JSON_PATH 参数来自定义 (此参数对于 monorepo 项目的部署时, 可能有用。不传此参数, 默认获取根路径下的 package.json 文件)
 */
@@ -205,21 +205,83 @@ pollingCompareVersion(version, `${location.origin}/version.json`, 30000, (data) 
 {
     // 消息卡片标题
     "title": "TEST FE Deployed Successfully",
+    // 项目名称标签
+    "projectNameLabel": "Project name label",
     // 项目名称
     "projectName": "TEST",
+    // 项目分支标签
+    "branchLabel": "Branch label",
     // 项目分支, 可用于区别部署环境
     "branch": "Staging",
+    // 版本标签
+    "versionLabel": "Version label",
+    // 版本
+    "version": "1.1.1.0",
+    // 项目可访问地址标签
+    "accessUrlLabel": "Access URL label",
     // 项目可访问地址
     "accessUrl": "https://test.com",
+    // 是否@所有人标签
+    "isNotifyAllLabel": "Is notify all label",
     // 是否@所有人: true / false
     "isNotifyAll": true,
     // Lark 机器人的 webhook 链接
     "larkWebHook": "https://open.larksuite.com/open-apis/bot/v2/hook/xxxxxxxxxxxx",
+    // 部署工具描述
+    "deployToolsText": "Deploy tools text",
     // 部署所使用的方式或平台
     "deployTools": "Jenkins",
     // 可选: 部署时间想要转换成的时区，默认 "Asia/Shanghai" (当你的项目要部署的目标服务器与你所在时区不同, 可以设置此字段来转换时区)
     "expectConvertToTimezone": "America/New_York"
 }
+
+```
+
+#### 支持传入动态生成的卡片文案
+*当你的卡片文案会根据条件动态生成时, 可以传入 MESSAGE_JSON 字段来定义, 注意: MESSAGE_JSON 的值需要做转义*
+
+```javascript
+
+  /**
+   * MESSAGE_JSON (可选): 如果你的卡片文案会根据条件来生成, 可以传入 MESSAGE_JSON 字段来自定义 (此参数对于卡片文案动态生成的应用, 非常有用, 如 version, title 等)
+  */
+
+  {
+    "name": "test",
+    "description": "test",
+    "private": true,
+    "version": "0.0.1",
+    "scripts": {
+      ...
+      "send-lark-message:test": "MESSAGE_JSON='{\"title\":\"This is a dynamically generated title\",\"version\":\"1.1.0-beta\",\"accessUrl\":\"http://test.example.com\",\"isNotifyAll\":true}' send-lark-message"
+      ...
+    },
+    ...
+  }
+
+```
+
+```javascript
+
+// 或者 export 变量后, 在 package.json 中引用
+
+// ci file
+sh "npm run build"
+sh "export messageJSON='{\"title\": \"This is a title\"}'"
+
+// package.json
+{
+    "name": "test",
+    "description": "test",
+    "private": true,
+    "version": "0.0.1",
+    "scripts": {
+      ...
+      "send-lark-message:test": "MESSAGE_JSON=${messageJSON} send-lark-message"
+      ...
+    },
+    ...
+  }
 
 ```
 
