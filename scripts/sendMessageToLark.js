@@ -14,15 +14,20 @@ dayjs.extend(utc);
 dayjs.extend(timezone);
 
 console.log('MESSAGE_PATH', process.env.MESSAGE_PATH);
+
 // lark-message-config-*.json
 const configFileName = process.env.MESSAGE_PATH ? `${process.env.MESSAGE_PATH}` : 'lark-message-config.json'
 const messageConfigPath = path.join(process.cwd(), configFileName);
 const messageConfigObject = JSON.parse(fs.readFileSync(messageConfigPath).toString());
+
 // package.json
 const packageJsonName = process.env.PACKAGE_JSON_PATH ? `${process.env.PACKAGE_JSON_PATH}` : 'package.json'
 const packageJsonPath = path.join(process.cwd(), packageJsonName);
 console.log('PACKAGE_JSON_FULL_PATH', packageJsonPath)
 const packageJsonObject = JSON.parse(fs.readFileSync(packageJsonPath).toString());
+
+// MESSAGE_JSON
+process.env.MESSAGE_JSON ? Object.assign(messageConfigObject, JSON.parse(process.env.MESSAGE_JSON)) : messageConfigObject;
 
 // https://jp.cybozu.help/general/zh/admin/list_systemadmin/list_localization/timezone.html
 // default: Asia/Shanghai
@@ -47,14 +52,14 @@ const larkMessageJSON = (messageConfigObject.message && messageConfigObject.lark
                     {
                         "is_short": true,
                         "text": {
-                            "content": `**📁 Project Name:**\n${messageConfigObject.projectName || ''}`,
+                            "content": `**📁 ${messageConfigObject.projectNameLabel || 'Project Name'}:**\n${messageConfigObject.projectName || ''}`,
                             "tag": "lark_md"
                         }
                     },
                     {
                         "is_short": true,
                         "text": {
-                            "content": `**🔱 Branch:**\n${messageConfigObject.branch || ''}`,
+                            "content": `**🔱 ${messageConfigObject.branchLabel || 'Branch'}:**\n${messageConfigObject.branch || ''}`,
                             "tag": "lark_md"
                         }
                     },
@@ -68,14 +73,14 @@ const larkMessageJSON = (messageConfigObject.message && messageConfigObject.lark
                     {
                         "is_short": true,
                         "text": {
-                            "content": `**🎯 Version:**\n${packageJsonObject.version || ''}`,
+                            "content": `**🎯 ${messageConfigObject.versionLabel || 'Version'}:**\n${messageConfigObject.version || packageJsonObject.version || ''}`,
                             "tag": "lark_md"
                         }
                     },
                     {
                         "is_short": true,
                         "text": {
-                            "content": `**🔗 URL:**\n<a>${messageConfigObject.accessUrl || ''}</a>`,
+                            "content": `**🔗 ${messageConfigObject.accessUrlLabel || 'URL'}:**\n<a>${messageConfigObject.accessUrl || ''}</a>`,
                             "tag": "lark_md"
                         }
                     },
@@ -89,14 +94,14 @@ const larkMessageJSON = (messageConfigObject.message && messageConfigObject.lark
                     {
                         "is_short": true,
                         "text": {
-                            "content": `**🕐 Time:**\n${dayjs.tz(new Date(), covertToTimezone).format('YYYY-MM-DD HH:mm:ss')}`,
+                            "content": `**🕐 ${messageConfigObject.timeLabel || 'Time'}:**\n${dayjs.tz(new Date(), covertToTimezone).format('YYYY-MM-DD HH:mm:ss')}`,
                             "tag": "lark_md"
                         }
                     },
                     {
                         "is_short": true,
                         "text": {
-                            "content": `${messageConfigObject.isNotifyAll ? "**🔔 Notify group members:**\n<at id=all></at>" : ""}`,
+                            "content": `${messageConfigObject.isNotifyAll ? `**🔔 ${messageConfigObject.isNotifyAllLabel || 'Notify group members'}:**\n<at id=all></at>` : ""}`,
                             "tag": "lark_md"
                         }
                     }
@@ -109,7 +114,7 @@ const larkMessageJSON = (messageConfigObject.message && messageConfigObject.lark
             {
                 "elements": [
                     {
-                        "content": `Deploy through ${messageConfigObject.deployTools || ''}`,
+                        "content": `${messageConfigObject.deployToolsText || `Deploy through ${messageConfigObject.deployTools || ''}`}`,
                         "tag": "plain_text"
                     }
                 ],
