@@ -230,12 +230,14 @@ pollingCompareVersion(version, `${location.origin}/version.json`, 30000, (data) 
     "isNotifyAll": true,
     // Lark 机器人的 webhook 链接
     "larkWebHook": "https://open.larksuite.com/open-apis/bot/v2/hook/xxxxxxxxxxxx",
-    // 部署工具描述
+    // 可选: 部署工具描述
     "deployToolsText": "Deploy tools text",
-    // 部署所使用的方式或平台
+    // 可选: 部署所使用的方式或平台
     "deployTools": "Jenkins",
     // 可选: 部署时间想要转换成的时区，默认 "Asia/Shanghai" (当你的项目要部署的目标服务器与你所在时区不同, 可以设置此字段来转换时区)
     "expectConvertToTimezone": "America/New_York"
+    // 可选: 想要展示除模版之外的更多信息
+    "remark": "Trigger by bob, fix xxx bug"
 }
 
 ```

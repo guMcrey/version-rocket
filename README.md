@@ -223,6 +223,8 @@ pollingCompareVersion(version, `${location.origin}/version.json`, 30000, (data) 
     "deployTools": "Jenkins",
     // the deploy time zone that you want to display, default "Asia/Shanghai"
     "expectConvertToTimezone": "America/New_York"
+    // more information want to show
+    "remark": "Trigger by bob, fix xxx bug"
 }
 
 ```

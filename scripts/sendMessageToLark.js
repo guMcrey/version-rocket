@@ -114,7 +114,7 @@ const larkMessageJSON = (messageConfigObject.message && messageConfigObject.lark
             {
                 "elements": [
                     {
-                        "content": `${messageConfigObject.deployToolsText || `Deploy through ${messageConfigObject.deployTools || ''}`}`,
+                        "content": `${messageConfigObject.deployToolsText || `${messageConfigObject.deployTools ? `Deploy through ${messageConfigObject.deployTools}` : ''}`} ${(messageConfigObject.deployTools || messageConfigObject.deployToolsText) && messageConfigObject.remark ? '\n' : ''} ${messageConfigObject.remark}`,
                         "tag": "plain_text"
                     }
                 ],
