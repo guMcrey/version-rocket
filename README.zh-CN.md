@@ -343,7 +343,7 @@ sh "export messageJSON='{\"title\": \"This is a title\"}'"
 
 ## 链接
 - [时区参照表](https://jp.cybozu.help/general/zh/admin/list_systemadmin/list_localization/timezone.html)
-- [JSON 在线转义工具](https://codebeautify.org/json-encode-online))
+- [JSON 在线转义工具](https://codebeautify.org/json-encode-online)
 
 
 
