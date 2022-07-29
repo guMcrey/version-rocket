@@ -334,7 +334,7 @@ sh "export messageJSON='{\"title\": \"This is a title\"}'"
 
 #### ```pollingCompareVersion``` 函数参数表
 
-| 参数 | 类型 | 描述 | 默认值 | 是否必传 |
+| 参数 | 类型 | 描述 | 默认值 | 必需 |
 | --- | --- | --- | --- | --- |
 | localPackageVersion | string | 当前应用版本号, 通常取 package.json 的 version 字段, 用于与远程服务器的 version.json 文件比较 | 无 | 是 |
 | originVersionFileUrl | string | 远程服务器上的 version.json 文件路径 | 无 | 是 |
