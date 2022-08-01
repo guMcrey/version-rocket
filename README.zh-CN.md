@@ -345,6 +345,10 @@ sh "export messageJSON='{\"title\": \"This is a title\"}'"
 - [时区参照表](https://jp.cybozu.help/general/zh/admin/list_systemadmin/list_localization/timezone.html)
 - [JSON 在线转义工具](https://codebeautify.org/json-encode-online)
 
+## 许可证
+
+version-rocket 是开源软件, 许可证为 [Apache License 2.0](./LICENSE.md)
+
 
 
 
