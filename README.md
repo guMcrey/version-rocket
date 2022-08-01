@@ -332,6 +332,10 @@ sh "export messageJSON='{\"title\": \"This is a title\"}'"
 - [Timezone List](https://jp.cybozu.help/general/zh/admin/list_systemadmin/list_localization/timezone.html)
 - [JSON Escape](https://codebeautify.org/json-encode-online)
 
+## License
+
+version-rocket is open source software with [Apache License 2.0](./LICENSE.md)
+
 
 
 
