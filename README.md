@@ -93,6 +93,28 @@ checkVersion({
 
 ```
 
+<details>
+<summary>⚠️ Notice:</summary>
+If your project is connected to CDN, it is strongly recommended that you set the `version.json` file is set to always no caching (configure in nginx or turn off the function of CDN ignoring the parameter cache)
+
+``` shell
+// nginx example
+
+server {
+  ...
+  location / {
+    ...
+    if ($request_filename ~* .*\/version\.(json)$) {
+      add_header Cache-Control "private, no-store, no-cache, must-revalidate, proxy-revalidate";
+    }
+    ...
+  }
+  ...
+}
+```
+</details>
+</br>
+
 *Complete the above two steps, the version monitoring function can be used normally 🎉🎉*
 
 #### Personalize popup text and theme

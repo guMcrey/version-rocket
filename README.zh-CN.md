@@ -105,6 +105,28 @@ checkVersion({
 
 ```
 
+<details>
+<summary>⚠️ 注意事项</summary>
+如果你的项目接入了 CDN, 强烈建议你将 version.json 文件设置为强制不缓存 (在 nginx 中配置或关闭 CDN 忽略参数缓存的功能)
+
+``` shell
+// nginx 配置示例
+
+server {
+  ...
+  location / {
+    ...
+    if ($request_filename ~* .*\/version\.(json)$) {
+      add_header Cache-Control "private, no-store, no-cache, must-revalidate, proxy-revalidate";
+    }
+    ...
+  }
+  ...
+}
+```
+</details>
+</br>
+
 *完成以上两个步骤, 版本监测功能已经就正常使用了 🎉🎉*
 
 #### 个性化设置弹窗文案和主题
