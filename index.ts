@@ -1,12 +1,5 @@
 import {versionTipDialog} from './components/versionTipDialog'
-
-// create package version worker
-function createWorker(f: () => void) {
-  const blob = new Blob(['(' + f.toString() + ')()'])
-  const url = window.URL.createObjectURL(blob)
-  const worker = new Worker(url)
-  return worker
-}
+import {createWorker} from './utils/index'
 
 /**
  * Polling monitoring version update (No longer maintain)
