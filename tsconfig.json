@@ -110,4 +110,5 @@
     /* Skip type checking all .d.ts files. */
   },
   "include": ["./"],
+  "exclude": ["./tests", "./jest.config.ts"]
 }

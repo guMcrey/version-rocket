@@ -24,3 +24,23 @@ export const mockWorker = () => {
   global.window = Object.create(window)
   window.Worker = Worker as any
 }
+
+export const mockSetInterval = () => {
+  global.window = Object.create(window) as any
+  ;(window as any).setInterval = (func: () => void) => {
+    func()
+  }
+}
+
+export const mockFetch = () => {
+  global.window = Object.create(window) as any
+  ;(window as any).fetch = (url: string) => {
+    return new Promise((resolve, reject) => {
+      resolve({
+        json: () => {
+          return Promise.resolve({version: '1.2.0'})
+        },
+      })
+    })
+  }
+}
