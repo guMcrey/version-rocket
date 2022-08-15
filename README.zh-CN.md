@@ -1,5 +1,11 @@
 # 🔔 version-rocket 🚀
 
+[![](https://img.shields.io/npm/v/version-rocket)](https://www.npmjs.com/package/version-rocket)
+[![](https://img.shields.io/npm/dm/version-rocket.svg)](https://npmcharts.com/compare/version-rocket?minimal=true)
+[![](https://travis-ci.org/guMcrey/version-rocket.svg?branch=main)](https://travis-ci.org/guMcrey/version-rocket.svg)
+[![](https://codecov.io/gh/guMcrey/version-rocket/main/graph/badge.svg)](https://codecov.io/gh/guMcrey/version-rocket)
+[![](https://img.shields.io/npm/l/version-rocket)](https://www.npmjs.com/package/version-rocket)
+
 简体中文 | [English](./README.md)
 
 一个用于 web 应用检测版本更新的小工具。

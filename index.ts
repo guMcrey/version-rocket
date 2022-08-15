@@ -73,31 +73,7 @@ export const checkVersion = (
     buttonStyle?: string
   }
 ) => {
-  const worker = createWorker(() => {
-    let oldVersion = ''
-    let intervalTime = 5000
-    let originFileUrl = ''
-    const temp: Worker = self as any
-    temp.onmessage = (event: any) => {
-      oldVersion = event.data['version-key']
-      intervalTime = event.data['polling-time']
-      originFileUrl = event.data['origin-version-file-url']
-
-      setInterval(() => {
-        fetch(`${originFileUrl}?${+new Date()}`)
-          .then((res) => {
-            return res.json()
-          })
-          .then((versionJsonFile) => {
-            if (oldVersion !== versionJsonFile.version) {
-              temp.postMessage({
-                refreshPageVersion: `${versionJsonFile.version}`,
-              })
-            }
-          })
-      }, intervalTime)
-    }
-  })
+  const worker = createWorker(createWorkerFunc)
 
   worker.postMessage({
     'version-key': config.localPackageVersion,

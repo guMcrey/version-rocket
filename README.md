@@ -1,5 +1,11 @@
 # 🔔 version-rocket 🚀
 
+[![](https://img.shields.io/npm/v/version-rocket)](https://www.npmjs.com/package/version-rocket)
+[![](https://img.shields.io/npm/dm/version-rocket.svg)](https://npmcharts.com/compare/version-rocket?minimal=true)
+[![](https://travis-ci.org/guMcrey/version-rocket.svg?branch=main)](https://travis-ci.org/guMcrey/version-rocket.svg)
+[![](https://codecov.io/gh/guMcrey/version-rocket/main/graph/badge.svg)](https://codecov.io/gh/guMcrey/version-rocket)
+[![](https://img.shields.io/npm/l/version-rocket)](https://www.npmjs.com/package/version-rocket)
+
 English | [简体中文](./README.zh-CN.md)
 
 Notify users when a new version of your site is available and prompt them to refresh the page.
