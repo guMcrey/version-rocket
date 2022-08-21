@@ -26,7 +26,7 @@
 
 ---
 
-另外, 如果你所在的团队, 使用 Lark 或 飞书来团队协作, **version-rocket** 可以帮你推送“部署成功”的消息到 Lark 群聊中 (通过 Lark 机器人)。 使用方法非常快捷简单, 使用方法见下文。
+另外, 如果你所在的团队, 使用 **飞书 (Lark)** 或 **企业微信 (WeCom)** 来团队协作, **version-rocket** 可以帮你推送“部署成功”的消息到群聊中 (通过群聊机器人)。 使用方法非常快捷简单, 使用方法见下文。
 
 *如果有其他平台的推送需求, 可以提 issue*
 
@@ -35,7 +35,7 @@
 - 支持所有现代浏览器
 - 可用版本实时监测, 支持任意版本格式, 例如: 1.1.0、1.1.1.0、1.1.0-beta 等等
 - 支持个性化设置版本提示弹窗的文案和主题, 也支持自定义 UI
-- 部署成功后，将部署消息同步到 Lark 群聊
+- 部署成功后，将部署消息同步给群聊机器人
 - 部署信息卡片的文案和消息模版支持自定义, 并支持动态生成的字段传入
 - 支持 TypeScript
 - [支持 Npm 安装](https://www.npmjs.com/package/version-rocket)
@@ -44,8 +44,8 @@
 
 - **第一张图:** 当有新版本更新时, 及时提醒用户刷新页面的功能弹窗 (默认 UI)。
 - **第二张图:** 个性化设置弹窗文案和主题, 有文案和主题有自定义需求时, 非常好用。
-- **第三张图:** 在项目成功部署后，部署信息将被发送到群聊，以通知团队成员, 卡片文案通过一个 json 文件来配置, 使用方法请参见下文。
-- **第四张图:** 自定义消息卡片文案, 可设置是否 @全员, 并支持动态生成的字段传入 (如 version 在 ci/cd 后生成, 支持动态传入)
+- **第三张图:** 在项目成功部署后，部署信息将被发送到 飞书 (Lark) 群聊，以通知团队成员, 卡片文案通过一个 json 文件来配置; 或自定义消息卡片文案, 可设置是否 @全员, 并支持动态生成的字段传入 (如 version 在 ci/cd 后生成, 支持动态传入)。
+- **第四张图:** 部署成功后, 将部署信息将被发送到 企业微信 (WeCom) 群聊，以通知团队成员, 字段和自定义设置与飞书(Lark) 一致。
 
 <p align="center">
   <img src="https://github.com/guMcrey/version-rocket/blob/main/assets/available-version-tips.gif?raw=true" width="500"/>
@@ -53,8 +53,8 @@
 </p>
 
 <p align="center">
-  <img src="https://github.com/guMcrey/version-rocket/blob/main/assets/deploy-success-message.jpg?raw=true" width="500"/>
   <img src="https://github.com/guMcrey/version-rocket/blob/main/assets/custom-message-text.jpg?raw=true" width="500" />
+  <img src="https://github.com/guMcrey/version-rocket/blob/main/assets/wecom-message.jpg?raw=true" width="500" />
 </p>
 
 ## 使用方法
@@ -198,15 +198,15 @@ pollingCompareVersion(version, `${location.origin}/version.json`, 30000, (data) 
 
 ---
 
-#### 支持推送部署成功的通知到 Lark 群聊
+#### 支持推送部署成功的通知到 飞书(Lark) 群聊
 
 ```javascript 
 
 /**
  * 1. 第一步:
- * 你需要在项目根目录下创建一个 send-lark-config.json 文件，它存储了用于设置消息卡片展示文案的字段
+ * 你需要在项目根目录下创建一个 lark-message-config.json 文件，它存储了用于设置消息卡片展示文案的字段
  * 
- * 然后, 执行 send-lark-message 快捷命令。默认情况下，当前路径中的 send-lark-config.json 文件被选中
+ * 然后, 执行 send-lark-message 快捷命令。默认情况下，当前路径中的 lark-message-config.json 文件被选中
  * 
  * MESSAGE_PATH (可选): 如果你想自定义文件路径或文件名，你可以设置 MESSAGE_PATH 参数，将其传入 (此参数对有区分部署环境的需求时, 非常有用) 
  * 
@@ -230,7 +230,7 @@ pollingCompareVersion(version, `${location.origin}/version.json`, 30000, (data) 
 
 ``` javascript
 
-// 第二步: 配置 send-lark-config.json 文件
+// 第二步: 配置 lark-message-config.json 文件
 
 {
     // 消息卡片标题
@@ -269,6 +269,73 @@ pollingCompareVersion(version, `${location.origin}/version.json`, 30000, (data) 
 
 ```
 
+#### 支持推送部署成功的通知到 企业微信(WeCom) 群聊
+
+```javascript 
+
+/**
+ * 1. 第一步:
+ * 你需要在项目根目录下创建一个 message-config.json 文件，它存储了用于设置消息卡片展示文案的字段
+ * 
+ * 然后, 执行 send-wecom-message 快捷命令。默认情况下，当前路径中的 message-config.json 文件被选中
+ * 
+ * MESSAGE_PATH (可选): 如果你想自定义文件路径或文件名，你可以设置 MESSAGE_PATH 参数，将其传入 (此参数对有区分部署环境的需求时, 非常有用) 
+ * 
+ * PACKAGE_JSON_PATH (可选): 如果你需要自定义 package.json 文件路径, 可以设置 PACKAGE_JSON_PATH 参数来自定义 (此参数对于 monorepo 项目的部署时, 可能有用。不传此参数, 默认获取根路径下的 package.json 文件)
+*/
+
+{
+  "name": "test",
+  "description": "test",
+  "private": true,
+  "version": "0.0.1",
+  "scripts": {
+    ...
+    "send-wecom-message:test": "MESSAGE_PATH=./message-config.json PACKAGE_JSON_PATH=./packages/test/package.json send-wecom-message"
+    ...
+  },
+  ...
+}
+
+```
+
+``` javascript
+
+// 第二步: 配置 message-config.json 文件
+
+{
+    // 消息卡片标题
+    "title": "TEST FE Deployed Successfully",
+    // 可选: 项目名称标签, 默认 Project Name
+    "projectNameLabel": "Project name label",
+    // 项目名称
+    "projectName": "TEST",
+    // 可选: 项目分支标签, 默认 Branch
+    "branchLabel": "Branch label",
+    // 项目分支, 可用于区别部署环境
+    "branch": "Staging",
+    // 可选: 版本标签, 默认 Version
+    "versionLabel": "Version label",
+    // 版本
+    "version": "1.1.1.0",
+    // 可选: 项目可访问地址标签, 默认 URL
+    "accessUrlLabel": "Access URL label",
+    // 项目可访问地址
+    "accessUrl": "https://test.com",
+    // 是否@所有人: true / false
+    "isNotifyAll": true,
+    // 企业微信机器人的 webhook 链接
+    "webHook": "https://qyapi.weixin.qq.com/cgi-bin/webhook/send?key=xxxxxxxxxxxx",
+    // 可选: 部署工具描述
+    "deployToolsText": "Deploy tools text",
+    // 可选: 部署时间想要转换成的时区，默认 "Asia/Shanghai" (当你的项目要部署的目标服务器与你所在时区不同, 可以设置此字段来转换时区)
+    "expectConvertToTimezone": "America/New_York"
+    // 可选: 想要展示除模版之外的更多信息
+    "remark": "Trigger by bob, fix xxx bug"
+}
+
+```
+
 #### 支持传入动态生成的卡片文案
 *当你的卡片文案会根据条件动态生成时, 可以传入 MESSAGE_JSON 字段来定义, 注意: MESSAGE_JSON 的值需要做转义*
 
@@ -277,7 +344,8 @@ pollingCompareVersion(version, `${location.origin}/version.json`, 30000, (data) 
   /**
    * MESSAGE_JSON (可选): 如果你的卡片文案会根据条件来生成, 可以传入 MESSAGE_JSON 字段来自定义 (此参数对于卡片文案动态生成的应用, 非常有用, 如 version, title 等)
   */
-
+  
+  // 飞书 (Lark)
   {
     "name": "test",
     "description": "test",
@@ -290,7 +358,20 @@ pollingCompareVersion(version, `${location.origin}/version.json`, 30000, (data) 
     },
     ...
   }
-
+  
+  // 企业微信(WeCom)
+  {
+    "name": "test",
+    "description": "test",
+    "private": true,
+    "version": "0.0.1",
+    "scripts": {
+      ...
+      "send-wecom-message:test": "MESSAGE_JSON='{\"title\":\"This is a dynamically generated title\",\"version\":\"1.1.0-beta\",\"accessUrl\":\"http://test.example.com\",\"isNotifyAll\":true}' send-wecom-message"
+      ...
+    },
+    ...
+  }
 ```
 
 ```javascript
@@ -302,6 +383,8 @@ sh "npm run build"
 sh "export messageJSON='{\"title\": \"This is a title\"}'"
 
 // package.json
+
+// 飞书 (Lark)
 {
     "name": "test",
     "description": "test",
@@ -315,6 +398,20 @@ sh "export messageJSON='{\"title\": \"This is a title\"}'"
     ...
   }
 
+  // 企业微信 (WeCom)
+  {
+    "name": "test",
+    "description": "test",
+    "private": true,
+    "version": "0.0.1",
+    "scripts": {
+      ...
+      "send-wecom-message:test": "MESSAGE_JSON=${messageJSON} send-wecom-message"
+      ...
+    },
+    ...
+  }
+
 ```
 
 #### 个性化设置部署消息卡片
@@ -323,6 +420,7 @@ sh "export messageJSON='{\"title\": \"This is a title\"}'"
 
 // send-lark-config.json 示例
 
+// 飞书 (Lark)
 {
     // 消息卡片内容
     "message": {
@@ -334,7 +432,19 @@ sh "export messageJSON='{\"title\": \"This is a title\"}'"
     // Lark 机器人的 webhook 链接
     "larkWebHook": "https://open.larksuite.com/open-apis/bot/v2/hook/xxxxxxxxxxxx"
 }
- 
+
+// 企业微信 (WeCom)
+{
+    // 消息卡片内容
+    "message": {
+        "msgtype": "text",
+        "text": {
+            "content": "This is a custom message"
+        }
+    }
+    // 企业微信机器人的 webhook 链接
+    "webHook": "https://qyapi.weixin.qq.com/cgi-bin/webhook/send?key=xxxxxxxxxxxx"
+}
 ```
 
 ---
