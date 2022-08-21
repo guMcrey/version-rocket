@@ -41,8 +41,8 @@ We use the **Web Worker API** based on javascript to do the polling loop, will n
 </p>
 
 <p align="center">
-  <img src="https://github.com/guMcrey/version-rocket/blob/main/assets/custom-message-text.jpg?raw=true" width="410" />
-  <img src="https://github.com/guMcrey/version-rocket/blob/main/assets/wecom-message.jpg?raw=true" width="410" />
+  <img src="https://github.com/guMcrey/version-rocket/blob/main/assets/custom-message-text.jpg?raw=true" width="440" />
+  <img src="https://github.com/guMcrey/version-rocket/blob/main/assets/wecom-message.jpg?raw=true" width="360" />
 </p>
 
 ## Usage
