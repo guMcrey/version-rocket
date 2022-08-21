@@ -16,7 +16,8 @@
   },
   "bin": {
     "generate-version-file": "./scripts/createVersionFile.js",
-    "send-lark-message": "./scripts/sendMessageToLark.js"
+    "send-lark-message": "./scripts/sendMessageToLark.js",
+    "send-wecom-message": "./scripts/sendMessageToWeCom.js"
   },
   "keywords": [
     "web",
