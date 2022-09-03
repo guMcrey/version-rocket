@@ -15,15 +15,15 @@
 - [实现原理](#实现原理)
 - [安装](#安装)
 - [快速开始](#快速开始)
-  - Web 应用版本实时检测
+  - [Web 应用版本实时检测](#web-应用版本实时检测)
     - [个性化设置主题](#个性化设置主题)
     - [效果截图](#效果截图)
-  - 自动发送部署消息到飞书 (Lark) 或企业微信 (WeCom) 群聊
-    - 飞书 (Lark)
+  - [自动发送部署消息到飞书 (Lark) 或企业微信 (WeCom) 群聊](#自动发送部署消息到飞书-lark-或企业微信-wecom-群聊)
+    - [飞书 (Lark)](#飞书-lark)
       - [设置动态文案](#设置动态文案)
       - [自定义消息卡片](#自定义消息卡片)
       - [效果截图](#效果截图)
-    - 企业微信 (WeCom)
+    - [企业微信 (WeCom)](#企业微信-wecom)
       - [设置动态文案](#设置动态文案)
       - [自定义消息卡片](#自定义消息卡片)
       - [效果截图](#效果截图)
@@ -44,30 +44,24 @@
 
 什么时候适合使用 **自动发送部署消息到飞书 (Lark) 或企业微信 (WeCom) 群聊**?
   - 场景: 在团队合作中可能会有这样的情况, 你作为前端工程师, 在联调测试或部署上线时, 每次部署后都需要跟团队成员口头传达已经部署成功, 增加了沟通成本, 不够自动化, 也没有部署记录以有迹可循。
-  - **version-rocket** 利用 WebHook 方式, 在应用部署成功后, 通过群聊机器人, 自动帮你推送“部署成功”的消息到群聊中。 
-
----
-
-另外, 如果你所在的团队, 使用 **飞书 (Lark)** 或 **企业微信 (WeCom)** 来团队协作, **version-rocket** 可以帮你推送“部署成功”的消息到群聊中 (通过群聊机器人)。 使用方法非常快捷简单, 使用方法见下文。
+  - **version-rocket** 利用 `WebHook` 方式, 在应用部署成功后, 通过群聊机器人, 自动帮你推送“部署成功”的消息到群聊中。 
 
 *如果有其他平台的推送需求, 可以提 issue*
 
 ## 功能特点
 
 - 支持所有现代浏览器
-- 可用版本实时监测, 支持任意版本格式, 例如: 1.1.0、1.1.1.0、1.1.0-beta 等等
-- 支持个性化设置版本提示弹窗的文案和主题, 也支持自定义 UI
-- 部署成功后，将部署消息同步给群聊机器人, 目前支持飞书 (Lark) 和企业微信 (WeCom)
+- 可用**版本实时监测**, 支持任意版本格式, 例如: 1.1.0、1.1.1.0、1.1.0-beta 等等
+- 支持**个性化设置**版本提示弹窗的文案和**主题**, 也支持自定义 UI
+- 部署成功后，将**部署消息同步给群聊机器人**, 目前支持飞书 (Lark) 和企业微信 (WeCom)
 - 部署信息卡片的文案和消息模版支持自定义, 并支持动态生成的字段传入
 - 支持 TypeScript
 
 ## 实现原理
 
-- Web 应用版本实时检测:
- **version-rocket** 将用户当前浏览器中的版本与远程服务器中的版本文件进行比较。我们使用基于 javascript 的 **Web Worker API** 来做监测轮询，不会影响浏览器渲染进程。
+- **Web 应用版本实时检测:** **version-rocket** 将用户当前浏览器中的版本与远程服务器中的版本文件进行比较。我们使用基于 javascript 的 `Web Worker API` 来做监测轮询，不会影响浏览器渲染进程。
 
-自动发送部署消息到飞书 (Lark) 或企业微信 (WeCom) 群聊:
-- **version-rocket** 调用协同办公软件提供的 WebHook 方式, 触发群聊机器人发送消息。
+- **自动发送部署消息到飞书 (Lark) 或企业微信 (WeCom) 群聊:** **version-rocket** 调用协同办公软件提供的 WebHook 方式, 触发群聊机器人发送消息。
 
 ## 安装
 
@@ -76,13 +70,22 @@
 ```bash
 # 选择一个你喜欢的包管理器
 
-[![version-rocket](https://nodei.co/npm/version-rocket.png)](https://www.npmjs.com/package/version-rocket)
+// npm
+npm install version-rocket --save
 
-### 开始使用
+// yarn
+yarn add version-rocket
 
-### Web应用版本实时检测
+# pnpm
+pnpm install version-rocket
 
-第一步: 导入 checkVersion(), 并调用
+```
+
+### 快速开始
+
+### Web 应用版本实时检测
+
+第一步: 导入 `checkVersion()`, 并调用
 
 ```javascript
 // 入口文件: 如 App.vue 或 App.jsx 等
@@ -140,7 +143,6 @@ server {
 }
 ```
 </details>
-<br>
 
 *完成以上两个步骤, 版本监测功能已经就正常使用了 🎉🎉*
 
@@ -230,7 +232,7 @@ checkVersion(
 
 ```
 
-第二步: 配置 lark-message-config.json 文件
+第二步: 配置 `lark-message-config.json` 文件
 
 ``` javascript
 
@@ -277,7 +279,7 @@ checkVersion(
 
 如果你的卡片文案会根据条件来生成时, 可以传入 `MESSAGE_JSON` 字段来自定义, 如 version, title 等.
 
-*注意: MESSAGE_JSON 的值需要做转义*
+*注意: `MESSAGE_JSON` 的值需要做转义*
 
 ```javascript
 
@@ -376,7 +378,7 @@ sh "export messageJSON='{\"title\": \"This is a title\"}'"
 
 ```
 
-第二步: 配置 message-config.json 文件
+第二步: 配置 `message-config.json` 文件
 
 ``` javascript
 
@@ -417,7 +419,7 @@ sh "export messageJSON='{\"title\": \"This is a title\"}'"
 
 如果你的卡片文案会根据条件来生成时, 可以传入 `MESSAGE_JSON` 字段来自定义, 如 version, title 等.
 
-*注意: MESSAGE_JSON 的值需要做转义*
+*注意: `MESSAGE_JSON` 的值需要做转义*
 
 ```javascript
 
@@ -437,7 +439,7 @@ sh "export messageJSON='{\"title\": \"This is a title\"}'"
 }
 ```
 
-或 export 变量后, 在 package.json 中引用
+或 export 变量后, 在 `package.json` 中引用
 
 ```javascript
 
