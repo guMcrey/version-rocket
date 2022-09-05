@@ -10,7 +10,7 @@ English | [简体中文](./README.zh-CN.md)
 [![](https://github.com/guMcrey/version-rocket/actions/workflows/main.yml/badge.svg)](https://github.com/guMcrey/version-rocket/actions/)
 [![](https://img.shields.io/npm/l/version-rocket)](https://www.npmjs.com/package/version-rocket)
 
-目录
+**Catalogue**
 - [About](#about)
 - [Features](#features)
 - [Implementation Principle](#implementation-principle)
