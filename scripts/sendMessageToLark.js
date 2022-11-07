@@ -98,30 +98,57 @@ const larkMessageJSON = (messageConfigObject.message && messageConfigObject.lark
                             "tag": "lark_md"
                         }
                     },
-                    {
-                        "is_short": true,
-                        "text": {
-                            "content": `${messageConfigObject.isNotifyAll ? `**🔔 ${messageConfigObject.isNotifyAllLabel || 'Notify group members'}:**\n<at id=all></at>` : ""}`,
-                            "tag": "lark_md"
-                        }
-                    }
                 ],
                 "tag": "div"
-            },
-            {
-                "tag": "hr"
-            },
-            {
-                "elements": [
-                    {
-                        "content": `${messageConfigObject.deployToolsText || `${messageConfigObject.deployTools ? `Deploy through ${messageConfigObject.deployTools}` : ''}`} ${(messageConfigObject.deployTools || messageConfigObject.deployToolsText) && messageConfigObject.remark ? '\n' : ''}${messageConfigObject.remark || ''}`,
-                        "tag": "plain_text"
-                    }
-                ],
-                "tag": "note"
             }
         ]
     }
+}
+
+// TODO: dynamically card
+if (messageConfigObject.setDeployInfoInMainCard) {
+    const brObj = {
+        "is_short": false,
+        "text": {
+            "content": "",
+            "tag": "lark_md"
+        }
+    }
+    const notifyAllObj = {
+        "is_short": true,
+        "text": {
+            "content": `${messageConfigObject.isNotifyAll ? `**🔔 ${messageConfigObject.isNotifyAllLabel || 'Notify group members'}:**\n<at id=all></at>` : ""}`,
+            "tag": "lark_md"
+        }
+    }
+    const deployObj = {
+        "is_short": true,
+        "text": {
+            "content": `**🔨 ${messageConfigObject.setDeployInfoInMainCard && messageConfigObject.deployToolsLabel || 'Deploy Tools'}:**\n${messageConfigObject.deployTools}`,
+            "tag": "lark_md"
+        }
+    }
+    if (messageConfigObject.isNotifyAll) {
+        larkMessageJSON.card.elements[0]?.fields.push(notifyAllObj);
+        larkMessageJSON.card.elements[0]?.fields.push(brObj);
+    }
+    larkMessageJSON.card.elements[0]?.fields.push(deployObj);
+} else if (messageConfigObject.deployToolsText || messageConfigObject.deployTools || messageConfigObject.remark) {
+    const hrObj = {
+        "tag": "hr"
+    }
+    const deployDefaultObj = {
+        "elements": [
+            {
+                "content": `${messageConfigObject.deployToolsText || `${messageConfigObject.deployTools ? `Deploy through ${messageConfigObject.deployTools}` : ''}`} ${(messageConfigObject.deployTools || messageConfigObject.deployToolsText) && messageConfigObject.remark ? '\n' : ''}${messageConfigObject.remark || ''}`,
+                "tag": "plain_text"
+            }
+        ],
+        "tag": "note"
+    }
+
+    larkMessageJSON.card.elements?.push(hrObj)
+    larkMessageJSON.card.elements?.push(deployDefaultObj)
 }
 
 axios.post(messageConfigObject.larkWebHook, larkMessageJSON).catch((e) => {
