@@ -105,15 +105,7 @@ const larkMessageJSON = (messageConfigObject.message && messageConfigObject.lark
     }
 }
 
-// TODO: dynamically card
-if (messageConfigObject.setDeployInfoInMainCard) {
-    const brObj = {
-        "is_short": false,
-        "text": {
-            "content": "",
-            "tag": "lark_md"
-        }
-    }
+if (messageConfigObject.isNotifyAll) {
     const notifyAllObj = {
         "is_short": true,
         "text": {
@@ -121,16 +113,25 @@ if (messageConfigObject.setDeployInfoInMainCard) {
             "tag": "lark_md"
         }
     }
+    const brObj = {
+        "is_short": false,
+        "text": {
+            "content": "",
+            "tag": "lark_md"
+        }
+    }
+    larkMessageJSON.card.elements[0]?.fields.push(notifyAllObj);
+    larkMessageJSON.card.elements[0]?.fields.push(brObj);
+}
+
+// TODO: dynamically card
+if (messageConfigObject.setDeployInfoInMainCard) {
     const deployObj = {
         "is_short": true,
         "text": {
             "content": `**🔨 ${messageConfigObject.setDeployInfoInMainCard && messageConfigObject.deployToolsLabel || 'Deploy Tools'}:**\n${messageConfigObject.deployTools || ''}`,
             "tag": "lark_md"
         }
-    }
-    if (messageConfigObject.isNotifyAll) {
-        larkMessageJSON.card.elements[0]?.fields.push(notifyAllObj);
-        larkMessageJSON.card.elements[0]?.fields.push(brObj);
     }
     larkMessageJSON.card.elements[0]?.fields.push(deployObj);
 } else if (messageConfigObject.deployToolsText || messageConfigObject.deployTools || messageConfigObject.remark) {
