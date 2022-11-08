@@ -124,7 +124,7 @@ if (messageConfigObject.setDeployInfoInMainCard) {
     const deployObj = {
         "is_short": true,
         "text": {
-            "content": `**🔨 ${messageConfigObject.setDeployInfoInMainCard && messageConfigObject.deployToolsLabel || 'Deploy Tools'}:**\n${messageConfigObject.deployTools}`,
+            "content": `**🔨 ${messageConfigObject.setDeployInfoInMainCard && messageConfigObject.deployToolsLabel || 'Deploy Tools'}:**\n${messageConfigObject.deployTools || ''}`,
             "tag": "lark_md"
         }
     }
@@ -149,6 +149,25 @@ if (messageConfigObject.setDeployInfoInMainCard) {
 
     larkMessageJSON.card.elements?.push(hrObj)
     larkMessageJSON.card.elements?.push(deployDefaultObj)
+}
+
+if (messageConfigObject.remark) {
+    const hrObj = {
+        "tag": "hr"
+    }
+    const remarkObj = {
+        "elements": [
+            {
+                "content": `${messageConfigObject.remark || ''}`,
+                "tag": "plain_text"
+            }
+        ],
+        "tag": "note"
+    }
+    if (messageConfigObject.setDeployInfoInMainCard) {
+        larkMessageJSON.card.elements?.push(hrObj)
+        larkMessageJSON.card.elements?.push(remarkObj)
+    }
 }
 
 axios.post(messageConfigObject.larkWebHook, larkMessageJSON).catch((e) => {
