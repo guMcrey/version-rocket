@@ -6,6 +6,18 @@
 
 ---
 
+## 1.3.2
+
+`2022-11-08`
+
+- 🪲 fix setDeployInfoInMainCard is true in send-lark-message.config, remark no display [#12](https://github.com/guMcrey/version-rocket/issues/12)
+
+## 1.3.1
+
+`2022-11-07`
+
+- 💄 send-lark-message.config add new field setDeployInfoInMainCard to support deploy info display in main card [#12](https://github.com/guMcrey/version-rocket/issues/12)
+
 ## 1.3.0
 
 `2022-08-21`

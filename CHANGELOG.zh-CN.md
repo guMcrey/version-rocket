@@ -6,6 +6,18 @@
 
 ---
 
+## 1.3.2
+
+`2022-11-08`
+
+- 🪲 修复 send-lark-message.config 中 setDeployInfoInMainCard 为真时, remark 未显示 [#12](https://github.com/guMcrey/version-rocket/issues/12)
+
+## 1.3.1
+
+`2022-11-07`
+
+- 💄 send-lark-message.config 新增字段 setDeployInfoInMainCard 以支持 Deploy 信息显示在主卡片中 [#12](https://github.com/guMcrey/version-rocket/issues/12)
+
 ## 1.3.0
 
 `2022-08-21`
