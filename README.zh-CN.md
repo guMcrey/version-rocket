@@ -96,6 +96,7 @@ import { checkVersion } from 'version-rocket'
 // 推荐使用 package.json 中的 version 字段, 也可自定义 version
 import { version } from '../package.json'
 
+// 在生命周期钩子中调用 checkVersion
 checkVersion({
   localPackageVersion: version,
   originVersionFileUrl: `${location.origin}/version.json`,
