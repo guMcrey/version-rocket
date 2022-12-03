@@ -47,8 +47,11 @@ export const pollingCompareVersion = (localPackageVersion, originVersionFileUrl,
  *
  * @return {object}  { refreshPageVersion } new version number
  */
+let worker = undefined;
 export const checkVersion = (config, options) => {
-    const worker = createWorker(createWorkerFunc);
+    if (!worker) {
+        worker = createWorker(createWorkerFunc);
+    }
     worker.postMessage({
         'version-key': config.localPackageVersion,
         'polling-time': config.pollingTime || 5000,
@@ -74,4 +77,17 @@ export const checkVersion = (config, options) => {
             });
         }
     };
+};
+/**
+ * destroy checkVersion
+ */
+export const unCheckVersion = ({ closeDialog = false }) => {
+    worker === null || worker === void 0 ? void 0 : worker.terminate();
+    if (closeDialog) {
+        const dialogElement = document.querySelector('#version-rocket');
+        const dialogElementParent = dialogElement === null || dialogElement === void 0 ? void 0 : dialogElement.parentElement;
+        if (dialogElement && dialogElementParent) {
+            dialogElementParent.removeChild(dialogElement);
+        }
+    }
 };

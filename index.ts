@@ -56,6 +56,8 @@ export const pollingCompareVersion = (
  * @return {object}  { refreshPageVersion } new version number
  */
 
+let worker: Worker | undefined = undefined
+
 export const checkVersion = (
   config: {
     originVersionFileUrl: string
@@ -73,7 +75,9 @@ export const checkVersion = (
     buttonStyle?: string
   }
 ) => {
-  const worker = createWorker(createWorkerFunc)
+  if (!worker) {
+    worker = createWorker(createWorkerFunc)
+  }
 
   worker.postMessage({
     'version-key': config.localPackageVersion,
@@ -105,6 +109,21 @@ export const checkVersion = (
         buttonStyle,
         newVersion: event.data.refreshPageVersion,
       })
+    }
+  }
+}
+
+/**
+ * destroy checkVersion
+ */
+
+export const unCheckVersion = ({closeDialog = false}) => {
+  worker?.terminate()
+  if (closeDialog) {
+    const dialogElement = document.querySelector('#version-rocket')
+    const dialogElementParent = dialogElement?.parentElement
+    if (dialogElement && dialogElementParent) {
+      dialogElementParent.removeChild(dialogElement)
     }
   }
 }
