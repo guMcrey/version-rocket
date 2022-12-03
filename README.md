@@ -101,6 +101,9 @@ checkVersion({
   localPackageVersion: version,
   originVersionFileUrl: `${location.origin}/version.json`,
 })
+
+// To terminate version detection, call the unCheckVersion method during the destruction life cycle. For details, see the API
+unCheckVersion()
  
 ```
 
@@ -499,6 +502,9 @@ sh "export messageJSON='{\"title\": \"This is a title\"}'"
 
 ## API
 
+**checkVersion Function**
+> Enable real-time app version detection
+
 | Params | Type | Description | Default | Required |
 | --- | --- | --- | --- | --- |
 | config | object | Version monitoring configuration item |  | Yes |
@@ -514,6 +520,13 @@ sh "export messageJSON='{\"title\": \"This is a title\"}'"
 | options.rocketColor | string | The popup picture's theme color of the rocket, after setting Options.imageUrl is invalid | | No |
 | options.primaryColor | string | The theme color of the popup, it will affect the hint image background color and button background color, after setting imageUrl is invalid | | No |
 | options.buttonStyle | string | The CSS configuration of pop-up buttons can override the default button style | | No |
+
+**unCheckVersion Function**
+> Terminate the `worker` process created after calling `checkerVersion`
+
+| Params | Type | Description | Default | Required |
+| --- | --- | --- | --- | --- |
+closeDialog | boolean | Whether to close the version update prompt pop-up window | false | No
 
 ## Test
 

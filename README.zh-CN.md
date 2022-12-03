@@ -101,6 +101,9 @@ checkVersion({
   localPackageVersion: version,
   originVersionFileUrl: `${location.origin}/version.json`,
 })
+
+// 如需终止版本检测时, 在销毁生命周期中, 调用 unCheckVersion 方法进行终止, 详情参见 API
+unCheckVersion()
  
 ```
 
@@ -492,6 +495,9 @@ sh "export messageJSON='{\"title\": \"This is a title\"}'"
 
 ## API
 
+**checkVersion 方法**
+> 开启应用版本实时检测功能
+
 | 参数 | 类型 | 描述 | 默认值 | 必需 |
 | --- | --- | --- | --- | --- |
 | config | object | 版本监测配置项 | 无 | 是 |
@@ -507,6 +513,13 @@ sh "export messageJSON='{\"title\": \"This is a title\"}'"
 | options.rocketColor | string | 弹窗提示图片中火箭的主题色, 设置后 options.imageUrl 无效 | | 否 |
 | options.primaryColor | string | 弹窗的主题色, 会作用到提示图片背景色和按钮背景色, 设置后 imageUrl 无效 | | 否 |
 | options.buttonStyle | string | 弹窗按钮的 css 配置, 可以覆盖掉默认的按钮样式 | 无 | 否 |
+
+**unCheckVersion 方法**
+> 终止在调用 `checkerVersion` 后创建的 `worker` 进程
+
+| 参数 | 类型 | 描述 | 默认值 | 必需 |
+| --- | --- | --- | --- | --- |
+closeDialog | boolean | 是否关闭版本更新提示弹窗 | false | 否
 
 ## 测试
 

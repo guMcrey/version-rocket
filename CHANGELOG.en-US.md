@@ -6,6 +6,15 @@
 
 ---
 
+## 1.4.0
+
+`2022-12-03`
+
+- 🆕 add unCheckVersion function, to support that real-time monitor of the version to be terminated when need. [#15](https://github.com/guMcrey/version-rocket/issues/15)
+- 🪲 fix checkVersion function be called multiple, will create multiple worker processes.
+- 💄 update README.md and README.zh-CN.md
+
+
 ## 1.3.2
 
 `2022-11-08`
