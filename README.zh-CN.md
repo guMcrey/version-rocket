@@ -103,7 +103,7 @@ checkVersion({
 })
 
 // 如需终止版本检测时, 在销毁生命周期中, 调用 unCheckVersion 方法进行终止, 详情参见 API
-unCheckVersion()
+unCheckVersion({closeDialog: false})
  
 ```
 
@@ -515,11 +515,11 @@ sh "export messageJSON='{\"title\": \"This is a title\"}'"
 | options.buttonStyle | string | 弹窗按钮的 css 配置, 可以覆盖掉默认的按钮样式 | 无 | 否 |
 
 **unCheckVersion 方法**
-> 终止在调用 `checkerVersion` 后创建的 `worker` 进程
+> 终止在调用 `checkVersion` 后创建的 `worker` 进程
 
 | 参数 | 类型 | 描述 | 默认值 | 必需 |
 | --- | --- | --- | --- | --- |
-closeDialog | boolean | 是否关闭版本更新提示弹窗 | false | 否
+closeDialog | boolean | 是否关闭版本更新提示弹窗 | - | 是
 
 ## 测试
 

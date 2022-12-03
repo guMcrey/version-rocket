@@ -103,7 +103,7 @@ checkVersion({
 })
 
 // To terminate version detection, call the unCheckVersion method during the destruction life cycle. For details, see the API
-unCheckVersion()
+unCheckVersion({closeDialog: false})
  
 ```
 
@@ -522,11 +522,11 @@ sh "export messageJSON='{\"title\": \"This is a title\"}'"
 | options.buttonStyle | string | The CSS configuration of pop-up buttons can override the default button style | | No |
 
 **unCheckVersion Function**
-> Terminate the `worker` process created after calling `checkerVersion`
+> Terminate the `worker` process created after calling `checkVersion`
 
 | Params | Type | Description | Default | Required |
 | --- | --- | --- | --- | --- |
-closeDialog | boolean | Whether to close the version update prompt pop-up window | false | No
+closeDialog | boolean | Whether to close the version update prompt pop-up window | - | Yes
 
 ## Test
 
