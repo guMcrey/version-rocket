@@ -123,7 +123,11 @@ Step 2: after executing the `generate-version-file` custom command, generate the
   "version": "0.0.1",
   "scripts": {
     ...
+    // Mac or Linux system
     "generate:version": "VERSION=1.1.0-beta generate-version-file dist public"
+    // Windows system: install cross-env first
+    // npm install cross-env -D
+     "generate:version": "cross-env VERSION=1.1.0-beta generate-version-file dist public"
     ...
   },
   ...
@@ -232,7 +236,11 @@ Step 1:
   "version": "0.0.1",
   "scripts": {
     ...
+    // Mac or Linux system
     "send-lark-message:test": "MESSAGE_PATH=./lark-message-staging-config.json PACKAGE_JSON_PATH=./packages/test/package.json send-lark-message"
+    // Windows system: install cross-env first
+    // npm install cross-env -D
+    "send-lark-message:test": "cross-env MESSAGE_PATH=./lark-message-staging-config.json PACKAGE_JSON_PATH=./packages/test/package.json send-lark-message"
     ...
   },
   ...
@@ -299,7 +307,11 @@ If your card copy will be generated according to conditions, you can pass in `ME
   "version": "0.0.1",
   "scripts": {
     ...
+    // Mac or Linux system
     "send-lark-message:test": "MESSAGE_JSON='{\"title\":\"This is a dynamically generated title\",\"version\":\"1.1.0-beta\",\"accessUrl\":\"http://test.example.com\",\"isNotifyAll\":true}' send-lark-message"
+    // Windows system: install cross-env first
+    // npm install cross-env -D
+    "send-lark-message:test": "cross-env MESSAGE_JSON='{\"title\":\"This is a dynamically generated title\",\"version\":\"1.1.0-beta\",\"accessUrl\":\"http://test.example.com\",\"isNotifyAll\":true}' send-lark-message"
     ...
   },
   ...
@@ -326,7 +338,11 @@ sh "export messageJSON='{\"title\": \"This is a title\"}'"
   "version": "0.0.1",
   "scripts": {
     ...
+    // Mac or Linux system
     "send-lark-message:test": "MESSAGE_JSON=${messageJSON} send-lark-message"
+    // Windows system: install cross-env first
+    // npm install cross-env -D
+    "send-lark-message:test": "cross-env MESSAGE_JSON=${messageJSON} send-lark-message"
     ...
   },
   ...
@@ -377,7 +393,11 @@ Step 1:
   "version": "0.0.1",
   "scripts": {
     ...
+    // Mac or Linux system
     "send-wecom-message:test": "MESSAGE_PATH=./message-config.json PACKAGE_JSON_PATH=./packages/test/package.json send-wecom-message"
+    // Windows system: install cross-env first
+    // npm install cross-env -D
+    "send-wecom-message:test": "cross-env MESSAGE_PATH=./message-config.json PACKAGE_JSON_PATH=./packages/test/package.json send-wecom-message"
     ...
   },
   ...
@@ -443,7 +463,11 @@ If your card copy will be generated according to conditions, you can pass in `ME
   "version": "0.0.1",
   "scripts": {
     ...
+    // Mac or Linux system
     "send-wecom-message:test": "MESSAGE_JSON='{\"title\":\"This is a dynamically generated title\",\"version\":\"1.1.0-beta\",\"accessUrl\":\"http://test.example.com\",\"isNotifyAll\":true}' send-wecom-message"
+    // Windows system: install cross-env first
+    // npm install cross-env -D
+    "send-wecom-message:test": "cross-env MESSAGE_JSON='{\"title\":\"This is a dynamically generated title\",\"version\":\"1.1.0-beta\",\"accessUrl\":\"http://test.example.com\",\"isNotifyAll\":true}' send-wecom-message"
     ...
   },
   ...
@@ -467,7 +491,11 @@ sh "export messageJSON='{\"title\": \"This is a title\"}'"
   "version": "0.0.1",
   "scripts": {
     ...
+    // Mac or Linux system
     "send-wecom-message:test": "MESSAGE_JSON=${messageJSON} send-wecom-message"
+    // Windows system: install cross-env first
+    // npm install cross-env -D
+    "send-wecom-message:test": "cross-env MESSAGE_JSON=${messageJSON} send-wecom-message"
     ...
   },
   ...
