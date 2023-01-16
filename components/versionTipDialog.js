@@ -1,6 +1,7 @@
 import versionBg from './../assets/version-bg.png';
 import './version-tip-dialog.css';
 import { setVersionTipTheme } from './versionTipTheme';
+import { unCheckVersion } from '../index';
 const defaultParams = {
     title: 'Update',
     description: 'is available',
@@ -29,6 +30,10 @@ export const versionTipDialog = (params) => {
         : ''} ${params.buttonStyle || ''}"  class="refresh-button">
                   ${params.buttonText || defaultParams.buttonText}
                 </div>
+                ${params.cancelButtonText ?
+        `<div class="cancel-button">
+                    ${params.cancelButtonText}
+                  </div>` : ''}
             </div>
         </div>
    </div>`;
@@ -38,5 +43,25 @@ export const versionTipDialog = (params) => {
     const refreshBtnNode = document.querySelector('#version-rocket .refresh-button');
     refreshBtnNode.onclick = () => {
         window.location.reload();
+    };
+    const cancelBtnNode = document.querySelector('#version-rocket .cancel-button');
+    if (!cancelBtnNode)
+        return;
+    cancelBtnNode.onclick = () => {
+        const cancelMode = (params === null || params === void 0 ? void 0 : params.cancelMode) || 'ignore-current-version';
+        switch (cancelMode) {
+            case 'ignore-current-version':
+                localStorage.setItem('version-rocket:cancelled', params.newVersion);
+                break;
+            case 'ignore-today':
+                localStorage.setItem('version-rocket:cancelled', new Date().toLocaleDateString());
+                break;
+            case 'ignore-current-window':
+                sessionStorage.setItem('version-rocket:cancelled', 'true');
+                break;
+            default:
+                break;
+        }
+        unCheckVersion({ closeDialog: true, closeWorker: false });
     };
 };

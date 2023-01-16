@@ -1,6 +1,7 @@
 import versionBg from './../assets/version-bg.png'
 import './version-tip-dialog.css'
 import {setVersionTipTheme} from './versionTipTheme'
+import {unCheckVersion} from '../index'
 
 const defaultParams = {
   title: 'Update',
@@ -12,6 +13,8 @@ export const versionTipDialog = (params: {
   title?: string
   description?: string
   buttonText?: string
+  cancelButtonText?: string
+  cancelMode?: string
   imageUrl?: string
   rocketColor?: string
   primaryColor?: string
@@ -50,6 +53,12 @@ export const versionTipDialog = (params: {
                 } ${params.buttonStyle || ''}"  class="refresh-button">
                   ${params.buttonText || defaultParams.buttonText}
                 </div>
+                ${
+                  params.cancelButtonText ?
+                  `<div class="cancel-button">
+                    ${params.cancelButtonText}
+                  </div>` : ''
+                }
             </div>
         </div>
    </div>`
@@ -62,5 +71,29 @@ export const versionTipDialog = (params: {
   ) as HTMLElement
   refreshBtnNode.onclick = () => {
     window.location.reload()
+  }
+
+  const cancelBtnNode = document.querySelector(
+    '#version-rocket .cancel-button'
+  ) as HTMLElement
+  if (!cancelBtnNode) return
+
+  cancelBtnNode.onclick = () => {
+    const cancelMode = params?.cancelMode || 'ignore-current-version'
+    switch (cancelMode) {
+      case 'ignore-current-version':
+        localStorage.setItem('version-rocket:cancelled', params.newVersion)
+        break
+      case 'ignore-today':
+        localStorage.setItem('version-rocket:cancelled', new Date().toLocaleDateString())
+        break
+      case 'ignore-current-window':
+        sessionStorage.setItem('version-rocket:cancelled', 'true')
+        break
+      default:
+        break
+    }
+
+    unCheckVersion({closeDialog: true, closeWorker: false})
   }
 }

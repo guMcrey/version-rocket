@@ -546,6 +546,9 @@ sh "export messageJSON='{\"title\": \"This is a title\"}'"
 | options.title | string | Popup title | Update | No |
 | options.description | string | Popup description | V xxx is available | No |
 | options.buttonText | string | Popup button text | Refresh | No |
+| options.cancelButtonText | string | Text to close pop-up button (add this option, if you want the pop-up to be allowed to be close) **`V 1.5.0`** |  | No |
+| options.cancelMode | ignore-current-version / ignore-today / ignore-current-window | Close pop-up mode (It takes effect when cancelButtonText is set) **`V 1.5.0`** | ignore-current-version | No |
+| options.cancelUpdateAndStopWorker | boolean | When the popup is cancelled, the worker is also stopped (It takes effect when cancelButtonText is set) **`V 1.5.0`** | false | 否 |
 | options.imageUrl | string | Popup image |  | No |
 | options.rocketColor | string | The popup picture's theme color of the rocket, after setting Options.imageUrl is invalid | | No |
 | options.primaryColor | string | The theme color of the popup, it will affect the hint image background color and button background color, after setting imageUrl is invalid | | No |
@@ -556,7 +559,8 @@ sh "export messageJSON='{\"title\": \"This is a title\"}'"
 
 | Params | Type | Description | Default | Required |
 | --- | --- | --- | --- | --- |
-closeDialog | boolean | Whether to close the version update prompt pop-up window | - | Yes
+| closeDialog | boolean | Whether to close the version update prompt pop-up window | - | Yes |
+| closeWorker | boolean | Whether to close the worker | true | No |
 
 ## Test
 

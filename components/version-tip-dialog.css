@@ -53,6 +53,17 @@
   #version-rocket .refresh-button:hover {
     background-color: rgba(253,128,121,0.9);
   }
+  #version-rocket .cancel-button {
+    margin-top: 5px;
+    font-size: 12px;
+    font-weight: 500;
+    color: #888;
+    text-decoration: underline;
+    cursor: pointer;
+  }
+  #version-rocket .cancel-button:hover {
+    color: #999;
+  }
   @-moz-keyframes refreshAnimation {
     0% {
       transform: scale(0.9);

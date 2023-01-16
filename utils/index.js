@@ -36,3 +36,34 @@ export const createWorkerFunc = () => {
     };
     return temp;
 };
+// cancel update
+export const cancelUpdateFunc = (cancelMode, newVersion, cancelUpdateAndStopWorker, worker) => {
+    const cancelModeType = cancelMode || 'ignore-current-version';
+    const cancelModeTypeValue = localStorage.getItem('version-rocket:cancelled') || '';
+    const todayDate = new Date().toLocaleDateString() || '';
+    const cancelModeTypeValueInSession = sessionStorage.getItem('version-rocket:cancelled') || '';
+    const isStopWorker = cancelUpdateAndStopWorker || false;
+    switch (cancelModeType) {
+        case 'ignore-current-version':
+            if (cancelModeTypeValue === newVersion) {
+                isStopWorker && (worker === null || worker === void 0 ? void 0 : worker.terminate());
+                return true;
+            }
+            break;
+        case 'ignore-today':
+            if (cancelModeTypeValue === todayDate) {
+                isStopWorker && (worker === null || worker === void 0 ? void 0 : worker.terminate());
+                return true;
+            }
+            break;
+        case 'ignore-current-window':
+            if (cancelModeTypeValueInSession) {
+                isStopWorker && (worker === null || worker === void 0 ? void 0 : worker.terminate());
+                return true;
+            }
+            break;
+        default:
+            break;
+    }
+    return false;
+};

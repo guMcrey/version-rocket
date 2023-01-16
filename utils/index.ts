@@ -39,3 +39,44 @@ export const createWorkerFunc = () => {
   }
   return temp
 }
+
+// cancel update
+export const cancelUpdateFunc = (
+  cancelMode: string | undefined,
+  newVersion: string,
+  cancelUpdateAndStopWorker: boolean | undefined,
+  worker: Worker | undefined
+) => {
+  const cancelModeType = cancelMode || 'ignore-current-version'
+  const cancelModeTypeValue =
+    localStorage.getItem('version-rocket:cancelled') || ''
+  const todayDate = new Date().toLocaleDateString() || ''
+  const cancelModeTypeValueInSession =
+    sessionStorage.getItem('version-rocket:cancelled') || ''
+  const isStopWorker = cancelUpdateAndStopWorker || false
+
+  switch (cancelModeType) {
+    case 'ignore-current-version':
+      if (cancelModeTypeValue === newVersion) {
+        isStopWorker && worker?.terminate()
+        return true
+      }
+      break
+    case 'ignore-today':
+      if (cancelModeTypeValue === todayDate) {
+        isStopWorker && worker?.terminate()
+        return true
+      }
+      break
+    case 'ignore-current-window':
+      if (cancelModeTypeValueInSession) {
+        isStopWorker && worker?.terminate()
+        return true
+      }
+      break
+    default:
+      break
+  }
+
+  return false
+}

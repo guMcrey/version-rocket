@@ -18,6 +18,9 @@ export declare const checkVersion: (config: {
     title?: string;
     description?: string;
     buttonText?: string;
+    cancelButtonText?: string;
+    cancelMode?: string;
+    cancelUpdateAndStopWorker?: boolean;
     imageUrl?: string;
     rocketColor?: string;
     primaryColor?: string;
@@ -26,6 +29,7 @@ export declare const checkVersion: (config: {
 /**
  * destroy checkVersion
  */
-export declare const unCheckVersion: ({ closeDialog }: {
+export declare const unCheckVersion: ({ closeDialog, closeWorker }: {
     closeDialog?: boolean | undefined;
+    closeWorker?: boolean | undefined;
 }) => void;
