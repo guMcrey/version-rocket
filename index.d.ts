@@ -12,6 +12,7 @@ export declare const checkVersion: (config: {
     originVersionFileUrl: string;
     localPackageVersion: string;
     pollingTime?: number | undefined;
+    immediate?: boolean | undefined;
     onVersionUpdate?: ((event: any) => void) | undefined;
 }, options?: {
     title?: string;

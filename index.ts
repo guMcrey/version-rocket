@@ -63,6 +63,7 @@ export const checkVersion = (
     originVersionFileUrl: string
     localPackageVersion: string
     pollingTime?: number
+    immediate?: boolean
     onVersionUpdate?: (event: any) => void
   },
   options?: {
@@ -82,6 +83,7 @@ export const checkVersion = (
   worker.postMessage({
     'version-key': config.localPackageVersion,
     'polling-time': config.pollingTime || 5000,
+    'immediate': config.immediate || false,
     'origin-version-file-url': config.originVersionFileUrl,
   })
   worker.onmessage = (event: any) => {

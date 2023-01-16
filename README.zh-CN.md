@@ -100,6 +100,7 @@ import { version } from '../package.json'
 checkVersion({
   localPackageVersion: version,
   originVersionFileUrl: `${location.origin}/version.json`,
+  // 更多配置选项请参考 API
 })
 
 // 如需终止版本检测时, 在销毁生命周期中, 调用 unCheckVersion 方法进行终止, 详情参见 API
@@ -532,6 +533,7 @@ sh "export messageJSON='{\"title\": \"This is a title\"}'"
 | config.originVersionFileUrl | string |  远程服务器上的 version.json 文件路径 | 无 | 是 |
 | config.localPackageVersion | string | 当前应用版本号, 通常取 package.json 的 version 字段, 用于与远程服务器的 version.json 文件比较 | 无 | 是 |
 | config.pollingTime | number | 轮询监测的时间间隔, 单位 ms | 5000 | 否 |
+| config.immediate | boolean | 第一次访问时, 立即触发版本监测, 之后按自定义时间间隔轮询 **`V 1.5.0`** | false | 否 |
 | config.onVersionUpdate | function(data) | 自定义版本提示 UI 的回调函数 (如果你想自定义弹窗 UI, 通过回调函数可以拿到返回值来控制弹窗的显隐 ) | 无 | 否 |
 | options | object | 弹窗文案和主题的配置项 (不自定义弹窗 UI, 但有修改文案和主题的需求时使用) | 无 | 否 |
 | options.title | string | 弹窗的标题 | Update | 否 |

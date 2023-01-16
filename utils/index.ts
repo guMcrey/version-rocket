@@ -9,13 +9,16 @@ export const createWorker = (func: () => void) => {
 export const createWorkerFunc = () => {
   let oldVersion = ''
   let intervalTime = 5000
+  let immediate = false
   let originFileUrl = ''
   const temp: Worker = self as any
   temp.onmessage = (event: any) => {
     oldVersion = event.data['version-key']
     intervalTime = event.data['polling-time']
+    immediate = event.data['immediate']
     originFileUrl = event.data['origin-version-file-url']
-    setInterval(() => {
+
+    const doFetch = () => {
       fetch(`${originFileUrl}?${+new Date()}`)
         .then((res) => {
           return res.json()
@@ -27,7 +30,12 @@ export const createWorkerFunc = () => {
             })
           }
         })
-    }, intervalTime)
+    }
+
+    if (immediate) {
+      doFetch()
+    }
+    setInterval(doFetch, intervalTime)
   }
   return temp
 }

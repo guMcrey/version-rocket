@@ -100,6 +100,7 @@ import { version } from '../package.json'
 checkVersion({
   localPackageVersion: version,
   originVersionFileUrl: `${location.origin}/version.json`,
+  // Refer to API for more configuration options
 })
 
 // To terminate version detection, call the unCheckVersion method during the destruction life cycle. For details, see the API
@@ -539,6 +540,7 @@ sh "export messageJSON='{\"title\": \"This is a title\"}'"
 | config.originVersionFileUrl | string |  The path to the version.json file on the remote server | | Yes |
 | config.localPackageVersion | string | The version of the current application usually takes the version field of package.json for comparison with the version.json file of the remote server |  | Yes |
 | config.pollingTime | number | Time interval for polling monitoring, in ms | 5000 | No |
+| config.immediate | boolean | On the first visit, version monitoring will be triggered immediately, and then polling will be conducted at a customized time interval **`V 1.5.0`** | false | No |
 | config.onVersionUpdate | function(data) | Callback function for custom version hint UI (if you want to customize the popup UI, you can get the return value through the callback function to control the appearance of the popup) |  | No |
 | options | object | Configuration items for popup text and themes (not customize the popup UI, but use it if you need to modify the text and themes) | | No |
 | options.title | string | Popup title | Update | No |

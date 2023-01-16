@@ -55,6 +55,7 @@ export const checkVersion = (config, options) => {
     worker.postMessage({
         'version-key': config.localPackageVersion,
         'polling-time': config.pollingTime || 5000,
+        'immediate': config.immediate || false,
         'origin-version-file-url': config.originVersionFileUrl,
     });
     worker.onmessage = (event) => {
