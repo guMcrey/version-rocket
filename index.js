@@ -69,7 +69,6 @@ export const checkVersion = (config, options) => {
             return;
         localStorage.removeItem('version-rocket:cancelled');
         sessionStorage.removeItem('version-rocket:cancelled');
- 
         // custom version tip UI
         if (typeof config.onVersionUpdate === 'function') {
             config.onVersionUpdate(event.data);
@@ -77,6 +76,7 @@ export const checkVersion = (config, options) => {
         else {
             // default version tip ui
             const { title, description, buttonText, cancelButtonText, cancelMode, imageUrl, rocketColor, primaryColor, buttonStyle, } = options || {};
+            const { onRefresh, onCancel } = config || {};
             versionTipDialog({
                 title,
                 description,
@@ -88,6 +88,8 @@ export const checkVersion = (config, options) => {
                 primaryColor,
                 buttonStyle,
                 newVersion: event.data.refreshPageVersion,
+                onRefresh,
+                onCancel,
             });
         }
     };

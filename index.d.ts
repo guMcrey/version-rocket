@@ -14,6 +14,8 @@ export declare const checkVersion: (config: {
     pollingTime?: number | undefined;
     immediate?: boolean | undefined;
     onVersionUpdate?: ((event: any) => void) | undefined;
+    onRefresh?: ((event: any) => void) | undefined;
+    onCancel?: ((event: any) => void) | undefined;
 }, options?: {
     title?: string;
     description?: string;

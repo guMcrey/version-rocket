@@ -535,6 +535,8 @@ sh "export messageJSON='{\"title\": \"This is a title\"}'"
 | config.pollingTime | number | 轮询监测的时间间隔, 单位 ms | 5000 | 否 |
 | config.immediate | boolean | 第一次访问时, 立即触发版本监测, 之后按自定义时间间隔轮询 **`V 1.5.0`** | false | 否 |
 | config.onVersionUpdate | function(data) | 自定义版本提示 UI 的回调函数 (如果你想自定义弹窗 UI, 通过回调函数可以拿到返回值来控制弹窗的显隐 ) |  | 否 |
+| config.onRefresh | function(data) | 确认更新: 自定义 refresh 事件的回调函数, data 为最新版本号 |  | 否 |
+| config.onCancel | function(data) | 取消更新: 自定义 cancel 事件的回调函数, data 为最新版本号 |  | 否 |
 | options | object | 弹窗文案和主题的配置项 (不自定义弹窗 UI, 但有修改文案和主题的需求时使用) |  | 否 |
 | options.title | string | 弹窗的标题 | Update | 否 |
 | options.description | string | 弹窗的描述 | V xxx is available | 否 |

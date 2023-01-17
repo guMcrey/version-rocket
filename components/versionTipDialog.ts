@@ -20,6 +20,8 @@ export const versionTipDialog = (params: {
   primaryColor?: string
   buttonStyle?: string
   newVersion: string
+  onRefresh?: (event: any) => void
+  onCancel?: (event: any) => void
 }) => {
   const dialogElement = document.querySelector('#version-rocket')
   if (dialogElement) return
@@ -66,19 +68,31 @@ export const versionTipDialog = (params: {
   rootNode.innerHTML = template
   document.body.appendChild(rootNode)
 
+  // refresh
   const refreshBtnNode = document.querySelector(
     '#version-rocket .refresh-button'
   ) as HTMLElement
   refreshBtnNode.onclick = () => {
-    window.location.reload()
+    if (typeof params?.onRefresh === 'function') {
+      params.onRefresh({newVersion: params.newVersion})
+    } else {
+      window.location.reload()
+    }
   }
 
+
+  // cancel
   const cancelBtnNode = document.querySelector(
     '#version-rocket .cancel-button'
   ) as HTMLElement
   if (!cancelBtnNode) return
 
   cancelBtnNode.onclick = () => {
+    if (typeof params?.onCancel === 'function') {
+      params.onCancel({newVersion: params.newVersion})
+      return
+    }
+
     const cancelMode = params?.cancelMode || 'ignore-current-version'
     switch (cancelMode) {
       case 'ignore-current-version':

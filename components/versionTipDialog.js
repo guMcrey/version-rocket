@@ -40,14 +40,25 @@ export const versionTipDialog = (params) => {
     let rootNode = document.createElement('div');
     rootNode.innerHTML = template;
     document.body.appendChild(rootNode);
+    // refresh
     const refreshBtnNode = document.querySelector('#version-rocket .refresh-button');
     refreshBtnNode.onclick = () => {
-        window.location.reload();
+        if (typeof (params === null || params === void 0 ? void 0 : params.onRefresh) === 'function') {
+            params.onRefresh({ newVersion: params.newVersion });
+        }
+        else {
+            window.location.reload();
+        }
     };
+    // cancel
     const cancelBtnNode = document.querySelector('#version-rocket .cancel-button');
     if (!cancelBtnNode)
         return;
     cancelBtnNode.onclick = () => {
+        if (typeof (params === null || params === void 0 ? void 0 : params.onCancel) === 'function') {
+            params.onCancel({ newVersion: params.newVersion });
+            return;
+        }
         const cancelMode = (params === null || params === void 0 ? void 0 : params.cancelMode) || 'ignore-current-version';
         switch (cancelMode) {
             case 'ignore-current-version':

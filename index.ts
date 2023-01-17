@@ -68,6 +68,8 @@ export const checkVersion = (
     pollingTime?: number
     immediate?: boolean
     onVersionUpdate?: (event: any) => void
+    onRefresh?: (event: any) => void
+    onCancel?: (event: any) => void
   },
   options?: {
     title?: string
@@ -120,6 +122,7 @@ export const checkVersion = (
         primaryColor,
         buttonStyle,
       } = options || {}
+      const {onRefresh, onCancel} = config || {}
       versionTipDialog({
         title,
         description,
@@ -131,6 +134,8 @@ export const checkVersion = (
         primaryColor,
         buttonStyle,
         newVersion: event.data.refreshPageVersion,
+        onRefresh,
+        onCancel,
       })
     }
   }
