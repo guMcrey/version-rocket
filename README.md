@@ -542,8 +542,8 @@ sh "export messageJSON='{\"title\": \"This is a title\"}'"
 | config.pollingTime | number | Time interval for polling monitoring, in ms | 5000 | No |
 | config.immediate | boolean | On the first visit, version monitoring will be triggered immediately, and then polling will be conducted at a customized time interval **`V 1.5.0`** | false | No |
 | config.onVersionUpdate | function(data) | Callback function for custom version hint UI (if you want to customize the popup UI, you can get the return value through the callback function to control the appearance of the popup) |  | No |
-| config.onRefresh | function(data) | Confirm update: the callback function of the custom refresh event, where data is the latest version |  | No |
-| config.onCancel | function(data) | Cancel update: the callback function of the custom cancel event, where data is the latest version |  | No |
+| config.onRefresh | function(data) | Confirm update: the callback function of the custom refresh event, where data is the latest version **`V 1.5.0`** |  | No |
+| config.onCancel | function(data) | Cancel update: the callback function of the custom cancel event, where data is the latest version **`V 1.5.0`** |  | No |
 | options | object | Configuration items for popup text and themes (not customize the popup UI, but use it if you need to modify the text and themes) | | No |
 | options.title | string | Popup title | Update | No |
 | options.description | string | Popup description | V xxx is available | No |
