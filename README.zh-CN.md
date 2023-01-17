@@ -100,6 +100,7 @@ import { version } from '../package.json'
 checkVersion({
   localPackageVersion: version,
   originVersionFileUrl: `${location.origin}/version.json`,
+  // 更多配置选项请参考 API
 })
 
 // 如需终止版本检测时, 在销毁生命周期中, 调用 unCheckVersion 方法进行终止, 详情参见 API
@@ -528,26 +529,33 @@ sh "export messageJSON='{\"title\": \"This is a title\"}'"
 
 | 参数 | 类型 | 描述 | 默认值 | 必需 |
 | --- | --- | --- | --- | --- |
-| config | object | 版本监测配置项 | 无 | 是 |
-| config.originVersionFileUrl | string |  远程服务器上的 version.json 文件路径 | 无 | 是 |
-| config.localPackageVersion | string | 当前应用版本号, 通常取 package.json 的 version 字段, 用于与远程服务器的 version.json 文件比较 | 无 | 是 |
+| config | object | 版本监测配置项 |  | 是 |
+| config.originVersionFileUrl | string |  远程服务器上的 version.json 文件路径 |  | 是 |
+| config.localPackageVersion | string | 当前应用版本号, 通常取 package.json 的 version 字段, 用于与远程服务器的 version.json 文件比较 |  | 是 |
 | config.pollingTime | number | 轮询监测的时间间隔, 单位 ms | 5000 | 否 |
-| config.onVersionUpdate | function(data) | 自定义版本提示 UI 的回调函数 (如果你想自定义弹窗 UI, 通过回调函数可以拿到返回值来控制弹窗的显隐 ) | 无 | 否 |
-| options | object | 弹窗文案和主题的配置项 (不自定义弹窗 UI, 但有修改文案和主题的需求时使用) | 无 | 否 |
+| config.immediate | boolean | 第一次访问时, 立即触发版本监测, 之后按自定义时间间隔轮询 **`V 1.5.0`** | false | 否 |
+| config.onVersionUpdate | function(data) | 自定义版本提示 UI 的回调函数 (如果你想自定义弹窗 UI, 通过回调函数可以拿到返回值来控制弹窗的显隐 ) |  | 否 |
+| config.onRefresh | function(data) | 确认更新: 自定义 refresh 事件的回调函数, data 为最新版本号 |  | 否 |
+| config.onCancel | function(data) | 取消更新: 自定义 cancel 事件的回调函数, data 为最新版本号 |  | 否 |
+| options | object | 弹窗文案和主题的配置项 (不自定义弹窗 UI, 但有修改文案和主题的需求时使用) |  | 否 |
 | options.title | string | 弹窗的标题 | Update | 否 |
 | options.description | string | 弹窗的描述 | V xxx is available | 否 |
 | options.buttonText | string | 弹窗按钮的文案 | Refresh | 否 |
+| options.cancelButtonText | string | 关闭弹窗按钮的文案 (如果你希望弹窗允许被关闭, 请添加此选项) **`V 1.5.0`** |  | 否 |
+| options.cancelMode | ignore-current-version (当前版本不再提示) / ignore-today (今天不再提示) / ignore-current-window (当前窗口不再提示) | 关闭弹窗的模式 (当 cancelButtonText 设置后生效) **`V 1.5.0`** | ignore-current-version | 否 |
+| options.cancelUpdateAndStopWorker | boolean | 关闭弹窗时, 也关闭 worker (当 cancelButtonText 设置后生效) **`V 1.5.0`** | false | 否 |
 | options.imageUrl | string | 弹窗的提示图片 |  | 否 |
-| options.rocketColor | string | 弹窗提示图片中火箭的主题色, 设置后 options.imageUrl 无效 | | 否 |
+| options.rocketColor | string | 弹窗提示图片中火箭的主题色, 设置后 options.imageUrl 无效 |  | 否 |
 | options.primaryColor | string | 弹窗的主题色, 会作用到提示图片背景色和按钮背景色, 设置后 imageUrl 无效 | | 否 |
-| options.buttonStyle | string | 弹窗按钮的 css 配置, 可以覆盖掉默认的按钮样式 | 无 | 否 |
+| options.buttonStyle | string | 弹窗按钮的 css 配置, 可以覆盖掉默认的按钮样式 |  | 否 |
 
 **unCheckVersion 方法**
 > 终止在调用 `checkVersion` 后创建的 `worker` 进程
 
 | 参数 | 类型 | 描述 | 默认值 | 必需 |
 | --- | --- | --- | --- | --- |
-closeDialog | boolean | 是否关闭版本更新提示弹窗 | - | 是
+| closeDialog | boolean | 是否关闭版本更新提示弹窗 | false | 是 |
+| closeWorker | boolean | 是否停止 worker 轮询 | true | 否 |
 
 ## 测试
 

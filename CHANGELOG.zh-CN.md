@@ -6,6 +6,16 @@
 
 ---
 
+## 1.5.0
+
+`2023-01-17`
+
+[#15](https://github.com/guMcrey/version-rocket/issues/15)
+- 🆕 checkVersion 方法新增 immediate, 以支持首页访问时, 立即触发版本监测, 之后按自定义的较长时间间隔轮询 (减少请求服务器次数)
+- 🆕 新增版本监测弹窗允许关闭功能: cancelButtonText 用于自定义按钮文案; cancelMode 枚举取消更新后, 下一次更新的频率; cancelUpdateAndStopWorker 用于设置是否在取消更新时同时关闭 worker
+- 🆕 新增版本监测回调函数: onRefresh 用于确认刷新后的回调; onCancel 用于取消刷新后的回调
+- 💄 更新 README.md 和 README.zh-CN.md 文档 API 部分
+
 ## 1.4.0
 
 `2022-12-03`

@@ -100,6 +100,7 @@ import { version } from '../package.json'
 checkVersion({
   localPackageVersion: version,
   originVersionFileUrl: `${location.origin}/version.json`,
+  // Refer to API for more configuration options
 })
 
 // To terminate version detection, call the unCheckVersion method during the destruction life cycle. For details, see the API
@@ -539,11 +540,17 @@ sh "export messageJSON='{\"title\": \"This is a title\"}'"
 | config.originVersionFileUrl | string |  The path to the version.json file on the remote server | | Yes |
 | config.localPackageVersion | string | The version of the current application usually takes the version field of package.json for comparison with the version.json file of the remote server |  | Yes |
 | config.pollingTime | number | Time interval for polling monitoring, in ms | 5000 | No |
+| config.immediate | boolean | On the first visit, version monitoring will be triggered immediately, and then polling will be conducted at a customized time interval **`V 1.5.0`** | false | No |
 | config.onVersionUpdate | function(data) | Callback function for custom version hint UI (if you want to customize the popup UI, you can get the return value through the callback function to control the appearance of the popup) |  | No |
+| config.onRefresh | function(data) | Confirm update: the callback function of the custom refresh event, where data is the latest version |  | No |
+| config.onCancel | function(data) | Cancel update: the callback function of the custom cancel event, where data is the latest version |  | No |
 | options | object | Configuration items for popup text and themes (not customize the popup UI, but use it if you need to modify the text and themes) | | No |
 | options.title | string | Popup title | Update | No |
 | options.description | string | Popup description | V xxx is available | No |
 | options.buttonText | string | Popup button text | Refresh | No |
+| options.cancelButtonText | string | Text to close pop-up button (add this option, if you want the pop-up to be allowed to be close) **`V 1.5.0`** |  | No |
+| options.cancelMode | ignore-current-version / ignore-today / ignore-current-window | Close pop-up mode (It takes effect when cancelButtonText is set) **`V 1.5.0`** | ignore-current-version | No |
+| options.cancelUpdateAndStopWorker | boolean | When the popup is cancelled, the worker is also stopped (It takes effect when cancelButtonText is set) **`V 1.5.0`** | false | 否 |
 | options.imageUrl | string | Popup image |  | No |
 | options.rocketColor | string | The popup picture's theme color of the rocket, after setting Options.imageUrl is invalid | | No |
 | options.primaryColor | string | The theme color of the popup, it will affect the hint image background color and button background color, after setting imageUrl is invalid | | No |
@@ -554,7 +561,8 @@ sh "export messageJSON='{\"title\": \"This is a title\"}'"
 
 | Params | Type | Description | Default | Required |
 | --- | --- | --- | --- | --- |
-closeDialog | boolean | Whether to close the version update prompt pop-up window | - | Yes
+| closeDialog | boolean | Whether to close the version update prompt pop-up window | - | Yes |
+| closeWorker | boolean | Whether to close the worker | true | No |
 
 ## Test
 

@@ -1,5 +1,5 @@
 import {versionTipDialog} from './components/versionTipDialog'
-import {createWorker, createWorkerFunc} from './utils/index'
+import {createWorker, createWorkerFunc, cancelUpdateFunc} from './utils/index'
 
 /**
  * Polling monitoring version update (No longer maintain)
@@ -48,6 +48,9 @@ export const pollingCompareVersion = (
  * @param {string} [options.title = 'Update'] popup title (Optional)
  * @param {string} [options.description = 'V xxx is available'] popup description (Optional)
  * @param {string} [options.buttonText = 'Refresh'] popup button text (Optional)
+ * @param {string} [options.cancelButtonText] close popup button text (Optional)
+ * @param {string} [options.cancelMode = 'ignore-current-version'] close popup button mode
+ * @param {string} [options.cancelUpdateAndStopWorker = false] close popup and stop worker
  * @param {string} options.imageUrl custom popup image address (Optional)
  * @param {string} options.rocketColor custom popup rocket color in the picture (Optional)
  * @param {string} options.primaryColor custom popup primary color, act on image background color and button background color (Optional)
@@ -63,12 +66,18 @@ export const checkVersion = (
     originVersionFileUrl: string
     localPackageVersion: string
     pollingTime?: number
+    immediate?: boolean
     onVersionUpdate?: (event: any) => void
+    onRefresh?: (event: any) => void
+    onCancel?: (event: any) => void
   },
   options?: {
     title?: string
     description?: string
     buttonText?: string
+    cancelButtonText?: string
+    cancelMode?: string
+    cancelUpdateAndStopWorker?: boolean
     imageUrl?: string
     rocketColor?: string
     primaryColor?: string
@@ -82,9 +91,21 @@ export const checkVersion = (
   worker.postMessage({
     'version-key': config.localPackageVersion,
     'polling-time': config.pollingTime || 5000,
+    immediate: config.immediate || false,
     'origin-version-file-url': config.originVersionFileUrl,
   })
   worker.onmessage = (event: any) => {
+    // cancelMode
+    const cancelUpdateLock = cancelUpdateFunc(
+      options?.cancelMode,
+      event.data?.refreshPageVersion,
+      options?.cancelUpdateAndStopWorker,
+      worker
+    )
+    if (cancelUpdateLock) return
+    localStorage.removeItem('version-rocket:cancelled')
+    sessionStorage.removeItem('version-rocket:cancelled')
+
     // custom version tip UI
     if (typeof config.onVersionUpdate === 'function') {
       config.onVersionUpdate(event.data)
@@ -94,20 +115,27 @@ export const checkVersion = (
         title,
         description,
         buttonText,
+        cancelButtonText,
+        cancelMode,
         imageUrl,
         rocketColor,
         primaryColor,
         buttonStyle,
       } = options || {}
+      const {onRefresh, onCancel} = config || {}
       versionTipDialog({
         title,
         description,
         buttonText,
+        cancelButtonText,
+        cancelMode,
         imageUrl,
         rocketColor,
         primaryColor,
         buttonStyle,
         newVersion: event.data.refreshPageVersion,
+        onRefresh,
+        onCancel,
       })
     }
   }
@@ -117,8 +145,10 @@ export const checkVersion = (
  * destroy checkVersion
  */
 
-export const unCheckVersion = ({closeDialog = false}) => {
-  worker?.terminate()
+export const unCheckVersion = ({closeDialog = false, closeWorker = true}) => {
+  if (closeWorker) {
+    worker?.terminate()
+  }
   if (closeDialog) {
     const dialogElement = document.querySelector('#version-rocket')
     const dialogElementParent = dialogElement?.parentElement

@@ -6,6 +6,16 @@
 
 ---
 
+## 1.5.0
+
+`2023-01-17`
+
+[#15](https://github.com/guMcrey/version-rocket/issues/15)
+- 🆕 the checkVersion method adds immediate to support immediate version monitoring when visiting the home page, and then polling at custom longer intervals (reducing the number of requests to the server)
+- 🆕 new version monitoring pop-up window allows closing function: cancelButtonText is used to customize button text; CancelMode enumerates the frequency of the next update after canceling the update; CancelUpdateAndStopWorker is used to set whether to close the worker at the same time when canceling the update
+- 🆕 new callback functions for version monitoring: onRefresh for confirming refresh; onCancel for canceling the callback after refresh
+- 💄 update README.md and README.zh-CN.md API
+
 ## 1.4.0
 
 `2022-12-03`
