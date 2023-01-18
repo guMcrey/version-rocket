@@ -50,9 +50,12 @@ export const mockFetch = () => {
 
 export const mockDateToLocaleDateString = () => {
   global.window = Object.create(window)
-  Object.defineProperty(window, 'Date()', {
-    value: {
-      toLocaleDateString: () => '2023/1/18',
-    },
+  class MyDate {
+    toLocaleDateString() {
+      return '2023/1/18'
+    }
+  }
+  Object.defineProperty(window, 'Date', {
+    value: MyDate,
   })
 }
