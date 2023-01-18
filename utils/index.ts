@@ -51,6 +51,8 @@ export const cancelUpdateFunc = (
   const cancelModeTypeValue =
     localStorage.getItem('version-rocket:cancelled') || ''
   const todayDate = new Date().toLocaleDateString()
+
+  console.log('test', todayDate)
   const cancelModeTypeValueInSession =
     sessionStorage.getItem('version-rocket:cancelled') || ''
   const isStopWorker = cancelUpdateAndStopWorker || false
