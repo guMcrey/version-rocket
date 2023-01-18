@@ -19,6 +19,9 @@ export const mockWorker = () => {
     postMessage(msg: string) {
       this.onmessage(msg)
     }
+    terminate() {
+      console.log('stop')
+    }
   }
 
   global.window = Object.create(window)
@@ -43,4 +46,13 @@ export const mockFetch = () => {
       })
     })
   }
+}
+
+export const mockDateToLocaleDateString = () => {
+  global.window = Object.create(window)
+  Object.defineProperty(window, 'Date()', {
+    value: {
+      toLocaleDateString: () => '2023/1/18',
+    },
+  })
 }

@@ -45,12 +45,12 @@ export const cancelUpdateFunc = (
   cancelMode: string | undefined,
   newVersion: string,
   cancelUpdateAndStopWorker: boolean | undefined,
-  worker: Worker | undefined
+  worker: Worker | undefined,
 ) => {
   const cancelModeType = cancelMode || 'ignore-current-version'
   const cancelModeTypeValue =
     localStorage.getItem('version-rocket:cancelled') || ''
-  const todayDate = new Date().toLocaleDateString() || ''
+  const todayDate = new Date().toLocaleDateString()
   const cancelModeTypeValueInSession =
     sessionStorage.getItem('version-rocket:cancelled') || ''
   const isStopWorker = cancelUpdateAndStopWorker || false

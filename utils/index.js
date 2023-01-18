@@ -40,7 +40,7 @@ export const createWorkerFunc = () => {
 export const cancelUpdateFunc = (cancelMode, newVersion, cancelUpdateAndStopWorker, worker) => {
     const cancelModeType = cancelMode || 'ignore-current-version';
     const cancelModeTypeValue = localStorage.getItem('version-rocket:cancelled') || '';
-    const todayDate = new Date().toLocaleDateString() || '';
+    const todayDate = new Date().toLocaleDateString();
     const cancelModeTypeValueInSession = sessionStorage.getItem('version-rocket:cancelled') || '';
     const isStopWorker = cancelUpdateAndStopWorker || false;
     switch (cancelModeType) {
