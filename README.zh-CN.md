@@ -32,6 +32,7 @@
 - [测试](#测试)
 - [相关链接](#相关链接)
 - [许可证](#许可证)
+- [其他有趣的开源项目](#其他有趣的开源项目)
 
 ---
 
@@ -572,5 +573,12 @@ npm run test
 
 version-rocket 是开源软件, 许可证为 [Apache License 2.0](./LICENSE.md)
 
+## 其他有趣的开源项目
+
+**[web-authn-completed-app](https://github.com/guMcrey/web-authn-completed-app)**
+
+💻 [在线体验](https://web-authn.x-dev.club)
+
+> 一个基于 WebAuthn API 实现的完整应用, 它允许**网站使用浏览器/系统内置的认证器**（如 Apple TouchID 和 Windows Hello 或移动设备的生物识别传感器）对用户进行**身份认证**. 它将会**代替密码**, 是在线身份认证的未来.
 
 

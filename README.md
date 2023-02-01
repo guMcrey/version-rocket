@@ -32,6 +32,7 @@ English | [简体中文](./README.zh-CN.md)
 - [Test](#test)
 - [Links](#links)
 - [License](#license)
+- [Other interesting open source projects](#other-interesting-open-source-projects)
 
 ---
 
@@ -578,7 +579,11 @@ npm run test
 
 version-rocket is open source software with [Apache License 2.0](./LICENSE.md)
 
+## Other interesting open source projects
 
+**[web-authn-completed-app](https://github.com/guMcrey/web-authn-completed-app)**
 
+💻 [Online preview](https://web-authn.x-dev.club)
 
+> A complete application based on WebAuthn API, which allows **websites to authenticate users with the built-in authenticator** in the browser/system (such as Apple TouchID and Windows Hello or biometric sensor of mobile devices). It will **replace passwords**, which is the future of online authentication.
 
