@@ -1,6 +1,6 @@
 {
   "name": "version-rocket",
-  "version": "1.5.0",
+  "version": "1.6.0",
   "description": "Tools to check version monitoring (updates) for web application. web 应用版本监测(更新)工具",
   "main": "index.js",
   "scripts": {

@@ -25,6 +25,7 @@ export const createWorkerFunc = () => {
                 if (oldVersion !== versionJsonFile.version) {
                     temp.postMessage({
                         refreshPageVersion: `${versionJsonFile.version}`,
+                        external: versionJsonFile.external,
                     });
                 }
             });

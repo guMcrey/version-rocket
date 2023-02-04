@@ -6,6 +6,14 @@
 
 ---
 
+## 1.6.0
+
+`2023-02-04`
+
+[#22](https://github.com/guMcrey/version-rocket/issues/22)
+- 🆕 generate-version-file add EXTERNAL env，can be used to display richer content when customizing the popup UI. Such as current version updates or other information
+- 💄 update README.md and README.zh-CN.md
+
 ## 1.5.0
 
 `2023-01-17`
