@@ -112,6 +112,7 @@ unCheckVersion({closeDialog: false})
 第二步: 执行 `generate-version-file` 自定义命令后，在 dist 目录生成 `version.json` 文件, 用于部署到远程服务器
 - `VERSION` (参数可选): 需要**自定义 version** 时传入, 默认取 package.json 的 version 字段
 - 文件输出目录 (参数可选): 需要**自定义 version.json 输出目录**时传入, 默认为 dist 目录
+- `EXTERNAL` (参数可选)：希望将更多信息存到 `version.json` 中时传入，如当前版本的修改内容或其他需要展示在提示弹窗上时 （用于 onVersionUpdate 自定义 UI 时）`v1.6.0`
 
 ```javascript
 // package.json
@@ -128,6 +129,35 @@ unCheckVersion({closeDialog: false})
     // Windows 系统先安装 cross-env
     // npm install cross-env -D
     "generate:version": "cross-env VERSION=1.1.0-beta generate-version-file dist public"
+    ...
+  },
+  ...
+}
+
+```
+
+**EXTERNAL 环境变量设置方式** `v1.6.0`
+
+JSON 格式可以通过 [这里](https://codebeautify.org/json-encode-online) 转义后再使用
+
+```javascript
+// package.json
+
+{
+  "name": "test",
+  "description": "test",
+  "private": true,
+  "version": "0.0.1",
+  "scripts": {
+    ...
+    // Mac 或 Linux 系统 （简单文本）
+    "generate:version": "EXTERNAL='some text' generate-version-file dist public"
+    // Mac 或 Linux 系统 （JSON 文本）
+    "generate:version": "EXTERNAL='{\"update\":\"fix bugs\",\"content\":\"some tips\"}' generate-version-file dist public"
+    // Windows 系统 (简单文本)
+    "generate:version": "set EXTERNAL=some text && generate-version-file dist public"
+    // Windows 系统 (JSON 文本)
+    "generate:version": "set EXTERNAL={\"update\":\"fix bugs\",\"content\":\"some tips\"} && generate-version-file dist public"
     ...
   },
   ...
@@ -310,9 +340,8 @@ checkVersion(
     ...
     // Mac 或 Linux 系统
     "send-lark-message:test": "MESSAGE_JSON='{\"title\":\"This is a dynamically generated title\",\"version\":\"1.1.0-beta\",\"accessUrl\":\"http://test.example.com\",\"isNotifyAll\":true}' send-lark-message"
-    // Windows 系统先安装 cross-env
-    // npm install cross-env -D
-    "send-lark-message:test": "cross-env MESSAGE_JSON='{\"title\":\"This is a dynamically generated title\",\"version\":\"1.1.0-beta\",\"accessUrl\":\"http://test.example.com\",\"isNotifyAll\":true}' send-lark-message"
+    // Windows 系统
+    "send-lark-message:test": "set MESSAGE_JSON={\"title\":\"This is a dynamically generated title\",\"version\":\"1.1.0-beta\",\"accessUrl\":\"http://test.example.com\",\"isNotifyAll\":true} && send-lark-message"
     ...
   },
   ...
@@ -320,7 +349,7 @@ checkVersion(
 
 ```
 
-或 export 变量后, 在 package.json 中引用
+或 export 变量后, 在 package.json 中引用 (不支持 Windows)
 
 ```javascript
 
@@ -339,11 +368,7 @@ sh "export messageJSON='{\"title\": \"This is a title\"}'"
   "version": "0.0.1",
   "scripts": {
     ...
-    // Mac 或 Linux 系统
     "send-lark-message:test": "MESSAGE_JSON=${messageJSON} send-lark-message"
-    // Windows 系统先安装 cross-env
-    // npm install cross-env -D
-    "send-lark-message:test": "cross-env MESSAGE_JSON=${messageJSON} send-lark-message"
     ...
   },
   ...
@@ -462,16 +487,15 @@ sh "export messageJSON='{\"title\": \"This is a title\"}'"
     ...
     // Mac 或 Linux 系统
     "send-wecom-message:test": "MESSAGE_JSON='{\"title\":\"This is a dynamically generated title\",\"version\":\"1.1.0-beta\",\"accessUrl\":\"http://test.example.com\",\"isNotifyAll\":true}' send-wecom-message"
-    // Windows 系统先安装 cross-env
-    // npm install cross-env -D
-    "send-wecom-message:test": "cross-env MESSAGE_JSON='{\"title\":\"This is a dynamically generated title\",\"version\":\"1.1.0-beta\",\"accessUrl\":\"http://test.example.com\",\"isNotifyAll\":true}' send-wecom-message"
+    // Windows 系统
+    "send-wecom-message:test": "set MESSAGE_JSON={\"title\":\"This is a dynamically generated title\",\"version\":\"1.1.0-beta\",\"accessUrl\":\"http://test.example.com\",\"isNotifyAll\":true} && send-wecom-message"
     ...
   },
   ...
 }
 ```
 
-或 export 变量后, 在 `package.json` 中引用
+或 export 变量后, 在 `package.json` 中引用 (不支持 Windows)
 
 ```javascript
 
@@ -488,11 +512,7 @@ sh "export messageJSON='{\"title\": \"This is a title\"}'"
   "version": "0.0.1",
   "scripts": {
     ...
-    // Mac 或 Linux 系统
     "send-wecom-message:test": "MESSAGE_JSON=${messageJSON} send-wecom-message"
-    // Windows 系统先安装 cross-env
-    // npm install cross-env -D
-    "send-wecom-message:test": "cross-env MESSAGE_JSON=${messageJSON} send-wecom-message"
     ...
   },
   ...
@@ -534,17 +554,17 @@ sh "export messageJSON='{\"title\": \"This is a title\"}'"
 | config.originVersionFileUrl | string |  远程服务器上的 version.json 文件路径 |  | 是 |
 | config.localPackageVersion | string | 当前应用版本号, 通常取 package.json 的 version 字段, 用于与远程服务器的 version.json 文件比较 |  | 是 |
 | config.pollingTime | number | 轮询监测的时间间隔, 单位 ms | 5000 | 否 |
-| config.immediate | boolean | 第一次访问时, 立即触发版本监测, 之后按自定义时间间隔轮询 **`V 1.5.0`** | false | 否 |
+| config.immediate | boolean | 第一次访问时, 立即触发版本监测, 之后按自定义时间间隔轮询 **`v1.5.0`** | false | 否 |
 | config.onVersionUpdate | function(data) | 自定义版本提示 UI 的回调函数 (如果你想自定义弹窗 UI, 通过回调函数可以拿到返回值来控制弹窗的显隐 ) |  | 否 |
-| config.onRefresh | function(data) | 确认更新: 自定义 refresh 事件的回调函数, data 为最新版本号 **`V 1.5.0`** |  | 否 |
-| config.onCancel | function(data) | 取消更新: 自定义 cancel 事件的回调函数, data 为最新版本号 **`V 1.5.0`** |  | 否 |
+| config.onRefresh | function(data) | 确认更新: 自定义 refresh 事件的回调函数, data 为最新版本号 **`v1.5.0`** |  | 否 |
+| config.onCancel | function(data) | 取消更新: 自定义 cancel 事件的回调函数, data 为最新版本号 **`v1.5.0`** |  | 否 |
 | options | object | 弹窗文案和主题的配置项 (不自定义弹窗 UI, 但有修改文案和主题的需求时使用) |  | 否 |
 | options.title | string | 弹窗的标题 | Update | 否 |
 | options.description | string | 弹窗的描述 | V xxx is available | 否 |
 | options.buttonText | string | 弹窗按钮的文案 | Refresh | 否 |
-| options.cancelButtonText | string | 关闭弹窗按钮的文案 (如果你希望弹窗允许被关闭, 请添加此选项) **`V 1.5.0`** |  | 否 |
-| options.cancelMode | ignore-current-version (当前版本不再提示) / ignore-today (今天不再提示) / ignore-current-window (当前窗口不再提示) | 关闭弹窗的模式 (当 cancelButtonText 设置后生效) **`V 1.5.0`** | ignore-current-version | 否 |
-| options.cancelUpdateAndStopWorker | boolean | 关闭弹窗时, 也关闭 worker (当 cancelButtonText 设置后生效) **`V 1.5.0`** | false | 否 |
+| options.cancelButtonText | string | 关闭弹窗按钮的文案 (如果你希望弹窗允许被关闭, 请添加此选项) **`v1.5.0`** |  | 否 |
+| options.cancelMode | ignore-current-version (当前版本不再提示) / ignore-today (今天不再提示) / ignore-current-window (当前窗口不再提示) | 关闭弹窗的模式 (当 cancelButtonText 设置后生效) **`v1.5.0`** | ignore-current-version | 否 |
+| options.cancelUpdateAndStopWorker | boolean | 关闭弹窗时, 也关闭 worker (当 cancelButtonText 设置后生效) **`v1.5.0`** | false | 否 |
 | options.imageUrl | string | 弹窗的提示图片 |  | 否 |
 | options.rocketColor | string | 弹窗提示图片中火箭的主题色, 设置后 options.imageUrl 无效 |  | 否 |
 | options.primaryColor | string | 弹窗的主题色, 会作用到提示图片背景色和按钮背景色, 设置后 imageUrl 无效 | | 否 |

@@ -115,6 +115,8 @@ Step 2: after executing the `generate-version-file` custom command, generate the
 
 - File output directory (optional): **user defined version.json output directory**, which is the dist directory by default
 
+- `EXTERNAL` (optional): when you want to save more information to `version.json`, such as the modified content of the current version or other things that need to be displayed on the pop-up (used in onVersionUpdate custom UI) `v1.6.0`
+
 ```javascript
 // package.json
 
@@ -130,6 +132,35 @@ Step 2: after executing the `generate-version-file` custom command, generate the
     // Windows system: install cross-env first
     // npm install cross-env -D
      "generate:version": "cross-env VERSION=1.1.0-beta generate-version-file dist public"
+    ...
+  },
+  ...
+}
+
+```
+
+**EXTERNAL usage** `v1.6.0`
+
+JSON format please use this tool to escape [click here](https://codebeautify.org/json-encode-online)
+
+```javascript
+// package.json
+
+{
+  "name": "test",
+  "description": "test",
+  "private": true,
+  "version": "0.0.1",
+  "scripts": {
+    ...
+    // Mac or Linux (simple text)
+    "generate:version": "EXTERNAL='some text' generate-version-file dist public"
+    // Mac or Linux (JSON text)
+    "generate:version": "EXTERNAL='{\"update\":\"fix bugs\",\"content\":\"some tips\"}' generate-version-file dist public"
+    // Windows (simple text)
+    "generate:version": "set EXTERNAL=some text && generate-version-file dist public"
+    // Windows (JSON text)
+    "generate:version": "set EXTERNAL={\"update\":\"fix bugs\",\"content\":\"some tips\"} && generate-version-file dist public"
     ...
   },
   ...
@@ -311,9 +342,8 @@ If your card copy will be generated according to conditions, you can pass in `ME
     ...
     // Mac or Linux system
     "send-lark-message:test": "MESSAGE_JSON='{\"title\":\"This is a dynamically generated title\",\"version\":\"1.1.0-beta\",\"accessUrl\":\"http://test.example.com\",\"isNotifyAll\":true}' send-lark-message"
-    // Windows system: install cross-env first
-    // npm install cross-env -D
-    "send-lark-message:test": "cross-env MESSAGE_JSON='{\"title\":\"This is a dynamically generated title\",\"version\":\"1.1.0-beta\",\"accessUrl\":\"http://test.example.com\",\"isNotifyAll\":true}' send-lark-message"
+    // Windows system
+    "send-lark-message:test": "set MESSAGE_JSON={\"title\":\"This is a dynamically generated title\",\"version\":\"1.1.0-beta\",\"accessUrl\":\"http://test.example.com\",\"isNotifyAll\":true} && send-lark-message"
     ...
   },
   ...
@@ -321,7 +351,7 @@ If your card copy will be generated according to conditions, you can pass in `ME
 
 ```
 
-Or after export variables, quote in package.json
+Or after export variables, quote in package.json (not support Windows)
 
 ```javascript
 
@@ -340,11 +370,7 @@ sh "export messageJSON='{\"title\": \"This is a title\"}'"
   "version": "0.0.1",
   "scripts": {
     ...
-    // Mac or Linux system
     "send-lark-message:test": "MESSAGE_JSON=${messageJSON} send-lark-message"
-    // Windows system: install cross-env first
-    // npm install cross-env -D
-    "send-lark-message:test": "cross-env MESSAGE_JSON=${messageJSON} send-lark-message"
     ...
   },
   ...
@@ -467,16 +493,15 @@ If your card copy will be generated according to conditions, you can pass in `ME
     ...
     // Mac or Linux system
     "send-wecom-message:test": "MESSAGE_JSON='{\"title\":\"This is a dynamically generated title\",\"version\":\"1.1.0-beta\",\"accessUrl\":\"http://test.example.com\",\"isNotifyAll\":true}' send-wecom-message"
-    // Windows system: install cross-env first
-    // npm install cross-env -D
-    "send-wecom-message:test": "cross-env MESSAGE_JSON='{\"title\":\"This is a dynamically generated title\",\"version\":\"1.1.0-beta\",\"accessUrl\":\"http://test.example.com\",\"isNotifyAll\":true}' send-wecom-message"
+    // Windows system
+    "send-wecom-message:test": "set MESSAGE_JSON={\"title\":\"This is a dynamically generated title\",\"version\":\"1.1.0-beta\",\"accessUrl\":\"http://test.example.com\",\"isNotifyAll\":true} && send-wecom-message"
     ...
   },
   ...
 }
 ```
 
-Or after export variables, quote in package.json
+Or after export variables, quote in package.json (not support Windows)
 
 ```javascript
 
@@ -493,11 +518,7 @@ sh "export messageJSON='{\"title\": \"This is a title\"}'"
   "version": "0.0.1",
   "scripts": {
     ...
-    // Mac or Linux system
     "send-wecom-message:test": "MESSAGE_JSON=${messageJSON} send-wecom-message"
-    // Windows system: install cross-env first
-    // npm install cross-env -D
-    "send-wecom-message:test": "cross-env MESSAGE_JSON=${messageJSON} send-wecom-message"
     ...
   },
   ...
@@ -541,17 +562,17 @@ sh "export messageJSON='{\"title\": \"This is a title\"}'"
 | config.originVersionFileUrl | string |  The path to the version.json file on the remote server | | Yes |
 | config.localPackageVersion | string | The version of the current application usually takes the version field of package.json for comparison with the version.json file of the remote server |  | Yes |
 | config.pollingTime | number | Time interval for polling monitoring, in ms | 5000 | No |
-| config.immediate | boolean | On the first visit, version monitoring will be triggered immediately, and then polling will be conducted at a customized time interval **`V 1.5.0`** | false | No |
+| config.immediate | boolean | On the first visit, version monitoring will be triggered immediately, and then polling will be conducted at a customized time interval **`v1.5.0`** | false | No |
 | config.onVersionUpdate | function(data) | Callback function for custom version hint UI (if you want to customize the popup UI, you can get the return value through the callback function to control the appearance of the popup) |  | No |
-| config.onRefresh | function(data) | Confirm update: the callback function of the custom refresh event, where data is the latest version **`V 1.5.0`** |  | No |
-| config.onCancel | function(data) | Cancel update: the callback function of the custom cancel event, where data is the latest version **`V 1.5.0`** |  | No |
+| config.onRefresh | function(data) | Confirm update: the callback function of the custom refresh event, where data is the latest version **`v1.5.0`** |  | No |
+| config.onCancel | function(data) | Cancel update: the callback function of the custom cancel event, where data is the latest version **`v1.5.0`** |  | No |
 | options | object | Configuration items for popup text and themes (not customize the popup UI, but use it if you need to modify the text and themes) | | No |
 | options.title | string | Popup title | Update | No |
 | options.description | string | Popup description | V xxx is available | No |
 | options.buttonText | string | Popup button text | Refresh | No |
-| options.cancelButtonText | string | Text to close pop-up button (add this option, if you want the pop-up to be allowed to be close) **`V 1.5.0`** |  | No |
-| options.cancelMode | ignore-current-version / ignore-today / ignore-current-window | Close pop-up mode (It takes effect when cancelButtonText is set) **`V 1.5.0`** | ignore-current-version | No |
-| options.cancelUpdateAndStopWorker | boolean | When the popup is cancelled, the worker is also stopped (It takes effect when cancelButtonText is set) **`V 1.5.0`** | false | 否 |
+| options.cancelButtonText | string | Text to close pop-up button (add this option, if you want the pop-up to be allowed to be close) **`v1.5.0`** |  | No |
+| options.cancelMode | ignore-current-version / ignore-today / ignore-current-window | Close pop-up mode (It takes effect when cancelButtonText is set) **`v1.5.0`** | ignore-current-version | No |
+| options.cancelUpdateAndStopWorker | boolean | When the popup is cancelled, the worker is also stopped (It takes effect when cancelButtonText is set) **`v1.5.0`** | false | 否 |
 | options.imageUrl | string | Popup image |  | No |
 | options.rocketColor | string | The popup picture's theme color of the rocket, after setting Options.imageUrl is invalid | | No |
 | options.primaryColor | string | The theme color of the popup, it will affect the hint image background color and button background color, after setting imageUrl is invalid | | No |
