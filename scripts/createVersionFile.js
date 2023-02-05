@@ -10,12 +10,15 @@ const path = require('path');
 const outputDir = process.argv.length > 2 ? process.argv.splice(2) : ['dist']
 
 const getExternal = () => {
-  const external = process.env.EXTERNAL || ''
+  const externalJSONPath = process.env.EXTERNAL_PATH?.trim() ? path.join(process.cwd(), process.env.EXTERNAL_PATH.trim()) : '';
+  const externalJSONObject = externalJSONPath ? fs.readFileSync(externalJSONPath).toString() : '';
+  const external = process.env.EXTERNAL?.trim() || externalJSONObject;
+
   try {
     JSON.parse(external)
     return external
   } catch (error) {
-    return `"${external.trim()}"`
+    return `"${external}"`
   }
 }
 

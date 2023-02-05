@@ -6,12 +6,21 @@
 
 ---
 
+## 1.6.1
+
+`2023-02-05`
+
+[#22](https://github.com/guMcrey/version-rocket/issues/22)
+- 🆕 generate-version-file 新增 `EXTERNAL_PATH` 环境变量，支持传入文本文件路径，推荐在需要将大量额外信息写入 `version.json` 中时使用. 当同时设置了 `EXTERNAL` 和 `EXTERNAL_PATH` 时，优先级低于 `EXTERNAL`。
+- 💄 更新 README.md 和 README.zh-CN.md 文档
+
+
 ## 1.6.0
 
 `2023-02-04`
 
 [#22](https://github.com/guMcrey/version-rocket/issues/22)
-- 🆕 generate-version-file 新增 EXTERNAL 坏境变量，可用于在自定义弹窗 UI 时展示更丰富内容。如当前版本更新内容或其他信息
+- 🆕 generate-version-file 新增 `EXTERNAL` 环境变量，可用于在自定义弹窗 UI 时展示更丰富内容。如当前版本更新内容或其他信息
 - 💄 更新 README.md 和 README.zh-CN.md 文档
 
 ## 1.5.0

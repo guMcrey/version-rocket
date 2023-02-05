@@ -113,6 +113,9 @@ unCheckVersion({closeDialog: false})
 - `VERSION` (参数可选): 需要**自定义 version** 时传入, 默认取 package.json 的 version 字段
 - 文件输出目录 (参数可选): 需要**自定义 version.json 输出目录**时传入, 默认为 dist 目录
 - `EXTERNAL` (参数可选)：希望将更多信息存到 `version.json` 中时传入，如当前版本的修改内容或其他需要展示在提示弹窗上时 （用于 onVersionUpdate 自定义 UI 时）`v1.6.0`
+- `EXTERNAL_PATH` (参数可选)：接收一个文件路径, 推荐在需要将大量额外信息写入 `version.json` 中时使用. 当同时设置了 `EXTERNAL` 和 `EXTERNAL_PATH` 时，优先级低于 `EXTERNAL` （用于 onVersionUpdate 自定义 UI 时）`v1.6.1`
+
+**VERSION 环境变量设置方式**
 
 ```javascript
 // package.json
@@ -136,7 +139,7 @@ unCheckVersion({closeDialog: false})
 
 ```
 
-**EXTERNAL 环境变量设置方式** `v1.6.0`
+**EXTERNAL `v1.6.0` 和 EXTERNAL_PATH `v1.6.1` 环境变量设置方式**
 
 JSON 格式可以通过 [这里](https://codebeautify.org/json-encode-online) 转义后再使用
 
@@ -154,15 +157,32 @@ JSON 格式可以通过 [这里](https://codebeautify.org/json-encode-online) �
     "generate:version": "EXTERNAL='some text' generate-version-file dist public"
     // Mac 或 Linux 系统 （JSON 文本）
     "generate:version": "EXTERNAL='{\"update\":\"fix bugs\",\"content\":\"some tips\"}' generate-version-file dist public"
+    // Mac 或 Linux 系统 （JSON 文件, 如 version-external.json）
+    "generate:version": "EXTERNAL_PATH=version-external.json generate-version-file dist public"
     // Windows 系统 (简单文本)
     "generate:version": "set EXTERNAL=some text && generate-version-file dist public"
     // Windows 系统 (JSON 文本)
     "generate:version": "set EXTERNAL={\"update\":\"fix bugs\",\"content\":\"some tips\"} && generate-version-file dist public"
+    // Windows 系统 （JSON 文件, 如 version-external.json）
+    "generate:version": "set EXTERNAL_PATH=version-external.json && generate-version-file dist public"
     ...
   },
   ...
 }
 
+```
+
+```javascript
+// version-external.json 示例
+
+{
+    "update": [
+        "fix some bugs",
+        "improve home page",
+        "update docs"
+    ],
+    "content": "please update to latest version"
+}
 ```
 
 <details>

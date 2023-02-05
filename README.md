@@ -117,6 +117,10 @@ Step 2: after executing the `generate-version-file` custom command, generate the
 
 - `EXTERNAL` (optional): when you want to save more information to `version.json`, such as the modified content of the current version or other things that need to be displayed on the pop-up (used in onVersionUpdate custom UI) `v1.6.0`
 
+- `EXTERNAL_PATH` (optional)：Accepts a file path, recommended when a lot of extra information needs to be written to `version.json`. When both `EXTERNAL` and `EXTERNAL_PATH` are set, the priority is lower than `EXTERNAL`（used in onVersionUpdate custom UI）`v1.6.1`
+
+**VERSION usage**
+
 ```javascript
 // package.json
 
@@ -139,7 +143,7 @@ Step 2: after executing the `generate-version-file` custom command, generate the
 
 ```
 
-**EXTERNAL usage** `v1.6.0`
+**EXTERNAL `v1.6.0` and EXTERNAL_PATH `v1.6.1` usage**
 
 JSON format please use this tool to escape [click here](https://codebeautify.org/json-encode-online)
 
@@ -157,15 +161,32 @@ JSON format please use this tool to escape [click here](https://codebeautify.org
     "generate:version": "EXTERNAL='some text' generate-version-file dist public"
     // Mac or Linux (JSON text)
     "generate:version": "EXTERNAL='{\"update\":\"fix bugs\",\"content\":\"some tips\"}' generate-version-file dist public"
+    // Mac or Linux （JSON file, e.g. version-external.json）
+    "generate:version": "EXTERNAL_PATH=version-external.json generate-version-file dist public"
     // Windows (simple text)
     "generate:version": "set EXTERNAL=some text && generate-version-file dist public"
     // Windows (JSON text)
     "generate:version": "set EXTERNAL={\"update\":\"fix bugs\",\"content\":\"some tips\"} && generate-version-file dist public"
+    // Windows （JSON file, e.g. version-external.json）
+    "generate:version": "set EXTERNAL_PATH=version-external.json && generate-version-file dist public"
     ...
   },
   ...
 }
 
+```
+
+```javascript
+// version-external.json
+
+{
+    "update": [
+        "fix some bugs",
+        "improve home page",
+        "update docs"
+    ],
+    "content": "please update to latest version"
+}
 ```
 
 <details>
