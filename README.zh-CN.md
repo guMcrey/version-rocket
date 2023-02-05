@@ -172,7 +172,7 @@ JSON 格式可以通过 [这里](https://codebeautify.org/json-encode-online) �
 
 ```
 
-```json
+```javascript
 // version-external.json 示例
 
 {

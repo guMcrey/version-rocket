@@ -176,7 +176,7 @@ JSON format please use this tool to escape [click here](https://codebeautify.org
 
 ```
 
-```json
+```javascript
 // version-external.json
 
 {
