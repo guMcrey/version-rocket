@@ -6,6 +6,14 @@
 
 ---
 
+## 1.6.1
+
+`2023-02-05`
+
+[#22](https://github.com/guMcrey/version-rocket/issues/22)
+- 🆕 generate-version-file added the `EXTERNAL_PATH` environment variable, which supports passing in the path of a file. It is recommended to use it when a large amount of additional information needs to be written into `version.json`. When `EXTERNAL` and `EXTERNAL_PATH` are set at the same time, the priority is lower than that of `EXTERNAL`
+- 💄 更新 README.md 和 README.zh-CN.md 文档
+
 ## 1.6.0
 
 `2023-02-04`
