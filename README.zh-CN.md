@@ -305,6 +305,9 @@ checkVersion(
 // lark-message-config.json
 
 {
+  // 可选: 消息卡片头部背景色, 用于设置标题背景颜色, 默认 turquoise, v1.6.2
+  // 取值范围: blue | wathet | turquoise | green | yellow | orange | red | carmine | violet | purple | indigo | grey
+  "headerBgColor": "red",
   // 消息卡片标题
   "title": "TEST FE Deployed Successfully",
   // 项目名称标签
@@ -418,7 +421,11 @@ sh "export messageJSON='{\"title\": \"This is a title\"}'"
 
 #### 效果截图
 
-<img src="https://github.com/guMcrey/version-rocket/blob/main/assets/custom-message-text.jpg?raw=true" width="500" />
+<p align="left">
+  <img src="https://github.com/guMcrey/version-rocket/blob/main/assets/custom-message-text.jpg?raw=true" width="400" />
+  &emsp;
+  <img src="./assets/deploy-failed-message.jpg?raw=true" width="400" />
+</p>
 
 #### 企业微信 (WeCom)
 
@@ -608,6 +615,8 @@ npm run test
 
 - [时区参照表](https://jp.cybozu.help/general/zh/admin/list_systemadmin/list_localization/timezone.html)
 - [JSON 在线转义工具](https://codebeautify.org/json-encode-online)
+- [Lark 消息卡片搭建工具](https://open.larksuite.com/tool/cardbuilder?from=howtoguide)
+- [企业微信群聊机器人文档](https://developer.work.weixin.qq.com/document/path/91770)
 
 ## 许可证
 

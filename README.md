@@ -308,6 +308,9 @@ Step 2: Set `lark-message-config.json`
 
 // lark-message-config.json
 {
+  // optional: card header's background color, default is turquoise, v1.6.2
+  // available values: blue | wathet | turquoise | green | yellow | orange | red | carmine | violet | purple | indigo | grey
+  "headerBgColor": "red",
   // card title
   "title": "TEST FE Deployed Successfully",
   // project name label
@@ -421,7 +424,11 @@ sh "export messageJSON='{\"title\": \"This is a title\"}'"
 
 #### Screenshot
 
-<img src="https://github.com/guMcrey/version-rocket/blob/main/assets/custom-message-text.jpg?raw=true" width="500" />
+<p align="left">
+  <img src="https://github.com/guMcrey/version-rocket/blob/main/assets/custom-message-text.jpg?raw=true" width="400" />
+  &emsp;
+  <img src="./assets/deploy-failed-message.jpg?raw=true" width="400" />
+</p>
 
 #### WeCom
 
@@ -616,6 +623,8 @@ npm run test
 ## Links
 - [Timezone List](https://jp.cybozu.help/general/zh/admin/list_systemadmin/list_localization/timezone.html)
 - [JSON Escape](https://codebeautify.org/json-encode-online)
+- [Lark Card Builder](https://open.larksuite.com/tool/cardbuilder?from=howtoguide)
+- [WeCom Chat Bot Doc](https://developer.work.weixin.qq.com/document/path/91770)
 
 ## License
 

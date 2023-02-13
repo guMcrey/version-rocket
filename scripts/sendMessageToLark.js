@@ -40,7 +40,7 @@ const larkMessageJSON = (messageConfigObject.message && messageConfigObject.lark
             "wide_screen_mode": true
         },
         "header": {
-            "template": "turquoise",
+            "template": messageConfigObject?.headerBgColor || "turquoise",
             "title": {
                 "content": `🚀 ${messageConfigObject.title || ''}`,
                 "tag": "plain_text"
