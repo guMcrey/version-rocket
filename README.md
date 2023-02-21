@@ -60,6 +60,7 @@ When is it suitable to use **to automatically send deployment messages to Lark o
 - Card text and templates for deployment messages support customization, and support the dynamically generated fields.
 - Support TypeScript
 - [Npm package support](https://www.npmjs.com/package/version-rocket)
+- Support Node 14+ 🐰
 
 ## Implementation Principle
 
