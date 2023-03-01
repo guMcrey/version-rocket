@@ -6,6 +6,13 @@
 
 ---
 
+## 1.6.2
+
+`2023-02-13`
+
+- 🆕 lark-message-config 新增 `headerBgColor` 变量，支持自定义消息卡片头部背景色, 以方便区分部署成功或失败的消息推送. 取值范围: blue、wathet、turquoise(默认)、green、yellow、orange、red、carmine、violet、purple、indigo、grey
+- 💄 更新 README.md 和 README.zh-CN.md 文档
+
 ## 1.6.1
 
 `2023-02-05`

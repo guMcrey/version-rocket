@@ -6,6 +6,13 @@
 
 ---
 
+## 1.6.2
+
+`2023-02-13`
+
+- 🆕 lark-message-config added `headerBgColor` variable, support set card header's background color, default is turquoise. available values: blue、wathet、turquoise(default)、green、yellow、orange、red、carmine、violet、purple、indigo、grey
+- 💄 更新 README.md 和 README.zh-CN.md 文档
+
 ## 1.6.1
 
 `2023-02-05`
