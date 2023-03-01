@@ -11,7 +11,7 @@
 `2023-02-13`
 
 - 🆕 lark-message-config added `headerBgColor` variable, support set card header's background color, default is turquoise. available values: blue、wathet、turquoise(default)、green、yellow、orange、red、carmine、violet、purple、indigo、grey
-- 💄 更新 README.md 和 README.zh-CN.md 文档
+- 💄 update README.md and README.zh-CN.md
 
 ## 1.6.1
 
@@ -19,7 +19,7 @@
 
 [#22](https://github.com/guMcrey/version-rocket/issues/22)
 - 🆕 generate-version-file added the `EXTERNAL_PATH` environment variable, which supports passing in the path of a file. It is recommended to use it when a large amount of additional information needs to be written into `version.json`. When `EXTERNAL` and `EXTERNAL_PATH` are set at the same time, the priority is lower than that of `EXTERNAL`
-- 💄 更新 README.md 和 README.zh-CN.md 文档
+- 💄 update README.md and README.zh-CN.md
 
 ## 1.6.0
 
