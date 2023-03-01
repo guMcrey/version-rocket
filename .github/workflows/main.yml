@@ -14,9 +14,6 @@ jobs:
     steps:
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
       - uses: actions/checkout@v3
-      
-      - name: Install dos2unix
-        run: sudo apt-get update && sudo apt-get install -y dos2unix
 
       - name: Run a multi-line script
         run: |
@@ -24,4 +21,3 @@ jobs:
           npm run build
           npm run test:coverage
           npm run codecov
-          npm run convert
