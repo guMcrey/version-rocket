@@ -1,5 +1,16 @@
 export const mockCreateObjectUrl = () => {
-  global.window = Object.create(window)
+  const _global: any =
+    typeof globalThis !== 'undefined'
+      ? globalThis
+      : typeof self !== 'undefined'
+      ? self
+      : typeof window !== 'undefined'
+      ? window
+      : {}
+
+  if (!_global.window) {
+    ;(_global as any).window = Object.create(window)
+  }
   Object.defineProperty(window, 'URL', {
     value: {
       createObjectURL: (blob: Blob): string =>
@@ -9,6 +20,15 @@ export const mockCreateObjectUrl = () => {
 }
 
 export const mockWorker = () => {
+  const _global: any =
+    typeof globalThis !== 'undefined'
+      ? globalThis
+      : typeof self !== 'undefined'
+      ? self
+      : typeof window !== 'undefined'
+      ? window
+      : {}
+
   class Worker {
     url: string
     onmessage: (msg: string) => void
@@ -24,19 +44,45 @@ export const mockWorker = () => {
     }
   }
 
-  global.window = Object.create(window)
+  if (!_global.window) {
+    ;(_global as any).window = Object.create(window)
+  }
+
   window.Worker = Worker as any
 }
 
 export const mockSetInterval = () => {
-  global.window = Object.create(window) as any
+  const _global: any =
+    typeof globalThis !== 'undefined'
+      ? globalThis
+      : typeof self !== 'undefined'
+      ? self
+      : typeof window !== 'undefined'
+      ? window
+      : {}
+
+  if (!_global.window) {
+    ;(_global as any).window = Object.create(window)
+  }
   ;(window as any).setInterval = (func: () => void) => {
     func()
   }
 }
 
 export const mockFetch = () => {
-  global.window = Object.create(window) as any
+  const _global: any =
+    typeof globalThis !== 'undefined'
+      ? globalThis
+      : typeof self !== 'undefined'
+      ? self
+      : typeof window !== 'undefined'
+      ? window
+      : {}
+
+  if (!_global.window) {
+    ;(_global as any).window = Object.create(window) as any
+  }
+
   ;(window as any).fetch = (url: string) => {
     return new Promise((resolve, reject) => {
       resolve({
@@ -49,7 +95,17 @@ export const mockFetch = () => {
 }
 
 export const mockDateToLocaleDateString = () => {
-  global.window = Object.create(window)
+  const _global: any =
+    typeof globalThis !== 'undefined'
+      ? globalThis
+      : typeof self !== 'undefined'
+      ? self
+      : typeof window !== 'undefined'
+      ? window
+      : {}
+  if (!_global.window) {
+    ;(_global as any).window = Object.create(window)
+  }
   class MyDate {
     toLocaleDateString() {
       return '2023/1/18'

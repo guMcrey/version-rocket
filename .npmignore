@@ -1,0 +1,11 @@
+.github
+.history
+utils
+tests
+assets/*.jpg
+assets/*.gif
+.editorconfig
+.gitattributes
+.gitignore
+jest.config.ts
+CHANGELOG.zh-CN.md
