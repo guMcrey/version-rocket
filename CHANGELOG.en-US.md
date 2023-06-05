@@ -6,6 +6,12 @@
 
 ---
 
+## 1.6.3
+
+`2023-06-05`
+
+- 💄 Optimize the size of npm packages, and filter files that do not need to be packaged through .npmignore files
+
 ## 1.6.2
 
 `2023-02-13`
