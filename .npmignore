@@ -9,3 +9,4 @@ assets/*.gif
 .gitignore
 jest.config.ts
 CHANGELOG.zh-CN.md
+coverage
