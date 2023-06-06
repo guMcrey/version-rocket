@@ -6,11 +6,17 @@
 
 ---
 
+## 1.6.5
+
+`2023-06-06`
+
+- 🪲 fix .npmignore file filtering out utils folder
+
 ## 1.6.3
 
 `2023-06-05`
 
-- 💄 Optimize the size of npm packages, and filter files that do not need to be packaged through .npmignore files
+- 💄 optimize the size of npm packages, and filter files that do not need to be packaged through .npmignore files
 
 ## 1.6.2
 
