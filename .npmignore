@@ -8,3 +8,5 @@ assets/*.gif
 .gitignore
 CHANGELOG.zh-CN.md
 coverage
+tsconfig.json
+jest.config.ts
