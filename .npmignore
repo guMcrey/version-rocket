@@ -1,6 +1,5 @@
 .github
 .history
-utils
 tests
 assets/*.jpg
 assets/*.gif
