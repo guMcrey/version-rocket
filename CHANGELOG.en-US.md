@@ -6,6 +6,12 @@
 
 ---
 
+## 1.6.6
+
+`2023-06-06`
+
+- 🪲 fix .npmignore file filtering out jest.config.ts file
+
 ## 1.6.5
 
 `2023-06-06`
