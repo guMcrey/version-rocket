@@ -52,18 +52,23 @@ export const pollingCompareVersion = (localPackageVersion, originVersionFileUrl,
  */
 let worker = undefined;
 export const checkVersion = (config, options) => {
+    console.log('config', config);
+    if (config.isEnable === false)
+        return;
     if (!worker) {
         worker = createWorker(createWorkerFunc);
     }
     worker.postMessage({
-        'version-key': config.localPackageVersion,
+        'version-key': config.localPackageVersion || '',
         'polling-time': config.pollingTime || 5000,
         immediate: config.immediate || false,
-        'origin-version-file-url': config.originVersionFileUrl,
+        'origin-version-file-url': config.originVersionFileUrl || '',
+        'check-origin-specified-files-url': config.checkOriginSpecifiedFilesUrl || [],
+        'check-origin-specified-files-url-mode': config.checkOriginSpecifiedFilesUrlMode || 'one',
+        'clear-interval-on-dialog': config.clearIntervalOnDialog || false,
     });
     worker.onmessage = (event) => {
         var _a;
-        // cancelMode
         const cancelUpdateLock = cancelUpdateFunc(options === null || options === void 0 ? void 0 : options.cancelMode, (_a = event.data) === null || _a === void 0 ? void 0 : _a.refreshPageVersion, options === null || options === void 0 ? void 0 : options.cancelUpdateAndStopWorker, worker);
         if (cancelUpdateLock)
             return;
@@ -88,6 +93,7 @@ export const checkVersion = (config, options) => {
                 primaryColor,
                 buttonStyle,
                 newVersion: event.data.refreshPageVersion,
+                needRefresh: event.data.refreshPageVersion,
                 onRefresh,
                 onCancel,
             });

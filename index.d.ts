@@ -9,10 +9,14 @@
  */
 export declare const pollingCompareVersion: (localPackageVersion: string, originVersionFileUrl: string, pollingTime: number, onVersionUpdate?: ((event: any) => void) | undefined) => void;
 export declare const checkVersion: (config: {
-    originVersionFileUrl: string;
-    localPackageVersion: string;
+    checkOriginSpecifiedFilesUrl?: string[] | undefined;
+    checkOriginSpecifiedFilesUrlMode?: "one" | "all" | undefined;
+    originVersionFileUrl?: string | undefined;
+    localPackageVersion?: string | undefined;
     pollingTime?: number | undefined;
     immediate?: boolean | undefined;
+    isEnable?: boolean | undefined;
+    clearIntervalOnDialog?: boolean | undefined;
     onVersionUpdate?: ((event: any) => void) | undefined;
     onRefresh?: ((event: any) => void) | undefined;
     onCancel?: ((event: any) => void) | undefined;

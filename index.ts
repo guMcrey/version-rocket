@@ -63,10 +63,15 @@ let worker: Worker | undefined = undefined
 
 export const checkVersion = (
   config: {
-    originVersionFileUrl: string
-    localPackageVersion: string
+    // TODO: 是否去重
+    checkOriginSpecifiedFilesUrl?: string[]
+    checkOriginSpecifiedFilesUrlMode?: 'one' | 'all'
+    originVersionFileUrl?: string
+    localPackageVersion?: string
     pollingTime?: number
     immediate?: boolean
+    isEnable?: boolean
+    clearIntervalOnDialog?: boolean
     onVersionUpdate?: (event: any) => void
     onRefresh?: (event: any) => void
     onCancel?: (event: any) => void
@@ -84,18 +89,25 @@ export const checkVersion = (
     buttonStyle?: string
   }
 ) => {
+  console.log('config', config)
+  if (config.isEnable === false) return
+
   if (!worker) {
     worker = createWorker(createWorkerFunc)
   }
 
   worker.postMessage({
-    'version-key': config.localPackageVersion,
+    'version-key': config.localPackageVersion || '',
     'polling-time': config.pollingTime || 5000,
     immediate: config.immediate || false,
-    'origin-version-file-url': config.originVersionFileUrl,
+    'origin-version-file-url': config.originVersionFileUrl || '',
+    'check-origin-specified-files-url':
+      config.checkOriginSpecifiedFilesUrl || [],
+    'check-origin-specified-files-url-mode':
+      config.checkOriginSpecifiedFilesUrlMode || 'one',
+    'clear-interval-on-dialog': config.clearIntervalOnDialog || false,
   })
   worker.onmessage = (event: any) => {
-    // cancelMode
     const cancelUpdateLock = cancelUpdateFunc(
       options?.cancelMode,
       event.data?.refreshPageVersion,
@@ -134,6 +146,7 @@ export const checkVersion = (
         primaryColor,
         buttonStyle,
         newVersion: event.data.refreshPageVersion,
+        needRefresh: event.data.refreshPageVersion,
         onRefresh,
         onCancel,
       })

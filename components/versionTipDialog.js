@@ -22,18 +22,20 @@ export const versionTipDialog = (params) => {
                   ${params.title || defaultParams.title}
                 </div>
                 <div class="version-subtitle">
-                  ${params.description ||
-        `V ${params.newVersion} ${defaultParams.description}`}
+                  ${params.description || params.newVersion
+        ? `V ${params.newVersion} ${defaultParams.description}`
+        : `A new version ${defaultParams.description}`}
                 </div>
                 <div style="${params.primaryColor
         ? `background-color: ${params.primaryColor};`
         : ''} ${params.buttonStyle || ''}"  class="refresh-button">
                   ${params.buttonText || defaultParams.buttonText}
                 </div>
-                ${params.cancelButtonText ?
-        `<div class="cancel-button">
+                ${params.cancelButtonText
+        ? `<div class="cancel-button">
                     ${params.cancelButtonText}
-                  </div>` : ''}
+                  </div>`
+        : ''}
             </div>
         </div>
    </div>`;
@@ -43,8 +45,12 @@ export const versionTipDialog = (params) => {
     // refresh
     const refreshBtnNode = document.querySelector('#version-rocket .refresh-button');
     refreshBtnNode.onclick = () => {
+        console.log('params.needRefresh', params.needRefresh);
         if (typeof (params === null || params === void 0 ? void 0 : params.onRefresh) === 'function') {
-            params.onRefresh({ newVersion: params.newVersion });
+            params.onRefresh({
+                newVersion: params.newVersion,
+                needRefresh: params.needRefresh || false,
+            });
         }
         else {
             window.location.reload();
@@ -56,13 +62,16 @@ export const versionTipDialog = (params) => {
         return;
     cancelBtnNode.onclick = () => {
         if (typeof (params === null || params === void 0 ? void 0 : params.onCancel) === 'function') {
-            params.onCancel({ newVersion: params.newVersion });
+            params.onCancel({
+                newVersion: params.newVersion,
+                needRefresh: params.needRefresh || false,
+            });
             return;
         }
         const cancelMode = (params === null || params === void 0 ? void 0 : params.cancelMode) || 'ignore-current-version';
         switch (cancelMode) {
             case 'ignore-current-version':
-                localStorage.setItem('version-rocket:cancelled', params.newVersion);
+                localStorage.setItem('version-rocket:cancelled', params.newVersion || '');
                 break;
             case 'ignore-today':
                 localStorage.setItem('version-rocket:cancelled', new Date().toLocaleDateString());

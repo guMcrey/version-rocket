@@ -9,7 +9,8 @@ export declare const versionTipDialog: (params: {
     rocketColor?: string | undefined;
     primaryColor?: string | undefined;
     buttonStyle?: string | undefined;
-    newVersion: string;
+    newVersion?: string | undefined;
+    needRefresh?: boolean | undefined;
     onRefresh?: ((event: any) => void) | undefined;
     onCancel?: ((event: any) => void) | undefined;
 }) => void;
