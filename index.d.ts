@@ -15,7 +15,7 @@ export declare const checkVersion: (config: {
     localPackageVersion?: string | undefined;
     pollingTime?: number | undefined;
     immediate?: boolean | undefined;
-    isEnable?: boolean | undefined;
+    enable?: boolean | undefined;
     clearIntervalOnDialog?: boolean | undefined;
     onVersionUpdate?: ((event: any) => void) | undefined;
     onRefresh?: ((event: any) => void) | undefined;

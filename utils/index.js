@@ -48,6 +48,9 @@ export const createWorkerFunc = () => {
                             refreshPageVersion: `${versionJsonFile.version}`,
                             external: versionJsonFile.external,
                         });
+                        if (clearIntervalOnDialog) {
+                            clearInterval(timer);
+                        }
                     }
                 });
             }
@@ -104,7 +107,8 @@ export const createWorkerFunc = () => {
 };
 // cancel update
 export const cancelUpdateFunc = (cancelMode, newVersion, cancelUpdateAndStopWorker, worker) => {
-    const cancelModeType = cancelMode || 'ignore-current-version';
+    const cancelModeType = cancelMode ||
+        (newVersion ? 'ignore-current-version' : 'ignore-current-window');
     const cancelModeTypeValue = localStorage.getItem('version-rocket:cancelled') || '';
     const todayDate = new Date().toLocaleDateString();
     const cancelModeTypeValueInSession = sessionStorage.getItem('version-rocket:cancelled') || '';

@@ -54,7 +54,9 @@ When is it suitable to use **to automatically send deployment messages to Lark o
 ## Features
 
 - Support all modern browsers
-- Available version real-time monitoring, support any version format, such as: 1.1.0, 1.1.1.0, 1.1.0-beta, etc.
+- Real-time detection of available versions is provided in two ways: 1. through managing version numbers; 2. by detecting updates in specified file contents
+  - Managing version numbers supports any version format, such as 1.1.0, 1.1.1.0, 1.1.0-beta, etc.
+  - Detecting updates in specified file contents supports any file on a remote server `v1.7.0`
 - Support personalized version popup text and theme, also support custom UI
 - Sync deployment message to Lark or WeCom group chat after successful deploy
 - Card text and templates for deployment messages support customization, and support the dynamically generated fields.
@@ -64,7 +66,9 @@ When is it suitable to use **to automatically send deployment messages to Lark o
 
 ## Implementation Principle
 
-- **Web application version real-time detection:** **version-rocket** compares the version of the user's current browser with the version files in the remote server. We use JavaScript's `Web Worker API` to make monitoring rotation, which will not affect the browser rendering process.
+- **Web application version real-time detection:**
+  1. Through version number management: **version-rocket** compares the version in the user's current browser with the version file on the remote server. We use the `Web Worker API` based on JavaScript to perform monitoring polling, which does not affect the browser rendering process.
+  2. By detecting updates in specified file contents: **version-rocket** uses the browser's conditional cache mechanism to determine whether the specified file content has changed. We use the `Web Worker API` based on JavaScript to perform monitoring polling, which does not affect the browser rendering process. `v1.7.0`
 
 - **Automatically send deployment messages to Lark or WeCom group chat:** **version-rocket** call the webhook method provided by collaborative office software to trigger group chat robots send messages.
 
@@ -75,10 +79,10 @@ When is it suitable to use **to automatically send deployment messages to Lark o
 ```bash
 # Choose a package manager you prefer
 
-// npm
+# npm
 npm install version-rocket --save
 
-// yarn
+# yarn
 yarn add version-rocket
 
 # pnpm
@@ -88,7 +92,7 @@ pnpm install version-rocket
 
 ### Quick Start
 
-### Web application version real-time detection
+### Web application version real-time detection: Through version number management
 
 Step 1: Import `checkVersion()`, and use it
 
@@ -211,14 +215,38 @@ server {
 ```
 </details>
 
-*Complete the above two steps, the version monitoring function can be used normally 🎉🎉*
+*Complete the above two steps, the version monitoring function (through version number management) can be used normally 🎉🎉*
+
+### Web application version real-time detection: By detecting updates in specified file contents `v1.7.0`
+
+import `checkVersion()`, and use it
+
+```javascript
+// Entry file: such as App.vue or App.jsx, etc
+import { checkVersion } from 'version-rocket'
+
+// Call checkVersion in the lifecycle hook
+checkVersion({
+  // The list of files to be monitored usually includes the index.html file under a certain domain
+  checkOriginSpecifiedFilesUrl: [`${location.origin}/index.html`],
+  // The validation mode for the list of monitored files: 'one' (default) or 'all'
+  checkOriginSpecifiedFilesUrlMode: 'one',
+  // Whether to enable version monitoring (default true)
+  enable: process.env.NODE_ENV !== 'development'
+})
+
+// If you need to terminate version checking, call the unCheckVersion method in the destroy lifecycle. For more details, see the API documentation
+unCheckVersion({closeDialog: false})
+ 
+```
+
+*After completing the above steps, the version monitoring feature (by detecting updates in specified file contents) can be used normally 🎉🎉*
 
 #### Personalize the theme
 
 ```javascript
 
 // Entry file: such as App.vue or App.jsx, etc
-
 import { checkVersion } from 'version-rocket'
 // It is recommended to use the version field in package.json, or you can customize versions
 import { version } from '../package.json'
@@ -592,6 +620,10 @@ sh "export messageJSON='{\"title\": \"This is a title\"}'"
 | config.localPackageVersion | string | The version of the current application usually takes the version field of package.json for comparison with the version.json file of the remote server |  | Yes |
 | config.pollingTime | number | Time interval for polling monitoring, in ms | 5000 | No |
 | config.immediate | boolean | On the first visit, version monitoring will be triggered immediately, and then polling will be conducted at a customized time interval **`v1.5.0`** | false | No |
+| config.checkOriginSpecifiedFilesUrl | array | Setting this property will use 'detecting updates in specified file contents' instead of 'version number management' to monitor versions. Pass in the list of file addresses to be monitored, usually the index.html file under a certain domain **`v1.7.0`** |  | false |
+| config.checkOriginSpecifiedFilesUrlMode | 'one' / 'all' | 'one' means that if the content of any file address in the list changes, a prompt for an update will be displayed; 'all' means that a prompt for an update will only be displayed when the content of all file addresses in the list changes. (This only takes effect when checkOriginSpecifiedFilesUrl is configured) **`v1.7.0`** | 'one' | false |
+| config.enable | boolean | Whether to enable version monitoring. This configuration item can be used to enable version monitoring only in specified environments **`v1.7.0`** | true | 否 |
+| config.clearIntervalOnDialog | boolean | When the prompt dialog for a new version appears, clear the timer **`v1.7.0`** | false | 否 |
 | config.onVersionUpdate | function(data) | Callback function for custom version hint UI (if you want to customize the popup UI, you can get the return value through the callback function to control the appearance of the popup) |  | No |
 | config.onRefresh | function(data) | Confirm update: the callback function of the custom refresh event, where data is the latest version **`v1.5.0`** |  | No |
 | config.onCancel | function(data) | Cancel update: the callback function of the custom cancel event, where data is the latest version **`v1.5.0`** |  | No |

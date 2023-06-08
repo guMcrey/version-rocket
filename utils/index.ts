@@ -55,6 +55,9 @@ export const createWorkerFunc = () => {
                 refreshPageVersion: `${versionJsonFile.version}`,
                 external: versionJsonFile.external,
               })
+              if (clearIntervalOnDialog) {
+                clearInterval(timer)
+              }
             }
           })
       }
@@ -124,7 +127,9 @@ export const cancelUpdateFunc = (
   cancelUpdateAndStopWorker: boolean | undefined,
   worker: Worker | undefined
 ) => {
-  const cancelModeType = cancelMode || 'ignore-current-version'
+  const cancelModeType =
+    cancelMode ||
+    (newVersion ? 'ignore-current-version' : 'ignore-current-window')
   const cancelModeTypeValue =
     localStorage.getItem('version-rocket:cancelled') || ''
   const todayDate = new Date().toLocaleDateString()

@@ -52,8 +52,7 @@ export const pollingCompareVersion = (localPackageVersion, originVersionFileUrl,
  */
 let worker = undefined;
 export const checkVersion = (config, options) => {
-    console.log('config', config);
-    if (config.isEnable === false)
+    if (config.enable === false)
         return;
     if (!worker) {
         worker = createWorker(createWorkerFunc);

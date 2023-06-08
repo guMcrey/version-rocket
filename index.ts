@@ -70,7 +70,7 @@ export const checkVersion = (
     localPackageVersion?: string
     pollingTime?: number
     immediate?: boolean
-    isEnable?: boolean
+    enable?: boolean
     clearIntervalOnDialog?: boolean
     onVersionUpdate?: (event: any) => void
     onRefresh?: (event: any) => void
@@ -89,8 +89,7 @@ export const checkVersion = (
     buttonStyle?: string
   }
 ) => {
-  console.log('config', config)
-  if (config.isEnable === false) return
+  if (config.enable === false) return
 
   if (!worker) {
     worker = createWorker(createWorkerFunc)

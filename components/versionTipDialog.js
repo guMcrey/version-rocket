@@ -22,9 +22,10 @@ export const versionTipDialog = (params) => {
                   ${params.title || defaultParams.title}
                 </div>
                 <div class="version-subtitle">
-                  ${params.description || params.newVersion
-        ? `V ${params.newVersion} ${defaultParams.description}`
-        : `A new version ${defaultParams.description}`}
+                  ${params.description ||
+        (params.newVersion
+            ? `V ${params.newVersion} ${defaultParams.description}`
+            : `A new version ${defaultParams.description}`)}
                 </div>
                 <div style="${params.primaryColor
         ? `background-color: ${params.primaryColor};`
@@ -45,7 +46,6 @@ export const versionTipDialog = (params) => {
     // refresh
     const refreshBtnNode = document.querySelector('#version-rocket .refresh-button');
     refreshBtnNode.onclick = () => {
-        console.log('params.needRefresh', params.needRefresh);
         if (typeof (params === null || params === void 0 ? void 0 : params.onRefresh) === 'function') {
             params.onRefresh({
                 newVersion: params.newVersion,

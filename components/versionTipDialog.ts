@@ -45,9 +45,10 @@ export const versionTipDialog = (params: {
                 </div>
                 <div class="version-subtitle">
                   ${
-                    params.description || params.newVersion
+                    params.description ||
+                    (params.newVersion
                       ? `V ${params.newVersion} ${defaultParams.description}`
-                      : `A new version ${defaultParams.description}`
+                      : `A new version ${defaultParams.description}`)
                   }
                 </div>
                 <div style="${
@@ -76,7 +77,6 @@ export const versionTipDialog = (params: {
     '#version-rocket .refresh-button'
   ) as HTMLElement
   refreshBtnNode.onclick = () => {
-    console.log('params.needRefresh', params.needRefresh)
     if (typeof params?.onRefresh === 'function') {
       params.onRefresh({
         newVersion: params.newVersion,
