@@ -64,16 +64,13 @@ export const createWorkerFunc = () => {
                     })
                         .then((flag) => {
                         if (flag) {
-                            console.log('flag', flag, flagSet);
                             flagSet.add(flag);
                         }
-                        // TODO: 第一次轮训不生效, 需要第二次轮训才生效, 需要考虑如果用户的循环时间很长怎么办
                         if (checkOriginSpecifiedFilesUrlMode === 'one' &&
                             (flagSet === null || flagSet === void 0 ? void 0 : flagSet.size) > (checkOriginSpecifiedFilesUrl === null || checkOriginSpecifiedFilesUrl === void 0 ? void 0 : checkOriginSpecifiedFilesUrl.length)) {
                             temp.postMessage({
                                 refreshPageVisible: true,
                                 refreshPageVersion: '',
-                                // TODO: 本版本的修改内容
                                 external: '',
                             });
                             flagSet.clear();
@@ -86,7 +83,6 @@ export const createWorkerFunc = () => {
                             temp.postMessage({
                                 refreshPageVisible: true,
                                 refreshPageVersion: '',
-                                // TODO: 本版本的修改内容
                                 external: '',
                             });
                             flagSet.clear();

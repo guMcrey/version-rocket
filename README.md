@@ -219,6 +219,8 @@ server {
 
 ### Web application version real-time detection: By detecting updates in specified file contents `v1.7.0`
 
+> ⚠️ Friendly reminder: This method does not support displaying "current version changes or other information that needs to be shown in the prompt window". If you have such a requirement, please use the "version management" method.
+
 import `checkVersion()`, and use it
 
 ```javascript

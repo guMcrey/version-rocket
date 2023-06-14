@@ -6,6 +6,17 @@
 
 ---
 
+## 1.7.0
+
+`2023-06-25`
+
+- 🆕 Another method for real-time detection of web application version: By leveraging the browser's cache negotiation mechanism, it checks whether the content of the specified file address has been updated to determine if a new version is available.
+  - Added `checkOriginSpecifiedFilesUrl` configuration option: After setting this property, the version will be monitored by "checking whether the specified file has been updated" instead of "managing the version number". Pass in a list of file addresses to be monitored, usually the index.html file under a domain name (string array type).
+  - Added `checkOriginSpecifiedFilesUrlMode` configuration option: Supports two modes: 'one' / 'all'. 'one' means that if the content of one of the file addresses in the list changes, it will prompt for an update; 'all' means that it will prompt for an update only when the content of all file addresses in the list changes. (Only effective when checkOriginSpecifiedFilesUrl is configured)
+  - Added `enable` configuration option: Whether to enable version monitoring. With this configuration option, version monitoring can be enabled only in specified environments (default is true).
+  - Added `clearIntervalOnDialog` configuration option: Whether to clear the timer when the new version prompt dialog appears.
+- 💄 update README.md and README.zh-CN.md
+
 ## 1.6.7
 
 `2023-06-06`
