@@ -13,7 +13,6 @@ export const createWorkerFunc = () => {
     let originFileUrl = '';
     let checkOriginSpecifiedFilesUrl = [];
     let checkOriginSpecifiedFilesUrlMode = 'one';
-    // TODO: 类型定义
     let timer = null;
     let clearIntervalOnDialog = false;
     const temp = self;
@@ -27,14 +26,9 @@ export const createWorkerFunc = () => {
         checkOriginSpecifiedFilesUrlMode =
             event.data['check-origin-specified-files-url-mode'];
         clearIntervalOnDialog = event.data['clear-interval-on-dialog'];
-        const checkVersionType = oldVersion && originFileUrl
-            ? 'check-version'
-            : (checkOriginSpecifiedFilesUrl === null || checkOriginSpecifiedFilesUrl === void 0 ? void 0 : checkOriginSpecifiedFilesUrl.length)
-                ? 'check-specified-files'
-                : '';
+        const checkVersionType = checkVersionTypeFunc(oldVersion, originFileUrl, checkOriginSpecifiedFilesUrl);
         if (!checkVersionType)
-            return console.warn('Not found localPackageVersion, originVersionFileUrl or originSpecifiedFilesUrl');
-        console.log('You are use check version type is', checkVersionType);
+            return;
         const doFetch = () => {
             if (checkVersionType === 'check-version') {
                 fetch(`${originFileUrl}?${+new Date()}`)
@@ -131,4 +125,16 @@ export const cancelUpdateFunc = (cancelMode, newVersion, cancelUpdateAndStopWork
             break;
     }
     return false;
+};
+// check version type
+export const checkVersionTypeFunc = (oldVersion, originFileUrl, checkOriginSpecifiedFilesUrl) => {
+    const checkVersionType = oldVersion && originFileUrl
+        ? 'check-version'
+        : (checkOriginSpecifiedFilesUrl === null || checkOriginSpecifiedFilesUrl === void 0 ? void 0 : checkOriginSpecifiedFilesUrl.length)
+            ? 'check-specified-files'
+            : '';
+    if (!checkVersionType)
+        return console.log('Not found localPackageVersion, originVersionFileUrl or originSpecifiedFilesUrl');
+    console.log('You are use check version type is', checkVersionType);
+    return checkVersionType;
 };

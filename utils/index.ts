@@ -14,7 +14,6 @@ export const createWorkerFunc = () => {
   let originFileUrl = ''
   let checkOriginSpecifiedFilesUrl: string[] = []
   let checkOriginSpecifiedFilesUrlMode: 'one' | 'all' = 'one'
-  // TODO: 类型定义
   let timer: any = null
   let clearIntervalOnDialog = false
   const temp: Worker = self as any
@@ -29,18 +28,16 @@ export const createWorkerFunc = () => {
       event.data['check-origin-specified-files-url-mode']
     clearIntervalOnDialog = event.data['clear-interval-on-dialog']
 
-    const checkVersionType =
-      oldVersion && originFileUrl
-        ? 'check-version'
-        : checkOriginSpecifiedFilesUrl?.length
-        ? 'check-specified-files'
-        : ''
-
-    if (!checkVersionType)
-      return console.warn(
-        'Not found localPackageVersion, originVersionFileUrl or originSpecifiedFilesUrl'
-      )
-    console.log('You are use check version type is', checkVersionType)
+    const checkVersionType = checkVersionTypeFunc(
+      oldVersion,
+      originFileUrl,
+      checkOriginSpecifiedFilesUrl
+    )
+    if (!checkVersionType) {
+      temp.postMessage({
+        invalidParams: true,
+      })
+    }
 
     const doFetch = () => {
       if (checkVersionType === 'check-version') {
@@ -76,7 +73,7 @@ export const createWorkerFunc = () => {
 
               if (
                 checkOriginSpecifiedFilesUrlMode === 'one' &&
-                flagSet?.size > checkOriginSpecifiedFilesUrl?.length
+                flagSet.size > checkOriginSpecifiedFilesUrl.length
               ) {
                 temp.postMessage({
                   refreshPageVisible: true,
@@ -91,7 +88,7 @@ export const createWorkerFunc = () => {
 
               if (
                 checkOriginSpecifiedFilesUrlMode === 'all' &&
-                flagSet?.size === checkOriginSpecifiedFilesUrl?.length * 2
+                flagSet.size === checkOriginSpecifiedFilesUrl.length * 2
               ) {
                 temp.postMessage({
                   refreshPageVisible: true,
@@ -156,4 +153,26 @@ export const cancelUpdateFunc = (
   }
 
   return false
+}
+
+// check version type
+export const checkVersionTypeFunc = (
+  oldVersion?: string | undefined,
+  originFileUrl?: string | undefined,
+  checkOriginSpecifiedFilesUrl?: string[] | undefined
+) => {
+  const checkVersionType =
+    oldVersion && originFileUrl
+      ? 'check-version'
+      : checkOriginSpecifiedFilesUrl?.length
+      ? 'check-specified-files'
+      : ''
+
+  if (!checkVersionType)
+    return console.log(
+      'Not found localPackageVersion, originVersionFileUrl or originSpecifiedFilesUrl'
+    )
+  console.log('You are use check version type is', checkVersionType)
+
+  return checkVersionType
 }
