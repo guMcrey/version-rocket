@@ -67,6 +67,38 @@ export const mockFetch = () => {
   }
 }
 
+export const mockFetchHeader = (options?: {
+  mode?: 'etag' | 'last-modified'
+}) => {
+  const hashMap = {}
+  if (!_global.window) {
+    _global.window = Object.create(window) as any
+  }
+
+  ;(window as any).fetch = (url: string) => {
+    const useEtag = url.endsWith('?useEtag')
+    return new Promise((resolve, reject) => {
+      resolve({
+        headers: {
+          get: (header) => {
+            hashMap[url] =
+              hashMap[url] !== undefined ? hashMap[url] + 1 : hashMap[url] + 0
+            if (header === 'ETag') {
+              return useEtag
+                ? Promise.resolve(`${url}:test-etag:${hashMap[url]}`)
+                : undefined
+            } else if (header === 'Last-Modified') {
+              return !useEtag
+                ? Promise.resolve(`${url}:test-last-modified:${hashMap[url]}`)
+                : undefined
+            }
+          },
+        },
+      })
+    })
+  }
+}
+
 export const mockDateToLocaleDateString = () => {
   if (!_global.window) {
     _global.window = Object.create(window)

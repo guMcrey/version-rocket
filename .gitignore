@@ -1,3 +1,10 @@
 .history
 node_modules
 coverage
+components/*.js
+components/version*.d.ts
+utils/*.js
+utils/*.d.ts
+index.js
+index.d.ts
+*.tgz

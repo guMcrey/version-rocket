@@ -54,7 +54,9 @@
 ## 功能特点
 
 - 支持所有现代浏览器
-- 可用**版本实时监测**, 支持任意版本格式, 例如: 1.1.0、1.1.1.0、1.1.0-beta 等等
+- **可用版本实时检测**提供两种方式: 1. 通过**管理版本号**; 2. 通过检测**指定文件内容是否有更新**
+  1. 通过管理版本号: 支持任意版本格式, 例如: 1.1.0、1.1.1.0、1.1.0-beta 等等
+  2. 通过检测指定文件内容是否有更新: 支持任意远程服务器中的文件 `v1.7.0`
 - 支持**个性化设置**版本提示弹窗的文案和**主题**, 也支持自定义 UI
 - 部署成功后，将**部署消息同步给群聊机器人**, 目前支持飞书 (Lark) 和企业微信 (WeCom)
 - 部署信息卡片的文案和消息模版支持自定义, 并支持动态生成的字段传入
@@ -63,7 +65,9 @@
 
 ## 实现原理
 
-- **Web 应用版本实时检测:** **version-rocket** 将用户当前浏览器中的版本与远程服务器中的版本文件进行比较。我们使用基于 javascript 的 `Web Worker API` 来做监测轮询，不会影响浏览器渲染进程。
+- **Web 应用版本实时检测:** 
+  1. 通过管理版本号: **version-rocket** 将用户当前浏览器中的版本与远程服务器中的版本文件进行比较。我们使用基于 javascript 的 `Web Worker API` 来做监测轮询，不会影响浏览器渲染进程。
+  2. 通过检测指定文件内容是否有更新: **version-rocket** 将依赖浏览器的协商缓存原理来判断指定的文件内容是否发生了改变。我们使用基于 javascript 的 `Web Worker API` 来做监测轮询，不会影响浏览器渲染进程。`v1.7.0`
 
 - **自动发送部署消息到飞书 (Lark) 或企业微信 (WeCom) 群聊:** **version-rocket** 调用协同办公软件提供的 WebHook 方式, 触发群聊机器人发送消息。
 
@@ -74,10 +78,10 @@
 ```bash
 # 选择一个你喜欢的包管理器
 
-// npm
+# npm
 npm install version-rocket --save
 
-// yarn
+# yarn
 yarn add version-rocket
 
 # pnpm
@@ -87,7 +91,7 @@ pnpm install version-rocket
 
 ### 快速开始
 
-### Web 应用版本实时检测
+### Web 应用版本实时检测: 通过管理版本号
 
 第一步: 导入 `checkVersion()`, 并调用
 
@@ -207,7 +211,34 @@ server {
 ```
 </details>
 
-*完成以上两个步骤, 版本监测功能已经就正常使用了 🎉🎉*
+*完成以上两个步骤, 版本监测功能(通过管理版本号)可以正常使用了 🎉🎉*
+
+### Web 应用版本实时检测: 通过检测指定文件内容是否有更新 `v1.7.0`
+
+> ⚠️ 温馨提示: 该方式不支持 "当前版本的修改内容或其他需要展示在提示弹窗上"的内容 (如有这样的需求, 请使用 “管理版本号” 的方式)
+
+导入 `checkVersion()`, 并调用
+
+```javascript
+// 入口文件: 如 App.vue 或 App.jsx 等
+import { checkVersion } from 'version-rocket'
+
+// 在生命周期钩子中调用 checkVersion
+checkVersion({
+  // 要监听的文件列表, 一般监测某个域名下的 index.html 文件
+  checkOriginSpecifiedFilesUrl: [`${location.origin}/index.html`],
+  // 监听的文件列表的校验模式: 'one'(默认) | 'all'
+  checkOriginSpecifiedFilesUrlMode: 'one',
+  // 是否启用版本监测 (默认 true)
+  enable: process.env.NODE_ENV !== 'development'
+})
+
+// 如需终止版本检测时, 在销毁生命周期中, 调用 unCheckVersion 方法进行终止, 详情参见 API
+unCheckVersion({closeDialog: false})
+ 
+```
+
+*完成以上步骤, 版本监测功能(通过检测指定文件内容是否有更新)可以正常使用了 🎉🎉*
 
 #### 个性化设置主题
 
@@ -579,10 +610,14 @@ sh "export messageJSON='{\"title\": \"This is a title\"}'"
 | 参数 | 类型 | 描述 | 默认值 | 必需 |
 | --- | --- | --- | --- | --- |
 | config | object | 版本监测配置项 |  | 是 |
-| config.originVersionFileUrl | string |  远程服务器上的 version.json 文件路径 |  | 是 |
-| config.localPackageVersion | string | 当前应用版本号, 通常取 package.json 的 version 字段, 用于与远程服务器的 version.json 文件比较 |  | 是 |
+| config.originVersionFileUrl | string |  远程服务器上的 version.json 文件路径 |  | 否 **`v1.7.0`** |
+| config.localPackageVersion | string | 当前应用版本号, 通常取 package.json 的 version 字段, 用于与远程服务器的 version.json 文件比较 |  | 否 **`v1.7.0`** |
 | config.pollingTime | number | 轮询监测的时间间隔, 单位 ms | 5000 | 否 |
 | config.immediate | boolean | 第一次访问时, 立即触发版本监测, 之后按自定义时间间隔轮询 **`v1.5.0`** | false | 否 |
+| config.checkOriginSpecifiedFilesUrl | array | 设置该属性后将使用 “通过检测指定文件是否有更新” 而不是 “通过管理版本号” 来监测版本, 传入希望监测的文件地址列表, 通常情况为某个域名下的 index.html 文件 **`v1.7.0`** |  | 否  |
+| config.checkOriginSpecifiedFilesUrlMode | 'one' / 'all' | 'one' 表示列表中文件地址只要有一个内容发生改变即提示更新; 'all' 表示列表中文件地址都发生改变时才提示更新. (当 checkOriginSpecifiedFilesUrl 配置后才生效) **`v1.7.0`** | 'one' | 否 |
+| config.enable | boolean | 是否启用版本监测, 通过该配置项可以设置版本监测只在指定环境下开启 **`v1.7.0`** | true | 否 |
+| config.clearIntervalOnDialog | boolean | 当发现新版本提示弹窗出现后, 清空定时器 **`v1.7.0`** | false | 否 |
 | config.onVersionUpdate | function(data) | 自定义版本提示 UI 的回调函数 (如果你想自定义弹窗 UI, 通过回调函数可以拿到返回值来控制弹窗的显隐 ) |  | 否 |
 | config.onRefresh | function(data) | 确认更新: 自定义 refresh 事件的回调函数, data 为最新版本号 **`v1.5.0`** |  | 否 |
 | config.onCancel | function(data) | 取消更新: 自定义 cancel 事件的回调函数, data 为最新版本号 **`v1.5.0`** |  | 否 |
@@ -591,7 +626,7 @@ sh "export messageJSON='{\"title\": \"This is a title\"}'"
 | options.description | string | 弹窗的描述 | V xxx is available | 否 |
 | options.buttonText | string | 弹窗按钮的文案 | Refresh | 否 |
 | options.cancelButtonText | string | 关闭弹窗按钮的文案 (如果你希望弹窗允许被关闭, 请添加此选项) **`v1.5.0`** |  | 否 |
-| options.cancelMode | ignore-current-version (当前版本不再提示) / ignore-today (今天不再提示) / ignore-current-window (当前窗口不再提示) | 关闭弹窗的模式 (当 cancelButtonText 设置后生效) **`v1.5.0`** | ignore-current-version | 否 |
+| options.cancelMode | ignore-current-version (当前版本不再提示, 通过管理版本号监测版本更新的默认配置, 该配置只支持管理版本号的方式) / ignore-today (今天不再提示) / ignore-current-window (当前窗口不再提示, 通过监测指定文件内容是否有更新方式的默认配置) | 关闭弹窗的模式 (当 cancelButtonText 设置后生效) **`v1.5.0`** | ignore-current-version | 否 |
 | options.cancelUpdateAndStopWorker | boolean | 关闭弹窗时, 也关闭 worker (当 cancelButtonText 设置后生效) **`v1.5.0`** | false | 否 |
 | options.imageUrl | string | 弹窗的提示图片 |  | 否 |
 | options.rocketColor | string | 弹窗提示图片中火箭的主题色, 设置后 options.imageUrl 无效 |  | 否 |

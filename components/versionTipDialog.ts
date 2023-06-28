@@ -19,7 +19,8 @@ export const versionTipDialog = (params: {
   rocketColor?: string
   primaryColor?: string
   buttonStyle?: string
-  newVersion: string
+  newVersion?: string
+  needRefresh?: boolean
   onRefresh?: (event: any) => void
   onCancel?: (event: any) => void
 }) => {
@@ -45,7 +46,9 @@ export const versionTipDialog = (params: {
                 <div class="version-subtitle">
                   ${
                     params.description ||
-                    `V ${params.newVersion} ${defaultParams.description}`
+                    (params.newVersion
+                      ? `V ${params.newVersion} ${defaultParams.description}`
+                      : `A new version ${defaultParams.description}`)
                   }
                 </div>
                 <div style="${
@@ -56,10 +59,11 @@ export const versionTipDialog = (params: {
                   ${params.buttonText || defaultParams.buttonText}
                 </div>
                 ${
-                  params.cancelButtonText ?
-                  `<div class="cancel-button">
+                  params.cancelButtonText
+                    ? `<div class="cancel-button">
                     ${params.cancelButtonText}
-                  </div>` : ''
+                  </div>`
+                    : ''
                 }
             </div>
         </div>
@@ -74,12 +78,14 @@ export const versionTipDialog = (params: {
   ) as HTMLElement
   refreshBtnNode.onclick = () => {
     if (typeof params?.onRefresh === 'function') {
-      params.onRefresh({newVersion: params.newVersion})
+      params.onRefresh({
+        newVersion: params.newVersion,
+        needRefresh: params.needRefresh || false,
+      })
     } else {
       window.location.reload()
     }
   }
-
 
   // cancel
   const cancelBtnNode = document.querySelector(
@@ -89,17 +95,26 @@ export const versionTipDialog = (params: {
 
   cancelBtnNode.onclick = () => {
     if (typeof params?.onCancel === 'function') {
-      params.onCancel({newVersion: params.newVersion})
+      params.onCancel({
+        newVersion: params.newVersion,
+        needRefresh: params.needRefresh || false,
+      })
       return
     }
 
     const cancelMode = params?.cancelMode || 'ignore-current-version'
     switch (cancelMode) {
       case 'ignore-current-version':
-        localStorage.setItem('version-rocket:cancelled', params.newVersion)
+        localStorage.setItem(
+          'version-rocket:cancelled',
+          params.newVersion || ''
+        )
         break
       case 'ignore-today':
-        localStorage.setItem('version-rocket:cancelled', new Date().toLocaleDateString())
+        localStorage.setItem(
+          'version-rocket:cancelled',
+          new Date().toLocaleDateString()
+        )
         break
       case 'ignore-current-window':
         sessionStorage.setItem('version-rocket:cancelled', 'true')
