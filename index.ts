@@ -1,5 +1,5 @@
 import {versionTipDialog} from './components/versionTipDialog'
-import {createWorker, createWorkerFunc, cancelUpdateFunc} from './utils/index'
+import {createWorker, createWorkerFunc, cancelUpdateFunc, checkVersionTypeFunc} from './utils/index'
 
 /**
  * Polling monitoring version update (No longer maintain)
@@ -92,7 +92,7 @@ export const checkVersion = (
   if (config.enable === false) return
 
   if (!worker) {
-    worker = createWorker(createWorkerFunc)
+    worker = createWorker(createWorkerFunc, [ checkVersionTypeFunc ])
   }
 
   worker.postMessage({

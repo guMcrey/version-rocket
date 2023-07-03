@@ -1,6 +1,15 @@
 // create package version worker
-export const createWorker = (func: () => void) => {
-  const blob = new Blob(['(' + func.toString() + ')()'])
+export const createWorker = (func: () => void, deps?: Array<() => void>) => {
+  const depsFuncStr = `${deps?.map(_ => _.toString()).join(';\n\n') || ''}`
+  const blob = new Blob([
+`
+// apply deps func string
+${depsFuncStr};
+
+// main func string
+(${func.toString()})();
+`
+  ])
   const url = window.URL.createObjectURL(blob)
   const worker = new Worker(url)
   return worker
@@ -156,11 +165,11 @@ export const cancelUpdateFunc = (
 }
 
 // check version type
-export const checkVersionTypeFunc = (
+export function checkVersionTypeFunc (
   oldVersion?: string | undefined,
   originFileUrl?: string | undefined,
   checkOriginSpecifiedFilesUrl?: string[] | undefined
-) => {
+) {
   const checkVersionType =
     oldVersion && originFileUrl
       ? 'check-version'
