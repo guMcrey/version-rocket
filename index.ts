@@ -1,5 +1,10 @@
 import {versionTipDialog} from './components/versionTipDialog'
-import {createWorker, createWorkerFunc, cancelUpdateFunc} from './utils/index'
+import {
+  createWorker,
+  createWorkerFunc,
+  cancelUpdateFunc,
+  checkVersionTypeFunc,
+} from './utils/index'
 
 /**
  * Polling monitoring version update (No longer maintain)
@@ -63,7 +68,6 @@ let worker: Worker | undefined = undefined
 
 export const checkVersion = (
   config: {
-    // TODO: 是否去重
     checkOriginSpecifiedFilesUrl?: string[]
     checkOriginSpecifiedFilesUrlMode?: 'one' | 'all'
     originVersionFileUrl?: string
@@ -92,7 +96,7 @@ export const checkVersion = (
   if (config.enable === false) return
 
   if (!worker) {
-    worker = createWorker(createWorkerFunc)
+    worker = createWorker(createWorkerFunc, [checkVersionTypeFunc])
   }
 
   worker.postMessage({
@@ -101,7 +105,7 @@ export const checkVersion = (
     immediate: config.immediate || false,
     'origin-version-file-url': config.originVersionFileUrl || '',
     'check-origin-specified-files-url':
-      config.checkOriginSpecifiedFilesUrl || [],
+      [...new Set(config.checkOriginSpecifiedFilesUrl)] || [],
     'check-origin-specified-files-url-mode':
       config.checkOriginSpecifiedFilesUrlMode || 'one',
     'clear-interval-on-dialog': config.clearIntervalOnDialog || false,

@@ -8,7 +8,7 @@
 
 ## 1.7.0
 
-`2023-06-25`
+`2023-07-03`
 
 - 🆕 Another method for real-time detection of web application version: By leveraging the browser's cache negotiation mechanism, it checks whether the content of the specified file address has been updated to determine if a new version is available.
   - Added `checkOriginSpecifiedFilesUrl` configuration option: After setting this property, the version will be monitored by "checking whether the specified file has been updated" instead of "managing the version number". Pass in a list of file addresses to be monitored, usually the index.html file under a domain name (string array type).

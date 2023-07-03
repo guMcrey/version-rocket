@@ -614,7 +614,7 @@ sh "export messageJSON='{\"title\": \"This is a title\"}'"
 | config.localPackageVersion | string | 当前应用版本号, 通常取 package.json 的 version 字段, 用于与远程服务器的 version.json 文件比较 |  | 否 **`v1.7.0`** |
 | config.pollingTime | number | 轮询监测的时间间隔, 单位 ms | 5000 | 否 |
 | config.immediate | boolean | 第一次访问时, 立即触发版本监测, 之后按自定义时间间隔轮询 **`v1.5.0`** | false | 否 |
-| config.checkOriginSpecifiedFilesUrl | array | 设置该属性后将使用 “通过检测指定文件是否有更新” 而不是 “通过管理版本号” 来监测版本, 传入希望监测的文件地址列表, 通常情况为某个域名下的 index.html 文件 **`v1.7.0`** |  | 否  |
+| config.checkOriginSpecifiedFilesUrl | array | 设置该属性后将使用 “通过检测指定文件是否有更新” 而不是 “通过管理版本号” 来监测版本, 传入希望监测的文件地址列表, 通常情况为某个域名下的 index.html 文件 (自动去重) **`v1.7.0`** |  | 否  |
 | config.checkOriginSpecifiedFilesUrlMode | 'one' / 'all' | 'one' 表示列表中文件地址只要有一个内容发生改变即提示更新; 'all' 表示列表中文件地址都发生改变时才提示更新. (当 checkOriginSpecifiedFilesUrl 配置后才生效) **`v1.7.0`** | 'one' | 否 |
 | config.enable | boolean | 是否启用版本监测, 通过该配置项可以设置版本监测只在指定环境下开启 **`v1.7.0`** | true | 否 |
 | config.clearIntervalOnDialog | boolean | 当发现新版本提示弹窗出现后, 清空定时器 **`v1.7.0`** | false | 否 |
