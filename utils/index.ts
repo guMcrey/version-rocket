@@ -68,7 +68,10 @@ export const createWorkerFunc = () => {
       if (checkVersionType === 'check-specified-files') {
         if (!checkOriginSpecifiedFilesUrl?.length) return
         checkOriginSpecifiedFilesUrl.forEach((url: string) => {
-          fetch(url)
+          fetch(url, {
+            method: 'HEAD',
+            cache: 'no-cache',
+          })
             .then((res) => {
               return res.headers.get('ETag') || res.headers.get('Last-Modified')
             })

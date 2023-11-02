@@ -6,6 +6,13 @@
 
 ---
 
+## 1.7.1
+
+`2023-11-02`
+
+[#35](https://github.com/guMcrey/version-rocket/issues/35) (Thank you for the suggestion, [fickleness-youth](https://github.com/fickleness-youth))
+- 💄 Optimization: The fetch request parameter for real-time checking of updates in a specified file address's content can be enhanced by adding `{method: "HEAD", cache: "no-cache"}`. This configuration instructs the server to only return the response headers without the actual response body, allowing for faster retrieval of ETag or Last-Modified information.
+
 ## 1.7.0
 
 `2023-07-03`
