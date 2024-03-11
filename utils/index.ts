@@ -145,6 +145,7 @@ export const cancelUpdateFunc = (
         isStopWorker && worker?.terminate()
         return true
       }
+      break
     case 'ignore-today':
       if (cancelModeTypeValue === todayDate) {
         isStopWorker && worker?.terminate()
