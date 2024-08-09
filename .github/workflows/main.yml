@@ -21,3 +21,8 @@ jobs:
           npm run build
           npm run test:coverage
           npm run codecov
+
+      - name: Upload coverage to Codecov
+        uses: codecov/codecov-action@v4
+        env:
+          CODECOV_TOKEN: ${{ secrets.CODECOV_TOKEN }}
