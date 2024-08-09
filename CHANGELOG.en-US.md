@@ -6,6 +6,13 @@
 
 ---
 
+## 1.7.2
+
+`2024-08-09`
+
+[#43](https://github.com/guMcrey/version-rocket/issues/43) (Thanks to [Banana-energy](https://github.com/Banana-energy) for the suggestion)
+- 🪲 Fixed the issue where the worker value was not cleared when `unCheckVersion({closeWorker: true})` was called, causing it to not work properly when reassigned.
+
 ## 1.7.1
 
 `2023-11-02`

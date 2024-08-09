@@ -164,6 +164,7 @@ export const checkVersion = (
 export const unCheckVersion = ({closeDialog = false, closeWorker = true}) => {
   if (closeWorker) {
     worker?.terminate()
+    worker = undefined
   }
   if (closeDialog) {
     const dialogElement = document.querySelector('#version-rocket')
