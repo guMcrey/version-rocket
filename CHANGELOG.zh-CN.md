@@ -6,6 +6,13 @@
 
 ---
 
+## 1.7.2
+
+`2024-08-09`
+
+[#43](https://github.com/guMcrey/version-rocket/issues/43) (感谢 [Banana-energy](https://github.com/Banana-energy) 同学的建议)
+- 🪲 修复 `unCheckVersion({closeWorker: true})` 时 worker 值未被清空导致再次赋值时不生效的问题
+
 ## 1.7.1
 
 `2023-11-02`
