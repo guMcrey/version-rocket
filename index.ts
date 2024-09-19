@@ -99,13 +99,22 @@ export const checkVersion = (
     worker = createWorker(createWorkerFunc, [checkVersionTypeFunc])
   }
 
+  const processUserInput = (input: any) => {
+    if (!Array.isArray(input)) {
+      console.warn('Invalid input: Expected an array.')
+      return []
+    }
+    return [...new Set(input)].filter((item) => item != null)
+  }
+
   worker.postMessage({
     'version-key': config.localPackageVersion || '',
     'polling-time': config.pollingTime || 5000,
     immediate: config.immediate || false,
     'origin-version-file-url': config.originVersionFileUrl || '',
-    'check-origin-specified-files-url':
-      [...new Set(config.checkOriginSpecifiedFilesUrl)] || [],
+    'check-origin-specified-files-url': processUserInput(
+      config.checkOriginSpecifiedFilesUrl
+    ),
     'check-origin-specified-files-url-mode':
       config.checkOriginSpecifiedFilesUrlMode || 'one',
     'clear-interval-on-dialog': config.clearIntervalOnDialog || false,

@@ -6,6 +6,13 @@
 
 ---
 
+## 1.7.3
+
+`2024-09-19`
+
+[#50](https://github.com/guMcrey/version-rocket/issues/50) (Thanks to [Jolie](https://github.com/newives) for the feedback)
+- 🪲 Fix the syntax error of the expression `[...new Set(config.checkOriginSpecifiedFilesUrl)] || []` in TypeScript.
+
 ## 1.7.2
 
 `2024-08-09`
