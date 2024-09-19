@@ -6,6 +6,13 @@
 
 ---
 
+## 1.7.3
+
+`2024-09-19`
+
+[#50](https://github.com/guMcrey/version-rocket/issues/50) (感谢 [Jolie](https://github.com/newives) 同学的反馈)
+- 🪲 修复 `[...new Set(config.checkOriginSpecifiedFilesUrl)] || []` 表达式在 Typescript 中的语法错误
+
 ## 1.7.2
 
 `2024-08-09`
