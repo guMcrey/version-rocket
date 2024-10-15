@@ -1,9 +1,9 @@
 name: CI
 on:
   push:
-    branches: [ "main" ]
+    branches: ['main']
   pull_request:
-    branches: [ "main" ]
+    branches: ['main']
 
   # Allows you to run this workflow manually from the Actions tab
   workflow_dispatch:
@@ -20,7 +20,7 @@ jobs:
           npm ci
           npm run build
           npm run test:coverage
-          npm run codecov
+          # npm run codecov
 
       - name: Upload coverage to Codecov
         uses: codecov/codecov-action@v4

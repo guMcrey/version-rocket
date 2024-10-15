@@ -6,6 +6,14 @@
 
 ---
 
+## 1.7.4
+
+`2024-10-15`
+
+[#52](https://github.com/guMcrey/version-rocket/issues/52) (Thanks to [wjp980108](https://github.com/wjp980108) for the feedback)
+- 🪲 Fix the `config.check-origin-specified-files-url` 
+
+
 ## 1.7.3
 
 `2024-09-19`

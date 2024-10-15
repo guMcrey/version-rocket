@@ -100,6 +100,9 @@ export const checkVersion = (
   }
 
   const processUserInput = (input: any) => {
+    if (!input) {
+      return
+    }
     if (!Array.isArray(input)) {
       console.warn('Invalid input: Expected an array.')
       return []
