@@ -6,6 +6,14 @@
 
 ---
 
+## 1.7.4
+
+`2024-10-15`
+
+[#52](https://github.com/guMcrey/version-rocket/issues/52) (感谢 [wjp980108](https://github.com/wjp980108) 同学的反馈)
+- 🪲 Fix the warning message when the `config.check-origin-specified-files-url` field is not provided.
+
+
 ## 1.7.3
 
 `2024-09-19`
